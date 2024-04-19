@@ -1,8 +1,3 @@
-//
-//  character.cpp
-//  CampEngine++
-//
-//  Created by Noah Campagne on 12/03/2024.
-//
+#include <render/text/character.h>
 
-#include <stdio.h>
+std::map<wchar_t, Character> Character::characters;

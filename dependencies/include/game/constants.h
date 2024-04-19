@@ -1,12 +1,9 @@
-//
-//  constants.h
-//  CampEngine++
-//
-//  Created by Noah Campagne on 10/03/2024.
-//
+#ifndef CE_CONSTANTS_H
+#define CE_CONSTANTS_H
 
-#ifndef constants_h
-#define constants_h
+extern const int CE_TILE_SIZE;
+extern const int CE_WINDOW_WIDTH;
+extern const int CE_WINDOW_HEIGHT;
+extern const char* CE_WINDOW_TITLE;
 
-
-#endif /* constants_h */
+#endif

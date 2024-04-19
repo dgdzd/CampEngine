@@ -1,5 +1,9 @@
 #include <textures/texture.h>
 
+Texture::Texture() {
+    
+}
+
 Texture::Texture(const char* pathToImage, bool autogenerate) {
     stbi_set_flip_vertically_on_load(true);
     glGenTextures(1, &id);
@@ -13,6 +17,7 @@ Texture::Texture(const char* pathToImage, bool autogenerate) {
 
             generatedImg = true;
             generatedMipmap = true;
+            std::cout << id << "\n";
         }
     } else {
         std::cout << "Failed to load image" << std::endl;
@@ -48,4 +53,16 @@ void Texture::generateMipmap() {
 
 void Texture::use() {
     glBindTexture(GL_TEXTURE_2D, id);
+}
+
+void Texture::generate(unsigned int width, unsigned int height, unsigned char *data) {
+    this->width = width;
+    this->height = height;
+    glGenTextures(1, &id);
+    glBindTexture(GL_TEXTURE_2D, id);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glBindTexture(GL_TEXTURE_2D, 0);
+    std::cout << id << "\n";
+    
+    generatedImg = true;
 }

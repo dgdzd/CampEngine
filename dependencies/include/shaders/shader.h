@@ -1,3 +1,6 @@
+#ifndef CE_SHADER_H
+#define CE_SHADER_H
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <glm/glm.hpp>
@@ -9,7 +12,6 @@
 
 #include <string>
 
-#pragma once
 class Shader {
     public:
     unsigned int id;
@@ -19,6 +21,7 @@ class Shader {
     unsigned int fragmentShader;
     bool compiled;
 
+    Shader();
     Shader(const char* pathToVertexShader, const char* pathToFragmentShader, bool autocompile=true);
 
     void compile();
@@ -30,4 +33,15 @@ class Shader {
     void setVec2(const std::string &name, glm::vec2 value);
     void setVec3(const std::string &name, glm::vec3 value);
     void setVec4(const std::string &name, glm::vec4 value);
+    void setMat2(const std::string &name, glm::mat2 value);
+    void setMat3(const std::string &name, glm::mat3 value);
+    void setMat4(const std::string &name, glm::mat4 value);
+    void setMat2x3(const std::string &name, glm::mat2x3 value);
+    void setMat2x4(const std::string &name, glm::mat2x4 value);
+    void setMat3x2(const std::string &name, glm::mat3x2 value);
+    void setMat3x4(const std::string &name, glm::mat3x4 value);
+    void setMat4x2(const std::string &name, glm::mat4x2 value);
+    void setMat4x3(const std::string &name, glm::mat4x3 value);
 };
+
+#endif

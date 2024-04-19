@@ -10,8 +10,8 @@ Screen::Screen(GLFWwindow* window) {
 }
 
 void Screen::addRenderableWidget(Widget* widget) {
-    auto* w = new 
-    this->widgets.push_back(std::shared_ptr<Widget>(widget));
+    std::shared_ptr<Widget> w = std::shared_ptr<Widget>(widget);
+    this->widgets.push_back(w);
 }
 
 void Screen::init() {
@@ -20,7 +20,7 @@ void Screen::init() {
 
 void Screen::render(glm::mat4 projection) {
     for(int w = 0; w < widgets.size(); w++) {
-        widgets.at(w)->update(projection);
+        widgets.at(w).get()->update(projection);
     }
 }
 
@@ -35,8 +35,9 @@ void TestScreen::init() {
     Shader shader = rm.getShader("basic");
     Screen::init();
     
-    Button button(window, shader, idle, hover, 400, 300, 3, 3, "Button", []() {
+    Button* button = new Button(window, shader, idle, hover, 400, 100, 3, 3, "Quit", []() {}, []() {
         Game::activeGame->quit();
     });
-    addRenderableWidget(&button);
+    std::shared_ptr<Button> ptr = std::shared_ptr<Button>(button);
+    widgets.push_back(ptr);
 }

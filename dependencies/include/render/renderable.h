@@ -1,3 +1,8 @@
+#ifndef CE_RENDERABLE_H
+#define CE_RENDERABLE_H
+
+#include <game/constants.h>
+
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -11,6 +16,9 @@
 #include <utils/conversions.h>
 
 #include <list>
+#include <vector>
+
+const int TILE_SIZE = 32;
 
 class Renderable {
     public:
@@ -19,27 +27,36 @@ class Renderable {
     Texture texture;
     Shader shader;
     glm::vec3 transform;
-    std::list<float> vertices;
-    std::list<int> indices;
-
-    Renderable(GLFWwindow* window, std::list<float> vertices, std::list<int> indices, Texture texture, Shader shader, glm::vec3 transform);
-
-    void render(Camera camera);
+    std::vector<float> vertices;
+    std::vector<int> indices;
     
-    protected:
-    Renderable();
+    Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale);
+
+    virtual void update(Camera camera, glm::mat4 projection);
+    virtual void update();
+    void render(Camera camera, glm::mat4 projection);
+    void render(glm::mat4 projection);
+    void render();
+    
+    private:
+    void gen_buffers();
 };
 
 class Sprite : public Renderable {
     public:
-    glm::vec2 position;
-    Sprite(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale);
-    Sprite(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 position, float scale);
+    glm::vec3 position;
+    Sprite(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float scale);
+    Sprite(GLFWwindow* window, Shader shader, Texture texture, glm::vec3 position, float scale);
 };
 
 class Tile : public Sprite {
     public:
-
+    glm::vec2 tilePosition;
+    
+    Tile(GLFWwindow* window, Shader shader, Texture texture, float xtile, float ytile);
+    Tile(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 tilePosition);
 };
 
 class Decoration : public Sprite {
@@ -58,3 +75,5 @@ class Entity : public Sprite {
     Entity(Shader shader, Texture texture, float xpos, float ypos, float xvel=0.0f, float yvel=0.0f, float xaccel=0.0f, float yaccel=0.0f);
     Entity(Shader shader, Texture texture, glm::vec2 position, glm::vec2 velocity=glm::vec2(0.0f), glm::vec2 acceleration=glm::vec2(0.0f));
 };
+
+#endif
