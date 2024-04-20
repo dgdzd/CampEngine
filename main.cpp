@@ -105,7 +105,11 @@ int main(void) {
     ResourceManager rm;
     Shader shader = rm.loadShader("basic", GET_RESOURCE(shaders/vertexShader.glsl), GET_RESOURCE(shaders/fragmentShader.glsl));
     rm.loadShader("text", GET_RESOURCE(shaders/text.vs), GET_RESOURCE(shaders/text.fs));
-    rm.loadShader("screen", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/screen.fs));
+    
+    /* Loading post-processing effect shaders */
+    rm.loadShader("pp.none", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/screen.fs));
+    rm.loadShader("pp.inverse_colors", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/inverse_colors.fs));
+    rm.loadShader("pp.grayscale", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/grayscale.fs));
     
     Texture diamond_ore_texture = rm.loadTexture("diamond_ore", GET_RESOURCE(textures/diamond_ore.png));
     Texture quartz_texture = rm.loadTexture("quartz_pillar_top", GET_RESOURCE(textures/quartz_pillar_top.png));

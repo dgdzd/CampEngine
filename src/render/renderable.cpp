@@ -63,9 +63,9 @@ void Renderable::render(Camera camera, glm::mat4 projection) {
     shader.use();
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
+    shader.setInt("aTexture", 0);
     glActiveTexture(GL_TEXTURE0);
     texture.use();
-    shader.setInt("aTexture", 0);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, static_cast<int>(indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
@@ -78,9 +78,9 @@ void Renderable::render(glm::mat4 projection) {
     shader.use();
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
+    shader.setInt("aTexture", 0);
     glActiveTexture(GL_TEXTURE0);
     texture.use();
-    shader.setInt("aTexture", 0);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, static_cast<int>(indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);
@@ -94,9 +94,9 @@ void Renderable::render() {
     shader.use();
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
+    shader.setInt("aTexture", 0);
     glActiveTexture(GL_TEXTURE0);
     texture.use();
-    shader.setInt("aTexture", 0);
     glBindVertexArray(VAO);
     glDrawElements(GL_TRIANGLES, static_cast<int>(indices.size()), GL_UNSIGNED_INT, 0);
     glBindVertexArray(0);

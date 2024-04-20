@@ -17,7 +17,6 @@ Texture::Texture(const char* pathToImage, bool autogenerate) {
 
             generatedImg = true;
             generatedMipmap = true;
-            std::cout << id << "\n";
         }
     } else {
         std::cout << "Failed to load image" << std::endl;
@@ -61,6 +60,8 @@ void Texture::generate(unsigned int width, unsigned int height, unsigned char *d
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);
     std::cout << id << "\n";
     

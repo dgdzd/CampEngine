@@ -18,7 +18,7 @@ PostProcessor::PostProcessor(Shader shader, unsigned int width, unsigned int hei
     
     glBindFramebuffer(GL_FRAMEBUFFER, MSFBO);
     glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, 1, GL_RGB, width, height);
+    glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_RGB, width, height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, RBO);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         std::cout << "[PostProcessor] Failed to initialize MSFBO\n";
@@ -82,9 +82,9 @@ void PostProcessor::end() {
 
 void PostProcessor::render() {
     PPShader.use();
-    glActiveTexture(GL_TEXTURE1);
+    glActiveTexture(GL_TEXTURE0);
     texture.use();
-    PPShader.setInt("screenTexture", 1);
+    PPShader.setInt("screenTexture", 0);
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);

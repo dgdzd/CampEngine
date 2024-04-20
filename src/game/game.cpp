@@ -16,7 +16,7 @@ Game::Game(GLFWwindow* window, Screen* activeScreen, Level* activeLevel, GameSta
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetCharCallback(window, char_callback);
     
-    pp = PostProcessor(rm.getShader("screen"), frame.width, frame.height);
+    pp = PostProcessor(rm.getShader("pp.none"), frame.width, frame.height);
     
     activeGame = this;
 }
