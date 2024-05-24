@@ -4,6 +4,11 @@ Texture::Texture() {
     
 }
 
+Texture::Texture(int width, int height) {
+    this->width = width;
+    this->height = height;
+}
+
 Texture::Texture(const char* pathToImage, bool autogenerate) {
     stbi_set_flip_vertically_on_load(true);
     glGenTextures(1, &id);
@@ -54,7 +59,7 @@ void Texture::use() {
     glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void Texture::generate(unsigned int width, unsigned int height, unsigned char *data) {
+void Texture::generate(int width, int height, unsigned char *data) {
     this->width = width;
     this->height = height;
     glGenTextures(1, &id);
@@ -63,7 +68,6 @@ void Texture::generate(unsigned int width, unsigned int height, unsigned char *d
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);
-    std::cout << id << "\n";
     
     generatedImg = true;
 }

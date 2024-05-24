@@ -15,8 +15,9 @@ Game::Game(GLFWwindow* window, Screen* activeScreen, Level* activeLevel, GameSta
     glfwSetCursorPosCallback(window, mouse_pos_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetCharCallback(window, char_callback);
+    glfwSetKeyCallback(window, key_callback);
     
-    pp = PostProcessor(rm.getShader("pp.none"), frame.width, frame.height);
+    pp = *rm.getPostProcessor("basic");
     
     activeGame = this;
 }
@@ -105,11 +106,15 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
 }
 
 void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
-    std::cout << (char)codepoint;
+    CharacterTypeEvent event(codepoint);
+    activeGame->propagateEvent(&event);
 }
 
 void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
-    
+    if(action == GLFW_PRESS || action == GLFW_REPEAT) {
+        KeyTypeEvent event(key, scancode, action, mods);
+        activeGame->propagateEvent(&event);
+    }
 }
 
 Game* Game::activeGame;

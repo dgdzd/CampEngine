@@ -30,14 +30,39 @@ TestScreen::TestScreen(GLFWwindow* window) : Screen(window) {
 }
 
 void TestScreen::init() {
-    Texture idle = rm.getTexture("buttonIdle");
-    Texture hover = rm.getTexture("buttonHover");
-    Shader shader = rm.getShader("basic");
     Screen::init();
     
-    Button* button = new Button(window, shader, idle, hover, 400, 100, 3, 3, "Quit", []() {}, []() {
+    /* Initialize GUI Helper */
+    GuiHelper gh(window, glm::vec2(0.0, 400.0));
+    gh.setPadding(0);
+    gh.setMargin(0);
+    
+    /* Create widgets */
+    auto button = gh.createButton("unlitShader.fs (open in Visual Studio Code)", 20)
+    ->with_onRelease([]() {
+        system("open -a /Applications/Visual\\ Studio\\ Code.app /Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/shaders/unlitShader.fs -F");
+    })
+    ->with_textAlign(ALIGN_LEFT)
+    ->with_theme(primary);
+    
+    auto button1 = gh.createButton("Quit", 20)
+    ->with_onRelease([]() {
         Game::activeGame->quit();
-    });
-    std::shared_ptr<Button> ptr = std::shared_ptr<Button>(button);
-    widgets.push_back(ptr);
+    })
+    ->with_textAlign(ALIGN_LEFT)
+    ->with_theme(danger);
+    
+    auto input = gh.createTextInput(200, 25)
+    ->with_floatingLabel(L"Type anything");
+    
+    
+    
+    /* Assign objects to shared pointers, and add them to the widget list */
+    std::shared_ptr<Button> _button = std::shared_ptr<Button>(button);
+    std::shared_ptr<Button> _button1 = std::shared_ptr<Button>(button1);
+    std::shared_ptr<TextInput> _input = std::shared_ptr<TextInput>(input);
+    
+    widgets.push_back(_button);
+    widgets.push_back(_button1);
+    widgets.push_back(_input);
 }

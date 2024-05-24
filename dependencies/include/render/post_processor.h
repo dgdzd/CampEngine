@@ -11,8 +11,12 @@
 #include <shaders/shader.h>
 #include <textures/texture.h>
 
+#include <map>
+#include <string>
+
 class PostProcessor {
-    public:
+public:
+    
     Shader PPShader;
     Texture texture;
     unsigned int width, height;

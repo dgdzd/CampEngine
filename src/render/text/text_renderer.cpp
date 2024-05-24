@@ -68,9 +68,9 @@ void TextRenderer::loadFont(const char* pathToFont, int resolution) {
     std::cout << "Done!\n";
 }
 
-void TextRenderer::text(std::wstring text, int x, int y, int boundX, int boundY, int size, glm::vec3 color, TextPos textAlign) {
+void TextRenderer::text(std::wstring text, float x, float y, float boundX, float boundY, int size, glm::vec3 color, TextPos textAlign) {
     std::wstring::const_iterator c;
-    Shader shader = rm.getShader("text");
+    Shader shader = *rm.getShader("text");
     float scale = static_cast<float>(size) / resolution;
     shader.use();
     shader.setVec3("textColor", color);
@@ -82,7 +82,7 @@ void TextRenderer::text(std::wstring text, int x, int y, int boundX, int boundY,
             break;
         }
         case ALIGN_CENTER: {
-            x += boundX/2 - (textLength(text)-6)/2*scale;
+            x += (boundX - textLength(text)*scale)/2;
             break;
         }
         case ALIGN_RIGHT: {
@@ -91,7 +91,7 @@ void TextRenderer::text(std::wstring text, int x, int y, int boundX, int boundY,
         }
     }
     
-    y -= size/2*scale;
+    y -= (size/2+6)*scale;
     
     // Render all the chars
     for(c = text.begin(); c != text.end(); c++) {
@@ -131,7 +131,7 @@ void TextRenderer::text(std::wstring text, int x, int y, int boundX, int boundY,
         
         glDisable(GL_CULL_FACE);
         glDisable(GL_BLEND);
-        // now advance cursors for next glyph (note that advance is number of 1/64 pixels)
+        // advance cursors for next glyph (note that advance is number of 1/64 pixels)
         x += (ch.advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }
     glBindVertexArray(0);
@@ -141,12 +141,21 @@ void TextRenderer::text(std::wstring text, int x, int y, int boundX, int boundY,
 int TextRenderer::textLength(std::wstring text) {
     int size = 0;
     std::wstring::const_iterator c;
-    
-    
     for(c = text.begin(); c != text.end(); c++) {
         Character ch = Character::characters[*c];
         size += (ch.advance >> 6);
     }
     
+    return size;
+}
+
+int TextRenderer::textLength(std::wstring text, int begin, int end) {
+    if(end == -1) end = text.size()-1;
+    int size = 0;
+    std::wstring::const_iterator c;
+    for(c = text.begin()+begin; c < text.begin()+end; c++) {
+        Character ch = Character::characters[*c];
+        size += (ch.advance >> 6);
+    }
     return size;
 }

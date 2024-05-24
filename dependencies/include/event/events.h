@@ -7,7 +7,7 @@
 #pragma once
 
 class Event {
-    public:
+public:
     
     Event();
     virtual ~Event() = default;
@@ -17,7 +17,7 @@ class Event {
 
 
 class CursorMovedEvent : public Event {
-    public:
+public:
     double mouseX;
     double mouseY;
     
@@ -25,7 +25,7 @@ class CursorMovedEvent : public Event {
 };
 
 class MouseClickEvent : public Event {
-    public:
+public:
     double mouseX;
     double mouseY;
     int mouseButton;
@@ -34,12 +34,29 @@ class MouseClickEvent : public Event {
 };
 
 class MouseReleaseEvent : public Event {
-    public:
+public:
     double mouseX;
     double mouseY;
     int mouseButton;
     
     MouseReleaseEvent(int input, double xpos, double ypos);
-};  
+}; 
+
+class CharacterTypeEvent : public Event {
+public:
+    unsigned int codepoint;
+    
+    CharacterTypeEvent(unsigned int codepoint);
+};
+
+class KeyTypeEvent : public Event {
+public:
+    int key;
+    int scancode;
+    int action;
+    int mods;
+    
+    KeyTypeEvent(int key, int scancode, int action, int mods);
+};
 
 #endif

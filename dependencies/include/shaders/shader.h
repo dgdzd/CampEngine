@@ -13,7 +13,7 @@
 #include <string>
 
 class Shader {
-    public:
+public:
     unsigned int id;
     char* vertexShaderSource;
     char* fragmentShaderSource;

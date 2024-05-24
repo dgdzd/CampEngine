@@ -100,21 +100,32 @@ int main(void) {
 
     /* Update the viewport size when window is resized */
     glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    
+    /* Loading font */
+    tr.loadFont(GET_RESOURCE(fonts/helveticaLight.ttf), 48);
 
     /* Setting up the objects */
-    ResourceManager rm;
-    Shader shader = rm.loadShader("basic", GET_RESOURCE(shaders/vertexShader.glsl), GET_RESOURCE(shaders/fragmentShader.glsl));
+    ResourceManager &rm = ResourceManager::standard;
+    Shader shader = *rm.loadShader("unlitShader", GET_RESOURCE(shaders/unlitShader.vs), GET_RESOURCE(shaders/unlitShader.fs));
+    rm.loadShader("litShader", GET_RESOURCE(shaders/lit/defaultLitShader.vs), GET_RESOURCE(shaders/lit/defaultLitShader.fs));
     rm.loadShader("text", GET_RESOURCE(shaders/text.vs), GET_RESOURCE(shaders/text.fs));
     
     /* Loading post-processing effect shaders */
     rm.loadShader("pp.none", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/screen.fs));
-    rm.loadShader("pp.inverse_colors", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/inverse_colors.fs));
+    rm.loadShader("pp.reverse_colors", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/reverse_colors.fs));
     rm.loadShader("pp.grayscale", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/grayscale.fs));
     
-    Texture diamond_ore_texture = rm.loadTexture("diamond_ore", GET_RESOURCE(textures/diamond_ore.png));
-    Texture quartz_texture = rm.loadTexture("quartz_pillar_top", GET_RESOURCE(textures/quartz_pillar_top.png));
-    Texture button_idle_texture = rm.loadTexture("buttonIdle", GET_RESOURCE(textures/button/idle.png));
-    Texture button_hover_texture = rm.loadTexture("buttonHover", GET_RESOURCE(textures/button/hover.png));
+    rm.loadPostProcessor("basic", *rm.getShader("pp.none"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    rm.loadPostProcessor("reverse_colors", *rm.getShader("pp.reverse_colors"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    rm.loadPostProcessor("grayscale", *rm.getShader("pp.grayscale"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    
+    /* Loading widget shader */
+    rm.loadShader("widget", GET_RESOURCE(shaders/widget/widget.vs), GET_RESOURCE(shaders/widget/widget.fs));
+    
+    Texture diamond_ore_texture = *rm.loadTexture("diamond_ore", GET_RESOURCE(textures/diamond_ore.png));
+    Texture quartz_texture = *rm.loadTexture("quartz_pillar_top", GET_RESOURCE(textures/quartz_pillar_top.png));
+    Texture button_idle_texture = *rm.loadTexture("buttonIdle", GET_RESOURCE(textures/button/idle.png));
+    Texture button_hover_texture = *rm.loadTexture("buttonHover", GET_RESOURCE(textures/button/hover.png));
     
     TestScreen ts(window);
     
@@ -122,10 +133,8 @@ int main(void) {
     
     Level level("MyLevel", camera);
     
-    Game game(window, &ts, &level, GAME_PLAYING);
+    Game game(window, &ts, &level, GAME_MENU);
     game.tr = &tr;
-    
-    tr.loadFont(GET_SYSTEM_FONT(Supplemental/Impact.ttf), 48);
     
     TextRenderer::common = &tr;
     

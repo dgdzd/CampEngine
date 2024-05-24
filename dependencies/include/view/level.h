@@ -10,7 +10,7 @@
 #include <vector>
 
 class Level {
-    public:
+public:
     const char* name;
     std::vector<Renderable> objects;
     Camera* activeCamera;

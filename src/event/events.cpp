@@ -24,3 +24,14 @@ MouseReleaseEvent::MouseReleaseEvent(int input, double xpos, double ypos) {
     this->mouseX = xpos;
     this->mouseY = ypos;
 }
+
+CharacterTypeEvent::CharacterTypeEvent(unsigned int codepoint) {
+    this->codepoint = codepoint;
+}
+
+KeyTypeEvent::KeyTypeEvent(int key, int scancode, int action, int mods) {
+    this->key = key;
+    this->scancode = scancode;
+    this->action = action;
+    this->mods = mods;
+}

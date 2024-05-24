@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		E20013AC2BD2670E00340268 /* post_processor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E20013AB2BD2670E00340268 /* post_processor.cpp */; };
+		E202C1FE2BD41143006272D3 /* material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E202C1FD2BD41143006272D3 /* material.cpp */; };
 		E2158B8A2B8C86FD00605117 /* glad.c in Sources */ = {isa = PBXBuildFile; fileRef = E21589D92B8C86F100605117 /* glad.c */; };
 		E2158BA12B8C873500605117 /* renderable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2158BA02B8C873500605117 /* renderable.cpp */; };
 		E2158BA22B8C873500605117 /* filereader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2158B972B8C873500605117 /* filereader.cpp */; };
@@ -20,9 +21,12 @@
 		E2158CD32B8CB36200605117 /* conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2158CD22B8CB36200605117 /* conversions.cpp */; };
 		E2158CD52B8CB90A00605117 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E21589DF2B8C86F100605117 /* libglfw.3.3.dylib */; };
 		E238EAEB2B9DA57200F3D1E8 /* constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E238EAEA2B9DA57200F3D1E8 /* constants.cpp */; };
+		E26906AA2BF89D2300A8B887 /* gui_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26906A92BF89D2300A8B887 /* gui_helper.cpp */; };
 		E2725D992BA09DF00063A0B6 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2725D982BA09DF00063A0B6 /* libfreetype.a */; };
 		E2725DA12BA0A1770063A0B6 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2725DA02BA0A1770063A0B6 /* character.cpp */; };
+		E27C9AE02BE21F97006C10CB /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27C9ADF2BE21F97006C10CB /* input.cpp */; };
 		E27F04002B8FAE3100195F41 /* widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27F03FF2B8FAE3100195F41 /* widget.cpp */; };
+		E28BEE892BE27BEB00E64DDC /* actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E28BEE882BE27BEB00E64DDC /* actor.cpp */; };
 		E29292D02B91CD1A008CF89C /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E29292CF2B91CD1A008CF89C /* game.cpp */; };
 		E2C510682B91E75200AC1EBA /* events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C510662B91E75200AC1EBA /* events.cpp */; };
 		E2C5106C2B9219BD00AC1EBA /* screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C5106B2B9219BD00AC1EBA /* screen.cpp */; };
@@ -61,11 +65,13 @@
 		E20013AD2BD2673D00340268 /* post_processor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = post_processor.h; sourceTree = "<group>"; };
 		E20013AF2BD2696B00340268 /* screen.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = screen.vs; sourceTree = "<group>"; };
 		E20013B02BD269DD00340268 /* screen.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = screen.fs; sourceTree = "<group>"; };
+		E202C1FD2BD41143006272D3 /* material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = material.cpp; sourceTree = "<group>"; };
+		E202C2002BD4116B006272D3 /* material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
 		E215417C2BAC060500404CCD /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
 		E215417D2BAC074300404CCD /* Keyboard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keyboard.ttf; sourceTree = "<group>"; };
 		E21587EF2B8C864300605117 /* CampEngine++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "CampEngine++"; sourceTree = BUILT_PRODUCTS_DIR; };
-		E21589442B8C86E800605117 /* vertexShader.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = vertexShader.glsl; sourceTree = "<group>"; };
-		E21589452B8C86E800605117 /* fragmentShader.glsl */ = {isa = PBXFileReference; lastKnownFileType = text; path = fragmentShader.glsl; sourceTree = "<group>"; };
+		E21589442B8C86E800605117 /* unlitShader.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = unlitShader.vs; sourceTree = "<group>"; };
+		E21589452B8C86E800605117 /* unlitShader.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = unlitShader.fs; sourceTree = "<group>"; };
 		E21589472B8C86E800605117 /* quartz_pillar_top.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = quartz_pillar_top.png; sourceTree = "<group>"; };
 		E21589482B8C86E800605117 /* diamond_ore.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diamond_ore.png; sourceTree = "<group>"; };
 		E21589D92B8C86F100605117 /* glad.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = glad.c; sourceTree = "<group>"; };
@@ -363,6 +369,8 @@
 		E238EAEA2B9DA57200F3D1E8 /* constants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constants.cpp; sourceTree = "<group>"; };
 		E247DF3E2BA21A8B00FCC578 /* Arvo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arvo-Regular.ttf"; sourceTree = "<group>"; };
 		E247DF3F2BA21AEC00FCC578 /* arial_narrow_7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_narrow_7.ttf; sourceTree = "<group>"; };
+		E26906A82BF89D0800A8B887 /* gui_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gui_helper.h; sourceTree = "<group>"; };
+		E26906A92BF89D2300A8B887 /* gui_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gui_helper.cpp; sourceTree = "<group>"; };
 		E2725D982BA09DF00063A0B6 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../../opt/homebrew/Cellar/freetype/2.13.2/lib/libfreetype.a; sourceTree = "<group>"; };
 		E2725D9F2BA0A1540063A0B6 /* character.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = character.h; sourceTree = "<group>"; };
 		E2725DA02BA0A1770063A0B6 /* character.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = character.cpp; sourceTree = "<group>"; };
@@ -370,11 +378,20 @@
 		E2725DA32BA0CEC70063A0B6 /* text.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.vs; sourceTree = "<group>"; };
 		E2725DA42BA0CF010063A0B6 /* text.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.fs; sourceTree = "<group>"; };
 		E27C7B582B8F255700CF2772 /* widget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = widget.h; sourceTree = "<group>"; };
+		E27C9ADF2BE21F97006C10CB /* input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
+		E27C9AE22BE21FF9006C10CB /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
+		E27C9AE42BE232F6006C10CB /* defaultLitShader.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = defaultLitShader.vs; sourceTree = "<group>"; };
+		E27C9AE52BE234D2006C10CB /* defaultLitShader.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = defaultLitShader.fs; sourceTree = "<group>"; };
 		E27F03FF2B8FAE3100195F41 /* widget.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = widget.cpp; sourceTree = "<group>"; };
+		E28BEE872BE2767600E64DDC /* helveticaLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = helveticaLight.ttf; sourceTree = "<group>"; };
+		E28BEE882BE27BEB00E64DDC /* actor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = actor.cpp; sourceTree = "<group>"; };
+		E28BEE8A2BE27C0600E64DDC /* actor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = actor.h; sourceTree = "<group>"; };
 		E28CD5232BADFD5F00C48A7A /* hover.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = hover.png; sourceTree = "<group>"; };
 		E28CD5242BAEC1A600C48A7A /* cenginepp.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cenginepp.h; sourceTree = "<group>"; };
+		E28FDD952BF2914A00CBB73E /* widget.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = widget.vs; sourceTree = "<group>"; };
+		E28FDD962BF2916000CBB73E /* widget.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = widget.fs; sourceTree = "<group>"; };
 		E29292CF2B91CD1A008CF89C /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
-		E2A9127D2BD3B3DA0018020E /* inverse_colors.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = inverse_colors.fs; sourceTree = "<group>"; };
+		E2A9127D2BD3B3DA0018020E /* reverse_colors.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = reverse_colors.fs; sourceTree = "<group>"; };
 		E2A9127E2BD3B6AB0018020E /* grayscale.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = grayscale.fs; sourceTree = "<group>"; };
 		E2C510662B91E75200AC1EBA /* events.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = events.cpp; sourceTree = "<group>"; };
 		E2C510672B91E75200AC1EBA /* events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = events.h; sourceTree = "<group>"; };
@@ -510,6 +527,22 @@
 			path = screen;
 			sourceTree = "<group>";
 		};
+		E202C1FC2BD41125006272D3 /* materials */ = {
+			isa = PBXGroup;
+			children = (
+				E202C1FD2BD41143006272D3 /* material.cpp */,
+			);
+			path = materials;
+			sourceTree = "<group>";
+		};
+		E202C1FF2BD41150006272D3 /* materials */ = {
+			isa = PBXGroup;
+			children = (
+				E202C2002BD4116B006272D3 /* material.h */,
+			);
+			path = materials;
+			sourceTree = "<group>";
+		};
 		E21587E62B8C864300605117 = {
 			isa = PBXGroup;
 			children = (
@@ -547,9 +580,11 @@
 		E21589432B8C86E800605117 /* shaders */ = {
 			isa = PBXGroup;
 			children = (
+				E28FDD942BF2911400CBB73E /* widget */,
+				E27C9AE32BE232C6006C10CB /* lit */,
 				E20013AE2BD2693600340268 /* screen */,
-				E21589452B8C86E800605117 /* fragmentShader.glsl */,
-				E21589442B8C86E800605117 /* vertexShader.glsl */,
+				E21589442B8C86E800605117 /* unlitShader.vs */,
+				E21589452B8C86E800605117 /* unlitShader.fs */,
 				E2725DA32BA0CEC70063A0B6 /* text.vs */,
 				E2725DA42BA0CF010063A0B6 /* text.fs */,
 			);
@@ -591,6 +626,8 @@
 				E2DE4D1F2B9F941900813FF4 /* ft2build.h */,
 				E2DE4D1E2B9F941900813FF4 /* dlg */,
 				E2DE4D862B9F941900813FF4 /* freetype */,
+				E27C9AE12BE21FE9006C10CB /* input */,
+				E202C1FF2BD41150006272D3 /* materials */,
 				E2C510692B91E75A00AC1EBA /* event */,
 				E2158CDE2B8E087800605117 /* game */,
 				E21589F92B8C86F100605117 /* textures */,
@@ -621,6 +658,7 @@
 				E2725D9D2BA09F470063A0B6 /* text */,
 				E21589E32B8C86F100605117 /* renderable.h */,
 				E27C7B582B8F255700CF2772 /* widget.h */,
+				E28BEE8A2BE27C0600E64DDC /* actor.h */,
 				E20013AD2BD2673D00340268 /* post_processor.h */,
 			);
 			path = render;
@@ -717,6 +755,7 @@
 				E2158A332B8C86F300605117 /* filereader.h */,
 				E2158CD12B8C95BB00605117 /* conversions.h */,
 				E2DE4D192B9F897800813FF4 /* resource_manager.h */,
+				E26906A82BF89D0800A8B887 /* gui_helper.h */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -1005,6 +1044,8 @@
 		E2158B942B8C873500605117 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				E27C9ADE2BE21F83006C10CB /* input */,
+				E202C1FC2BD41125006272D3 /* materials */,
 				E2C510652B91E73B00AC1EBA /* event */,
 				E29292CE2B91CCFB008CF89C /* game */,
 				E2158B9D2B8C873500605117 /* textures */,
@@ -1023,6 +1064,7 @@
 				E2158B962B8C873500605117 /* stb.cpp */,
 				E2158CD22B8CB36200605117 /* conversions.cpp */,
 				E2DE4D1A2B9F89ED00813FF4 /* resource_manager.cpp */,
+				E26906A92BF89D2300A8B887 /* gui_helper.cpp */,
 			);
 			path = utils;
 			sourceTree = "<group>";
@@ -1059,6 +1101,7 @@
 				E2725D9A2BA09F150063A0B6 /* text */,
 				E2158BA02B8C873500605117 /* renderable.cpp */,
 				E27F03FF2B8FAE3100195F41 /* widget.cpp */,
+				E28BEE882BE27BEB00E64DDC /* actor.cpp */,
 				E20013AB2BD2670E00340268 /* post_processor.cpp */,
 			);
 			path = render;
@@ -1115,6 +1158,31 @@
 			path = text;
 			sourceTree = "<group>";
 		};
+		E27C9ADE2BE21F83006C10CB /* input */ = {
+			isa = PBXGroup;
+			children = (
+				E27C9ADF2BE21F97006C10CB /* input.cpp */,
+			);
+			path = input;
+			sourceTree = "<group>";
+		};
+		E27C9AE12BE21FE9006C10CB /* input */ = {
+			isa = PBXGroup;
+			children = (
+				E27C9AE22BE21FF9006C10CB /* input.h */,
+			);
+			path = input;
+			sourceTree = "<group>";
+		};
+		E27C9AE32BE232C6006C10CB /* lit */ = {
+			isa = PBXGroup;
+			children = (
+				E27C9AE42BE232F6006C10CB /* defaultLitShader.vs */,
+				E27C9AE52BE234D2006C10CB /* defaultLitShader.fs */,
+			);
+			path = lit;
+			sourceTree = "<group>";
+		};
 		E28C51DB2BACC44F008B35DB /* button */ = {
 			isa = PBXGroup;
 			children = (
@@ -1122,6 +1190,15 @@
 				E2DE49FA2B9F75E900813FF4 /* idle.png */,
 			);
 			path = button;
+			sourceTree = "<group>";
+		};
+		E28FDD942BF2911400CBB73E /* widget */ = {
+			isa = PBXGroup;
+			children = (
+				E28FDD952BF2914A00CBB73E /* widget.vs */,
+				E28FDD962BF2916000CBB73E /* widget.fs */,
+			);
+			path = widget;
 			sourceTree = "<group>";
 		};
 		E29292CE2B91CCFB008CF89C /* game */ = {
@@ -1136,7 +1213,7 @@
 		E2A9127C2BD3B3A30018020E /* post_processing */ = {
 			isa = PBXGroup;
 			children = (
-				E2A9127D2BD3B3DA0018020E /* inverse_colors.fs */,
+				E2A9127D2BD3B3DA0018020E /* reverse_colors.fs */,
 				E2A9127E2BD3B6AB0018020E /* grayscale.fs */,
 			);
 			path = post_processing;
@@ -1177,6 +1254,7 @@
 		E2DE4D172B9F87FC00813FF4 /* fonts */ = {
 			isa = PBXGroup;
 			children = (
+				E28BEE872BE2767600E64DDC /* helveticaLight.ttf */,
 				E215417D2BAC074300404CCD /* Keyboard.ttf */,
 				E215417C2BAC060500404CCD /* Impact.ttf */,
 				E22033782BA785340045F903 /* Arial.ttf */,
@@ -1385,9 +1463,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2158BA42B8C873500605117 /* stb.cpp in Sources */,
+				E28BEE892BE27BEB00E64DDC /* actor.cpp in Sources */,
+				E26906AA2BF89D2300A8B887 /* gui_helper.cpp in Sources */,
 				E27F04002B8FAE3100195F41 /* widget.cpp in Sources */,
 				E2158BA72B8C873500605117 /* level.cpp in Sources */,
 				E2C5106C2B9219BD00AC1EBA /* screen.cpp in Sources */,
+				E202C1FE2BD41143006272D3 /* material.cpp in Sources */,
 				E2158BA92B8C87C200605117 /* main.cpp in Sources */,
 				E2158CD32B8CB36200605117 /* conversions.cpp in Sources */,
 				E2158BA62B8C873500605117 /* shader.cpp in Sources */,
@@ -1397,6 +1478,7 @@
 				E238EAEB2B9DA57200F3D1E8 /* constants.cpp in Sources */,
 				E2C510682B91E75200AC1EBA /* events.cpp in Sources */,
 				E2158BA32B8C873500605117 /* camera.cpp in Sources */,
+				E27C9AE02BE21F97006C10CB /* input.cpp in Sources */,
 				E2158BA22B8C873500605117 /* filereader.cpp in Sources */,
 				E2725DA12BA0A1770063A0B6 /* character.cpp in Sources */,
 				E2158BA52B8C873500605117 /* texture.cpp in Sources */,

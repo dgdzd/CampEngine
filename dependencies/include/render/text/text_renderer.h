@@ -26,7 +26,7 @@ enum TextPos {
 };
 
 class TextRenderer {
-    public:
+public:
     static TextRenderer* common;
     FT_Library* lib;
     FT_Face face;
@@ -39,10 +39,9 @@ class TextRenderer {
     TextRenderer(FT_Library* lib);
     
     void loadFont(const char* pathToFont, int resolution);
-    void text(std::wstring text, int x, int y, int boundX, int boundY, int size, glm::vec3 color, TextPos textAlign = ALIGN_LEFT);
-    
-    private:
+    void text(std::wstring text, float x, float y, float boundX, float boundY, int size, glm::vec3 color, TextPos textAlign = ALIGN_LEFT);
     int textLength(std::wstring text);
+    int textLength(std::wstring text, int begin, int end=-1);
 };
 
 

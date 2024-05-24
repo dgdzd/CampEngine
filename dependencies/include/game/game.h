@@ -41,7 +41,7 @@ struct Frame {
 };
 
 class Game {
-    public:
+public:
     static Game* activeGame;
     
     GameStatus status;
@@ -91,7 +91,7 @@ class Game {
      */
     void quit();
     
-    private:
+private:
     static void mouse_pos_callback(GLFWwindow* window, double xpos, double ypos);
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
     

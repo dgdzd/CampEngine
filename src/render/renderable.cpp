@@ -12,22 +12,6 @@ Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vec
 
 Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale) : shader(shader), texture(texture) {
     this->transform = glm::vec3(xpos, ypos, 0.0f);
-    
-    glm::vec2 texSizes(static_cast<float>(texture.width), static_cast<float>(texture.height));
-    int width, height;
-    float aWidth, aHeight;
-    glfwGetWindowSize(window, &width, &height);
-    aWidth = static_cast<float>(texture.width) / width;
-    aHeight = static_cast<float>(texture.height) / height;
-    
-    /*this->vertices = {
-        // position                                 // Texture coordinates
-        -(aWidth/2)*scale, -(aHeight/2)*scale, 0.0f, 0.0f, 0.0f, // Bottom-left
-        (aWidth/2)*scale, -(aHeight/2)*scale, 0.0f, 1.0f, 0.0f, // Bottom-right
-        (aWidth/2)*scale, (aHeight/2)*scale, 0.0f, 1.0f, 1.0f, // Top-right
-        -(aWidth/2)*scale, (aHeight/2)*scale, 0.0f, 0.0f, 1.0f, // Top-left
-    };*/
-    
     this->vertices = {
         // position                                 // Texture coordinates
         -texture.width/2*xscale, -texture.height/2*yscale, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -64,6 +48,7 @@ void Renderable::render(Camera camera, glm::mat4 projection) {
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
     shader.setInt("aTexture", 0);
+    shader.setVec4("color", color);
     glActiveTexture(GL_TEXTURE0);
     texture.use();
     glBindVertexArray(VAO);
@@ -79,6 +64,7 @@ void Renderable::render(glm::mat4 projection) {
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
     shader.setInt("aTexture", 0);
+    shader.setVec4("color", color);
     glActiveTexture(GL_TEXTURE0);
     texture.use();
     glBindVertexArray(VAO);
@@ -95,6 +81,7 @@ void Renderable::render() {
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
     shader.setInt("aTexture", 0);
+    shader.setVec4("color", color);
     glActiveTexture(GL_TEXTURE0);
     texture.use();
     glBindVertexArray(VAO);

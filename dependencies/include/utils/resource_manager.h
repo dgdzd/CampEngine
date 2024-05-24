@@ -3,6 +3,7 @@
 
 #include <shaders/shader.h>
 #include <textures/texture.h>
+#include <render/post_processor.h>
 
 #include <map>
 
@@ -11,17 +12,22 @@
 #pragma once
 
 class ResourceManager {
-    public:
+public:
     static std::map<const char*, Shader> shaders;
     static std::map<const char*, Texture> textures;
+    static std::map<const char*, PostProcessor> post_processors;
+    static ResourceManager standard;
     
     ResourceManager();
     
-    Shader loadShader(const char* name, const char* vertexShaderPath, const char* fragmentShaderPath);
-    Shader getShader(const char* name);
+    Shader* loadShader(const char* name, const char* vertexShaderPath, const char* fragmentShaderPath);
+    Shader* getShader(const char* name);
     
-    Texture loadTexture(const char* name, const char* texturePath);
-    Texture getTexture(const char* name);
+    Texture* loadTexture(const char* name, const char* texturePath);
+    Texture* getTexture(const char* name);
+    
+    PostProcessor* loadPostProcessor(const char* name, Shader shader, unsigned int width, unsigned int height);
+    PostProcessor* getPostProcessor(const char* name);
 };
 
 #endif /* ResourceManager_h */
