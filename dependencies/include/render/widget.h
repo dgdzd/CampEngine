@@ -2,7 +2,8 @@
 #define CE_WIDGET_H
 
 #include <render/renderable.h>
-#include <event/events.h>
+#include <event/categories/mouse_events.h>
+#include <event/categories/keyboard_events.h>
 #include <utils/conversions.h>
 #include <render/text/text_renderer.h>
 #include <game/game.h>
@@ -73,7 +74,11 @@ public:
     Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xscale, float yscale, float xsize, float ysize, Action action);
     
     virtual void update(glm::mat4 projection);
-    void receiveEvent(Event* e);
+    void onMouseClick(const Event<MouseEvent> &e);
+    void onMouseRelease(const Event<MouseEvent> &e);
+    void onMouseMove(const Event<MouseEvent> &e);
+    void onKeyPress(const Event<KeyboardEvent> &e);
+    void onCharInput(const Event<KeyboardEvent> &e);
 };
 
 class TextBox : public Widget {

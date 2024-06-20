@@ -4,59 +4,79 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
-#pragma once
+#include <string>
+#include <vector>
+#include <map>
+#include <functional>
 
+/*
+ * Here T must be an enum
+ */
+
+template<typename T>
 class Event {
+protected:
+    T type;
+    std::string name;
+    bool handled = false;
+
 public:
-    
-    Event();
+    Event() = default;
     virtual ~Event() = default;
+    Event(T type, const std::string& name) {
+        this->type = type;
+        this->name = name;
+    }
     
-    static void call();
+    template<typename EventType>
+    inline EventType as() const {
+        return static_cast<const EventType&>(*this);
+    }
+    
+    inline T getType() const {
+        return type;
+    }
+    inline std::string& getName() const {
+        return name;
+    }
+    virtual bool wasHandled() const {
+        return handled;
+    }
 };
 
-
-class CursorMovedEvent : public Event {
-public:
-    double mouseX;
-    double mouseY;
+template<typename T>
+class EventDispatcher {
+private:
+    using Func = std::function<void(const Event<T>&)>;
+    std::map<T, std::vector<Func>> listeners;
     
-    CursorMovedEvent(double xpos, double ypos);
+public:
+    void addListener(T type, const Func& func) {
+        listeners[type].push_back(func);
+    }
+    
+    void propagateEvent(const Event<T>& event) {
+        if(listeners.find(event.getType()) == listeners.end()) return;
+        
+        for(auto&& listener : listeners.at(event.getType())) {
+            if(!event.wasHandled()) listener(event);
+        }
+    }
 };
 
-class MouseClickEvent : public Event {
+class InputActionEvent {
 public:
-    double mouseX;
-    double mouseY;
-    int mouseButton;
-    
-    MouseClickEvent(int input, double xpos, double ypos);
-};
-
-class MouseReleaseEvent : public Event {
-public:
-    double mouseX;
-    double mouseY;
-    int mouseButton;
-    
-    MouseReleaseEvent(int input, double xpos, double ypos);
-}; 
-
-class CharacterTypeEvent : public Event {
-public:
-    unsigned int codepoint;
-    
-    CharacterTypeEvent(unsigned int codepoint);
-};
-
-class KeyTypeEvent : public Event {
-public:
+    std::string name;
     int key;
-    int scancode;
-    int action;
-    int mods;
+    float value;
     
-    KeyTypeEvent(int key, int scancode, int action, int mods);
+    InputActionEvent(std::string name, int key, int value);
+};
+
+class AxisActionEvent {
+public:
+    int axis;
+    float value;
 };
 
 #endif

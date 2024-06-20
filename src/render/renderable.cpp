@@ -1,5 +1,9 @@
 #include <render/renderable.h>
 
+/*---- Forward Declaration ----*/
+class Game;
+/*-----------------------------*/
+
 Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform) : texture(texture), shader(shader), transform(transform) {
     this->window = window;
     this->vertices = vertices;

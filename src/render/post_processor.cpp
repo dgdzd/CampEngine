@@ -89,3 +89,13 @@ void PostProcessor::render() {
     glDrawArrays(GL_TRIANGLES, 0, 6);
     glBindVertexArray(0);
 }
+
+void PostProcessor::render(glm::vec2 frame) {
+    PPShader.use();
+    glActiveTexture(GL_TEXTURE0);
+    texture.use();
+    PPShader.setInt("screenTexture", 0);
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
+    glBindVertexArray(0);
+}

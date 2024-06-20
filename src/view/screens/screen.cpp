@@ -27,7 +27,7 @@ void Screen::render(glm::mat4 projection) {
 
 TestScreen::TestScreen(GLFWwindow* window) : Screen(window) {
     this->init();
-}
+} 
 
 void TestScreen::init() {
     Screen::init();

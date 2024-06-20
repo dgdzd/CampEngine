@@ -14,12 +14,17 @@
 
 #include <view/screens/screen.h>
 #include <view/level.h>
-#include <event/events.h>
+#include <event/categories/mouse_events.h>
+#include <event/categories/keyboard_events.h>
 #include <utils/conversions.h>
 #include <render/text/text_renderer.h>
 #include <render/post_processor.h>
+#include <event/event_listener.h>
 
+/*---- Forward Declaration ----*/
 class Screen;
+class Level;
+/*-----------------------------*/
 
 enum GameStatus {
     GAME_MENU,
@@ -56,13 +61,6 @@ public:
     PostProcessor pp;
     
     Game(GLFWwindow* window, Screen* activeScreen, Level* activeLevel, GameStatus status);
-    
-    /*!
-     * @brief Upon calling this method, all the widgets from the active screen will receive an event.
-     *
-     * @param[in] e The event to be propagated through the widgets.
-     */
-    void propagateEvent(Event* e);
     
     /*!
      * @brief This is the main method of this class. Updates each widgets from the active screen, and poll events for GLFW's callbacks.

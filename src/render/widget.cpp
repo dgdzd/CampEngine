@@ -1,7 +1,8 @@
-#include <render/widget.h>
+#include  <render/widget.h>
 
 /*---- Forward Declaration ----*/
 class Game;
+class Renderable;
 /*-----------------------------*/
 
 Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action) : Widget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action) {
@@ -14,6 +15,14 @@ Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float 
     this->action = action;
     this->id = 100000 + rand() % (1000000 - 100000);
     this->selected = false;
+    
+    // Add listeners
+    
+    ADD_MOUSE_LISTENER(MouseClick, Widget::onMouseClick, this);
+    ADD_MOUSE_LISTENER(MouseRelease, Widget::onMouseRelease, this);
+    ADD_MOUSE_LISTENER(MouseMove, Widget::onMouseMove, this);
+    ADD_KEYBOARD_LISTENER(KeyPress, Widget::onKeyPress, this);
+    ADD_KEYBOARD_LISTENER(CharacterInput, Widget::onCharInput, this);
 }
 
 void Widget::update(glm::mat4 projection) {
@@ -25,100 +34,96 @@ void Widget::update(glm::mat4 projection) {
     }
 }
 
-void Widget::receiveEvent(Event* e) {
-    if(instanceof<CursorMovedEvent>(e)) {
-        CursorMovedEvent event = *dynamic_cast<CursorMovedEvent*>(e);
-        std::function<void()> quitHoveringfunc = [this]() {
-            if(this->action.isHovered) {
-                this->action.onQuitHovering();
-            }
-            this->action.isHovered = false;
-        };
-        
-        if(position.x - boxSize.x/2 <= event.mouseX && event.mouseX <= position.x + boxSize.x/2) {
-            if((Game::activeGame->frame.height - position.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - position.y) + boxSize.y/2) {
-                this->action.isHovered = true;
-                this->action.onStartHovering();
-            } else {
-                quitHoveringfunc();
-            }
+void Widget::onMouseClick(const Event<MouseEvent> &e) {
+    auto event = e.as<MouseClickEvent>();
+    selected = false;
+    
+    if(this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
+        this->action.isClicked = true;
+        selected = true;
+        this->action.onClick();
+    } else {
+        this->action.isClicked = false;
+    }
+}
+
+void Widget::onMouseRelease(const Event<MouseEvent> &e) {
+    auto event = e.as<MouseReleaseEvent>();
+    if(this->action.isClicked && this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
+        this->action.isClicked = false;
+        this->action.onRelease();
+    }
+    this->action.isClicked = false;
+}
+
+void Widget::onMouseMove(const Event<MouseEvent> &e) {
+    auto event = e.as<MouseMoveEvent>();
+    std::function<void()> quitHoveringfunc = [this]() {
+        if(this->action.isHovered) {
+            this->action.onQuitHovering();
+        }
+        this->action.isHovered = false;
+    };
+    
+    if(position.x - boxSize.x/2 <= event.mouseX && event.mouseX <= position.x + boxSize.x/2) {
+        if((Game::activeGame->frame.height - position.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - position.y) + boxSize.y/2) {
+            this->action.isHovered = true;
+            this->action.onStartHovering();
         } else {
             quitHoveringfunc();
         }
-    } 
-    
-    else if(instanceof<MouseClickEvent>(e)) {
-        MouseClickEvent event = *dynamic_cast<MouseClickEvent*>(e);
-        selected = false;
-        
-        if(this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
-            this->action.isClicked = true;
-            selected = true;
-            this->action.onClick();
-        } else {
-            this->action.isClicked = false;
-        }
+    } else {
+        quitHoveringfunc();
     }
-    
-    else if(instanceof<MouseReleaseEvent>(e)) {
-        MouseReleaseEvent event = *dynamic_cast<MouseReleaseEvent*>(e);
+}
+
+void Widget::onKeyPress(const Event<KeyboardEvent> &e) {
+    auto event = e.as<KeyPressEvent>();
+    if(instanceof<TextInput>(this)) {
+        TextInput* self = dynamic_cast<TextInput*>(this);
         
-        if(this->action.isClicked && this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
-            this->action.isClicked = false;
-            this->action.onRelease();
-        }
-        this->action.isClicked = false;
-    }
-    
-    else if(instanceof<CharacterTypeEvent>(e)) {
-        CharacterTypeEvent event = *dynamic_cast<CharacterTypeEvent*>(e);
-        this->action.onCharType();
-        
-        if(instanceof<TextInput>(this)) {
-            TextInput* self = dynamic_cast<TextInput*>(this);
-            if(self->selected) {
-                self->text += (wchar_t)event.codepoint;
-                self->cursorPos++;
-                self->lastTypeTime = glfwGetTime();
+        if(self->selected) {
+            switch(event.key) {
+                case GLFW_KEY_BACKSPACE:
+                    if(self->cursorPos > 0) {
+                        self->text.erase(self->text.begin() + self->cursorPos-1);
+                        self->cursorPos--;
+                    }
+                    break;
+                    
+                case GLFW_KEY_ENTER:
+                    self->selected = false;
+                    break;
+                    
+                case GLFW_KEY_ESCAPE:
+                    self->selected = false;
+                    break;
+                    
+                case GLFW_KEY_LEFT:
+                    if(self->cursorPos > 0) self->cursorPos--;
+                    break;
+                    
+                case GLFW_KEY_RIGHT:
+                    if(self->cursorPos < self->text.size()) self->cursorPos++;
+                    break;
+                    
+                default:
+                    break;
             }
         }
     }
+}
+
+void Widget::onCharInput(const Event<KeyboardEvent> &e) {
+    auto event = e.as<CharacterInputEvent>();
+    this->action.onCharType();
     
-    else if(instanceof<KeyTypeEvent>(e)) {
-        KeyTypeEvent event = *dynamic_cast<KeyTypeEvent*>(e);
-        
-        if(instanceof<TextInput>(this)) {
-            TextInput* self = dynamic_cast<TextInput*>(this);
-            
-            if(self->selected) {
-                switch(event.key) {
-                    case GLFW_KEY_BACKSPACE:
-                        if(self->cursorPos > 0) {
-                            self->text.erase(self->text.begin() + self->cursorPos-1);
-                            self->cursorPos--;
-                        }
-                        break;
-                        
-                    case GLFW_KEY_ENTER:
-                        self->selected = false;
-                        break;
-                        
-                    case GLFW_KEY_ESCAPE:
-                        self->selected = false;
-                        break;
-                        
-                    case GLFW_KEY_LEFT:
-                        if(self->cursorPos > 0) self->cursorPos--;
-                        break;
-                        
-                    case GLFW_KEY_RIGHT:
-                        if(self->cursorPos < self->text.size()) self->cursorPos++;
-                        break;
-                        
-                    default:
-                        break;
-                }
-            }
+    if(instanceof<TextInput>(this)) {
+        TextInput* self = dynamic_cast<TextInput*>(this);
+        if(self->selected) {
+            self->text += (wchar_t)event.codepoint;
+            self->cursorPos++;
+            self->lastTypeTime = glfwGetTime();
         }
     }
 }
@@ -221,6 +226,7 @@ Button* Button::with_theme(Color color) {
         case danger:
             this->color = glm::vec4(0.83, 0.18, 0.18, 1.0);
             this->outlineColor = glm::vec4(0.94, 0.33, 0.31, 1.0);
+            return this;
             
         default:
             return this;

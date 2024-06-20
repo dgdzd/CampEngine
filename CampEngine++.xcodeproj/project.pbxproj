@@ -24,11 +24,14 @@
 		E26906AA2BF89D2300A8B887 /* gui_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26906A92BF89D2300A8B887 /* gui_helper.cpp */; };
 		E2725D992BA09DF00063A0B6 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2725D982BA09DF00063A0B6 /* libfreetype.a */; };
 		E2725DA12BA0A1770063A0B6 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2725DA02BA0A1770063A0B6 /* character.cpp */; };
+		E275E7382C21CAE000A44E10 /* event_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E275E7372C21CAE000A44E10 /* event_handler.cpp */; };
+		E275E7392C21CAE000A44E10 /* event_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E275E7372C21CAE000A44E10 /* event_handler.cpp */; };
+		E275E73B2C21CDBD00A44E10 /* event_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E275E73A2C21CDBD00A44E10 /* event_listener.cpp */; };
+		E275E73C2C21CDBD00A44E10 /* event_listener.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E275E73A2C21CDBD00A44E10 /* event_listener.cpp */; };
 		E27C9AE02BE21F97006C10CB /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27C9ADF2BE21F97006C10CB /* input.cpp */; };
 		E27F04002B8FAE3100195F41 /* widget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27F03FF2B8FAE3100195F41 /* widget.cpp */; };
 		E28BEE892BE27BEB00E64DDC /* actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E28BEE882BE27BEB00E64DDC /* actor.cpp */; };
 		E29292D02B91CD1A008CF89C /* game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E29292CF2B91CD1A008CF89C /* game.cpp */; };
-		E2C510682B91E75200AC1EBA /* events.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C510662B91E75200AC1EBA /* events.cpp */; };
 		E2C5106C2B9219BD00AC1EBA /* screen.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2C5106B2B9219BD00AC1EBA /* screen.cpp */; };
 		E2DE4D142B9F7B0D00813FF4 /* text_renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2DE4D132B9F7B0D00813FF4 /* text_renderer.cpp */; };
 		E2DE4D1B2B9F89ED00813FF4 /* resource_manager.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2DE4D1A2B9F89ED00813FF4 /* resource_manager.cpp */; };
@@ -67,6 +70,7 @@
 		E20013B02BD269DD00340268 /* screen.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = screen.fs; sourceTree = "<group>"; };
 		E202C1FD2BD41143006272D3 /* material.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = material.cpp; sourceTree = "<group>"; };
 		E202C2002BD4116B006272D3 /* material.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = material.h; sourceTree = "<group>"; };
+		E21410202C0A551E0021C146 /* libCampEngine-0.1-BETA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCampEngine-0.1-BETA.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E215417C2BAC060500404CCD /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
 		E215417D2BAC074300404CCD /* Keyboard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keyboard.ttf; sourceTree = "<group>"; };
 		E21587EF2B8C864300605117 /* CampEngine++ */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = "CampEngine++"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -365,6 +369,8 @@
 		E2158CE12B8E0FBE00605117 /* screen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = screen.h; sourceTree = "<group>"; };
 		E22033772BA785050045F903 /* Andale Mono.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Andale Mono.ttf"; sourceTree = "<group>"; };
 		E22033782BA785340045F903 /* Arial.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Arial.ttf; sourceTree = "<group>"; };
+		E224CD2F2C217245001D19C1 /* mouse_events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = mouse_events.h; sourceTree = "<group>"; };
+		E224CD312C2173F7001D19C1 /* event_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = event_handler.h; sourceTree = "<group>"; };
 		E238EAE92B9DA12800F3D1E8 /* constants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constants.h; sourceTree = "<group>"; };
 		E238EAEA2B9DA57200F3D1E8 /* constants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constants.cpp; sourceTree = "<group>"; };
 		E247DF3E2BA21A8B00FCC578 /* Arvo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arvo-Regular.ttf"; sourceTree = "<group>"; };
@@ -377,6 +383,10 @@
 		E2725DA22BA0AD600063A0B6 /* text_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = text_renderer.h; sourceTree = "<group>"; };
 		E2725DA32BA0CEC70063A0B6 /* text.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.vs; sourceTree = "<group>"; };
 		E2725DA42BA0CF010063A0B6 /* text.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.fs; sourceTree = "<group>"; };
+		E275E7342C21BAC200A44E10 /* keyboard_events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keyboard_events.h; sourceTree = "<group>"; };
+		E275E7362C21C97800A44E10 /* event_listener.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = event_listener.h; sourceTree = "<group>"; };
+		E275E7372C21CAE000A44E10 /* event_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = event_handler.cpp; sourceTree = "<group>"; };
+		E275E73A2C21CDBD00A44E10 /* event_listener.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = event_listener.cpp; sourceTree = "<group>"; };
 		E27C7B582B8F255700CF2772 /* widget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = widget.h; sourceTree = "<group>"; };
 		E27C9ADF2BE21F97006C10CB /* input.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = input.cpp; sourceTree = "<group>"; };
 		E27C9AE22BE21FF9006C10CB /* input.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = input.h; sourceTree = "<group>"; };
@@ -391,9 +401,9 @@
 		E28FDD952BF2914A00CBB73E /* widget.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = widget.vs; sourceTree = "<group>"; };
 		E28FDD962BF2916000CBB73E /* widget.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = widget.fs; sourceTree = "<group>"; };
 		E29292CF2B91CD1A008CF89C /* game.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = game.cpp; sourceTree = "<group>"; };
+		E2A471FE2C22DD4F00205C78 /* widget_events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = widget_events.h; sourceTree = "<group>"; };
 		E2A9127D2BD3B3DA0018020E /* reverse_colors.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = reverse_colors.fs; sourceTree = "<group>"; };
 		E2A9127E2BD3B6AB0018020E /* grayscale.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = grayscale.fs; sourceTree = "<group>"; };
-		E2C510662B91E75200AC1EBA /* events.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = events.cpp; sourceTree = "<group>"; };
 		E2C510672B91E75200AC1EBA /* events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = events.h; sourceTree = "<group>"; };
 		E2C5106B2B9219BD00AC1EBA /* screen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = screen.cpp; sourceTree = "<group>"; };
 		E2DE49FA2B9F75E900813FF4 /* idle.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = idle.png; sourceTree = "<group>"; };
@@ -505,6 +515,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		E214101E2C0A551E0021C146 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E21587EC2B8C864300605117 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -562,6 +579,7 @@
 			isa = PBXGroup;
 			children = (
 				E21587EF2B8C864300605117 /* CampEngine++ */,
+				E21410202C0A551E0021C146 /* libCampEngine-0.1-BETA.a */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1158,6 +1176,16 @@
 			path = text;
 			sourceTree = "<group>";
 		};
+		E275E7352C21BAD100A44E10 /* categories */ = {
+			isa = PBXGroup;
+			children = (
+				E224CD2F2C217245001D19C1 /* mouse_events.h */,
+				E275E7342C21BAC200A44E10 /* keyboard_events.h */,
+				E2A471FE2C22DD4F00205C78 /* widget_events.h */,
+			);
+			path = categories;
+			sourceTree = "<group>";
+		};
 		E27C9ADE2BE21F83006C10CB /* input */ = {
 			isa = PBXGroup;
 			children = (
@@ -1222,7 +1250,8 @@
 		E2C510652B91E73B00AC1EBA /* event */ = {
 			isa = PBXGroup;
 			children = (
-				E2C510662B91E75200AC1EBA /* events.cpp */,
+				E275E7372C21CAE000A44E10 /* event_handler.cpp */,
+				E275E73A2C21CDBD00A44E10 /* event_listener.cpp */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -1230,7 +1259,10 @@
 		E2C510692B91E75A00AC1EBA /* event */ = {
 			isa = PBXGroup;
 			children = (
+				E275E7352C21BAD100A44E10 /* categories */,
 				E2C510672B91E75200AC1EBA /* events.h */,
+				E224CD312C2173F7001D19C1 /* event_handler.h */,
+				E275E7362C21C97800A44E10 /* event_listener.h */,
 			);
 			path = event;
 			sourceTree = "<group>";
@@ -1406,7 +1438,34 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		E214101C2C0A551E0021C146 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
+		E214101F2C0A551E0021C146 /* CampEngine-0.1-BETA */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E21410232C0A551E0021C146 /* Build configuration list for PBXNativeTarget "CampEngine-0.1-BETA" */;
+			buildPhases = (
+				E214101C2C0A551E0021C146 /* Headers */,
+				E214101D2C0A551E0021C146 /* Sources */,
+				E214101E2C0A551E0021C146 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "CampEngine-0.1-BETA";
+			productName = "CampEngine-0.1-BETA";
+			productReference = E21410202C0A551E0021C146 /* libCampEngine-0.1-BETA.a */;
+			productType = "com.apple.product-type.library.static";
+		};
 		E21587EE2B8C864300605117 /* CampEngine++ */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E21587F62B8C864300605117 /* Build configuration list for PBXNativeTarget "CampEngine++" */;
@@ -1432,8 +1491,14 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
+				KnownAssetTags = (
+					New,
+				);
 				LastUpgradeCheck = 1520;
 				TargetAttributes = {
+					E214101F2C0A551E0021C146 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					E21587EE2B8C864300605117 = {
 						CreatedOnToolsVersion = 15.2;
 					};
@@ -1453,11 +1518,21 @@
 			projectRoot = "";
 			targets = (
 				E21587EE2B8C864300605117 /* CampEngine++ */,
+				E214101F2C0A551E0021C146 /* CampEngine-0.1-BETA */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXSourcesBuildPhase section */
+		E214101D2C0A551E0021C146 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E275E73C2C21CDBD00A44E10 /* event_listener.cpp in Sources */,
+				E275E7392C21CAE000A44E10 /* event_handler.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E21587EB2B8C864300605117 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1467,6 +1542,7 @@
 				E26906AA2BF89D2300A8B887 /* gui_helper.cpp in Sources */,
 				E27F04002B8FAE3100195F41 /* widget.cpp in Sources */,
 				E2158BA72B8C873500605117 /* level.cpp in Sources */,
+				E275E7382C21CAE000A44E10 /* event_handler.cpp in Sources */,
 				E2C5106C2B9219BD00AC1EBA /* screen.cpp in Sources */,
 				E202C1FE2BD41143006272D3 /* material.cpp in Sources */,
 				E2158BA92B8C87C200605117 /* main.cpp in Sources */,
@@ -1476,10 +1552,10 @@
 				E2DE4D142B9F7B0D00813FF4 /* text_renderer.cpp in Sources */,
 				E20013AC2BD2670E00340268 /* post_processor.cpp in Sources */,
 				E238EAEB2B9DA57200F3D1E8 /* constants.cpp in Sources */,
-				E2C510682B91E75200AC1EBA /* events.cpp in Sources */,
 				E2158BA32B8C873500605117 /* camera.cpp in Sources */,
 				E27C9AE02BE21F97006C10CB /* input.cpp in Sources */,
 				E2158BA22B8C873500605117 /* filereader.cpp in Sources */,
+				E275E73B2C21CDBD00A44E10 /* event_listener.cpp in Sources */,
 				E2725DA12BA0A1770063A0B6 /* character.cpp in Sources */,
 				E2158BA52B8C873500605117 /* texture.cpp in Sources */,
 				E2158B8A2B8C86FD00605117 /* glad.c in Sources */,
@@ -1491,6 +1567,32 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
+		E21410212C0A551E0021C146 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A2CU7H5584;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		E21410222C0A551E0021C146 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A2CU7H5584;
+				EXECUTABLE_PREFIX = lib;
+				MACOSX_DEPLOYMENT_TARGET = 14.5;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
 		E21587F42B8C864300605117 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1645,6 +1747,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		E21410232C0A551E0021C146 /* Build configuration list for PBXNativeTarget "CampEngine-0.1-BETA" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E21410212C0A551E0021C146 /* Debug */,
+				E21410222C0A551E0021C146 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E21587EA2B8C864300605117 /* Build configuration list for PBXProject "CampEngine++" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -10,6 +10,7 @@
 
 #include <shaders/shader.h>
 #include <textures/texture.h>
+#include <game/constants.h>
 
 #include <map>
 #include <string>
@@ -27,6 +28,7 @@ public:
     void start();
     void end();
     void render();
+    void render(glm::vec2 frame);
     
     private:
     unsigned int MSFBO, FBO;

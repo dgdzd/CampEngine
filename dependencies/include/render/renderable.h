@@ -41,6 +41,7 @@ public:
     void render(glm::mat4 projection);
     void render();
     
+    
 private:
     void gen_buffers();
 };

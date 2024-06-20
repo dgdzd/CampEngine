@@ -22,14 +22,6 @@ Game::Game(GLFWwindow* window, Screen* activeScreen, Level* activeLevel, GameSta
     activeGame = this;
 }
 
-void Game::propagateEvent(Event* e) {
-    if(activeScreen) {
-        for(int i = 0; i < activeScreen->widgets.size(); i++) {
-            activeScreen->widgets[i]->receiveEvent(e);
-        }
-    }
-}
-
 void Game::update() {
     /* Rendering functions here */
     pp.start();
@@ -69,8 +61,10 @@ void Game::quit() {
 
 void Game::mouse_pos_callback(GLFWwindow* window, double xpos, double ypos) {
     if(activeGame->mouse.xpos != xpos || activeGame->mouse.ypos != ypos) {
-        CursorMovedEvent event(xpos, ypos);
-        activeGame->propagateEvent(&event);
+        class MouseMoveEvent event;
+        event.mouseX = xpos;
+        event.mouseY = ypos;
+        SEND_MOUSE_EVENT(event);
     }
     activeGame->mouse.xpos = xpos;
     activeGame->mouse.ypos = ypos;
@@ -89,14 +83,20 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
         switch(action) {
             case GLFW_PRESS: {
                 std::cout << "click\n";
-                MouseClickEvent event(button, activeGame->mouse.xpos, activeGame->mouse.ypos);
-                activeGame->propagateEvent(&event);
+                class MouseClickEvent event;
+                event.mouseX = activeGame->mouse.xpos;
+                event.mouseY = activeGame->mouse.ypos;
+                event.mouseButton = button;
+                SEND_MOUSE_EVENT(event);
             }
             case GLFW_RELEASE: {
                 if(Game::activeGame->mouse.releaseState) {
                     std::cout << "release\n";
-                    MouseReleaseEvent event_(button, activeGame->mouse.xpos, activeGame->mouse.ypos);
-                    activeGame->propagateEvent(&event_);
+                    class MouseReleaseEvent event_;
+                    event_.mouseX = activeGame->mouse.xpos;
+                    event_.mouseY = activeGame->mouse.ypos;
+                    event_.mouseButton = button;
+                    SEND_MOUSE_EVENT(event_);
                 }
                 inputs->erase(std::find(inputs->begin(), inputs->end(), button));
                 Game::activeGame->mouse.releaseState = !Game::activeGame->mouse.releaseState;
@@ -106,14 +106,19 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
 }
 
 void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
-    CharacterTypeEvent event(codepoint);
-    activeGame->propagateEvent(&event);
+    class CharacterInputEvent event;
+    event.codepoint = codepoint;
+    SEND_KEYBOARD_EVENT(event);
 }
 
 void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if(action == GLFW_PRESS || action == GLFW_REPEAT) {
-        KeyTypeEvent event(key, scancode, action, mods);
-        activeGame->propagateEvent(&event);
+        class KeyPressEvent event;
+        event.key = key;
+        event.scancode = scancode;
+        event.action = action;
+        event.mods = mods;
+        SEND_KEYBOARD_EVENT(event);
     }
 }
 
