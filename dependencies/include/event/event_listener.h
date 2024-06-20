@@ -19,8 +19,7 @@ private:
     static std::vector<EventListener*> m_EventListeners;
     
 public:
-    void addMouseListener(MouseEvent type, std::function<void(const Event<MouseEvent>&)> func);
-    void addKeyboardListener(KeyboardEvent type, std::function<void(const Event<KeyboardEvent>&)> func);
+    void addListener(Event type, std::function<void(const Event&)> func);
 };
 
 #endif

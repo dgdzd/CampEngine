@@ -74,11 +74,11 @@ public:
     Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xscale, float yscale, float xsize, float ysize, Action action);
     
     virtual void update(glm::mat4 projection);
-    void onMouseClick(const Event<MouseEvent> &e);
-    void onMouseRelease(const Event<MouseEvent> &e);
-    void onMouseMove(const Event<MouseEvent> &e);
-    void onKeyPress(const Event<KeyboardEvent> &e);
-    void onCharInput(const Event<KeyboardEvent> &e);
+    void onMouseClick(const Event &e);
+    void onMouseRelease(const Event &e);
+    void onMouseMove(const Event &e);
+    void onKeyPress(const Event &e);
+    void onCharInput(const Event &e);
 };
 
 class TextBox : public Widget {

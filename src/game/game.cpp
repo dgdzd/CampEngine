@@ -64,7 +64,7 @@ void Game::mouse_pos_callback(GLFWwindow* window, double xpos, double ypos) {
         class MouseMoveEvent event;
         event.mouseX = xpos;
         event.mouseY = ypos;
-        SEND_MOUSE_EVENT(event);
+        SEND_EVENT(event);
     }
     activeGame->mouse.xpos = xpos;
     activeGame->mouse.ypos = ypos;
@@ -87,7 +87,7 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
                 event.mouseX = activeGame->mouse.xpos;
                 event.mouseY = activeGame->mouse.ypos;
                 event.mouseButton = button;
-                SEND_MOUSE_EVENT(event);
+                SEND_EVENT(event);
             }
             case GLFW_RELEASE: {
                 if(Game::activeGame->mouse.releaseState) {
@@ -96,7 +96,7 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
                     event_.mouseX = activeGame->mouse.xpos;
                     event_.mouseY = activeGame->mouse.ypos;
                     event_.mouseButton = button;
-                    SEND_MOUSE_EVENT(event_);
+                    SEND_EVENT(event_);
                 }
                 inputs->erase(std::find(inputs->begin(), inputs->end(), button));
                 Game::activeGame->mouse.releaseState = !Game::activeGame->mouse.releaseState;
@@ -108,7 +108,7 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
 void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
     class CharacterInputEvent event;
     event.codepoint = codepoint;
-    SEND_KEYBOARD_EVENT(event);
+    SEND_EVENT(event);
 }
 
 void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
@@ -118,7 +118,7 @@ void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, i
         event.scancode = scancode;
         event.action = action;
         event.mods = mods;
-        SEND_KEYBOARD_EVENT(event);
+        SEND_EVENT(event);
     }
 }
 

@@ -8,35 +8,25 @@
 #include <vector>
 #include <map>
 #include <functional>
+#include <random>
 
-/*
- * Here T must be an enum
- */
-
-template<typename T>
 class Event {
 protected:
-    T type;
     std::string name;
     bool handled = false;
 
 public:
     Event() = default;
     virtual ~Event() = default;
-    Event(T type, const std::string& name) {
-        this->type = type;
+    Event(const std::string& name) {
         this->name = name;
     }
     
     template<typename EventType>
     inline EventType as() const {
-        return static_cast<const EventType&>(*this);
+        return *dynamic_cast<const EventType*>(this);
     }
-    
-    inline T getType() const {
-        return type;
-    }
-    inline std::string& getName() const {
+    inline std::string& getName() {
         return name;
     }
     virtual bool wasHandled() const {
@@ -44,21 +34,20 @@ public:
     }
 };
 
-template<typename T>
 class EventDispatcher {
 private:
-    using Func = std::function<void(const Event<T>&)>;
-    std::map<T, std::vector<Func>> listeners;
+    using Func = std::function<void(const Event&)>;
+    std::map<std::string, std::vector<Func>> listeners;
     
 public:
-    void addListener(T type, const Func& func) {
-        listeners[type].push_back(func);
+    void addListener(Event event, const Func& func) {
+        listeners[event.getName()].push_back(func);
     }
     
-    void propagateEvent(const Event<T>& event) {
-        if(listeners.find(event.getType()) == listeners.end()) return;
+    void propagateEvent(Event& event) {
+        if(listeners.find(event.getName()) == listeners.end()) return;
         
-        for(auto&& listener : listeners.at(event.getType())) {
+        for(auto&& listener : listeners.at(event.getName())) {
             if(!event.wasHandled()) listener(event);
         }
     }

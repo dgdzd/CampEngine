@@ -18,8 +18,8 @@ enum WidgetEvent {
     WidgetSubmit
 };
 
-class WidgetClickEvent : Event<WidgetEvent> {
-    WidgetClickEvent() : Event<WidgetEvent>(WidgetEvent::WidgetClick, "WidgetClick") {}
+class WidgetClickEvent : Event {
+    WidgetClickEvent() : Event("WidgetClick") {}
     virtual ~WidgetClickEvent() {}
 };
 

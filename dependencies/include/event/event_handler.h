@@ -19,30 +19,18 @@
 #include <memory>
 #include <any>
 
-/* This is an interface class from which any class can herit */
+/* Just a wrapper class for EventDispatcher */
 class EventHandler {
 private:
     static std::unique_ptr<EventHandler> inst;
-    std::map<std::any, EventDispatcher<std::any>> dispatchers;
     
 public:
-    EventDispatcher<MouseEvent> mouseEventDispatcher;
-    EventDispatcher<KeyboardEvent> keyboardEventDispatcher;
+    EventDispatcher dispatcher;
     
     static EventHandler* getInstance();
     
-    std::map<std::any, EventDispatcher<std::any>> getDispatchers();
-    
-    template<typename EventType>
-    void registerEvents() {
-        
-    }
-    
-#define ADD_MOUSE_LISTENER(type, func, arg) EventHandler::getInstance()->mouseEventDispatcher.addListener(type, std::bind(&func, arg, std::placeholders::_1))
-#define ADD_KEYBOARD_LISTENER(type, func, arg) EventHandler::getInstance()->keyboardEventDispatcher.addListener(type, std::bind(&func, arg, std::placeholders::_1))
-    
-#define SEND_MOUSE_EVENT(event) EventHandler::getInstance()->mouseEventDispatcher.propagateEvent(event)
-#define SEND_KEYBOARD_EVENT(event) EventHandler::getInstance()->keyboardEventDispatcher.propagateEvent(event)
+    #define ADD_LISTENER(name, func, arg) EventHandler::getInstance()->dispatcher.addListener(name, std::bind(&func, arg, std::placeholders::_1))
+    #define SEND_EVENT(event) EventHandler::getInstance()->dispatcher.propagateEvent(event)
 };
 
 #endif /* event_handler_h */

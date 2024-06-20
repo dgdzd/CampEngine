@@ -12,37 +12,34 @@
 
 #include <string>
 
-enum MouseEvent {
-    MouseClick,
-    MouseRelease,
-    MouseMove
+class MouseEvent : public Event {
+public:
+    MouseEvent(std::string name) : Event(name) {}
+    virtual ~MouseEvent() {}
+    
+    double mouseX = 0, mouseY = 0;
 };
 
-class MouseClickEvent : public Event<MouseEvent> {
+class MouseClickEvent : public MouseEvent {
 public:
-    MouseClickEvent() : Event<MouseEvent>(MouseEvent::MouseClick, "MouseClick") {}
+    MouseClickEvent() : MouseEvent("MouseClickEvent") {}
     virtual ~MouseClickEvent() {}
     
-    double mouseX = 0, mouseY = 0;
     int mouseButton = -1;
 };
 
-class MouseReleaseEvent : public Event<MouseEvent> {
+class MouseReleaseEvent : public MouseEvent {
 public:
-    MouseReleaseEvent() : Event<MouseEvent>(MouseEvent::MouseRelease, "MouseRelease") {}
+    MouseReleaseEvent() : MouseEvent("MouseReleaseEvent") {}
     virtual ~MouseReleaseEvent() {}
     
-    double mouseX = 0, mouseY = 0;
     int mouseButton = -1;
 };
 
-class MouseMoveEvent : public Event<MouseEvent> {
+class MouseMoveEvent : public MouseEvent {
 public:
-    MouseMoveEvent() : Event<MouseEvent>(MouseEvent::MouseMove, "MouseMove") {}
+    MouseMoveEvent() : MouseEvent("MouseMoveEvent") {}
     virtual ~MouseMoveEvent() {}
-    
-    double mouseX = 0, mouseY = 0;
-    int mouseButton = -1;
 };
 
 #endif

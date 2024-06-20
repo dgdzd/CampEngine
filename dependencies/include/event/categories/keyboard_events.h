@@ -17,17 +17,17 @@ enum KeyboardEvent {
     CharacterInput,
 };
 
-class KeyPressEvent : public Event<KeyboardEvent> {
+class KeyPressEvent : public Event {
 public:
-    KeyPressEvent() : Event<KeyboardEvent>(KeyboardEvent::KeyPress, "KeyPress") {}
+    KeyPressEvent() : Event("KeyPressEvent") {}
     virtual ~KeyPressEvent() {}
     
     int key = -1, scancode = -1, action = -1, mods = -1;
 };
 
-class CharacterInputEvent : public Event<KeyboardEvent> {
+class CharacterInputEvent : public Event {
 public:
-    CharacterInputEvent() : Event<KeyboardEvent>(KeyboardEvent::CharacterInput, "CharacterInput") {}
+    CharacterInputEvent() : Event("CharacterInputEvent") {}
     virtual ~CharacterInputEvent() {}
     
     unsigned int codepoint = -1;

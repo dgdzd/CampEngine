@@ -18,11 +18,11 @@ Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float 
     
     // Add listeners
     
-    ADD_MOUSE_LISTENER(MouseClick, Widget::onMouseClick, this);
-    ADD_MOUSE_LISTENER(MouseRelease, Widget::onMouseRelease, this);
-    ADD_MOUSE_LISTENER(MouseMove, Widget::onMouseMove, this);
-    ADD_KEYBOARD_LISTENER(KeyPress, Widget::onKeyPress, this);
-    ADD_KEYBOARD_LISTENER(CharacterInput, Widget::onCharInput, this);
+    ADD_LISTENER(MouseClickEvent(), Widget::onMouseClick, this);
+    ADD_LISTENER(MouseReleaseEvent(), Widget::onMouseRelease, this);
+    ADD_LISTENER(MouseMoveEvent(), Widget::onMouseMove, this);
+    ADD_LISTENER(KeyPressEvent(), Widget::onKeyPress, this);
+    ADD_LISTENER(CharacterInputEvent(), Widget::onCharInput, this);
 }
 
 void Widget::update(glm::mat4 projection) {
@@ -34,7 +34,7 @@ void Widget::update(glm::mat4 projection) {
     }
 }
 
-void Widget::onMouseClick(const Event<MouseEvent> &e) {
+void Widget::onMouseClick(const Event &e) {
     auto event = e.as<MouseClickEvent>();
     selected = false;
     
@@ -47,7 +47,7 @@ void Widget::onMouseClick(const Event<MouseEvent> &e) {
     }
 }
 
-void Widget::onMouseRelease(const Event<MouseEvent> &e) {
+void Widget::onMouseRelease(const Event &e) {
     auto event = e.as<MouseReleaseEvent>();
     if(this->action.isClicked && this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
         this->action.isClicked = false;
@@ -56,7 +56,7 @@ void Widget::onMouseRelease(const Event<MouseEvent> &e) {
     this->action.isClicked = false;
 }
 
-void Widget::onMouseMove(const Event<MouseEvent> &e) {
+void Widget::onMouseMove(const Event &e) {
     auto event = e.as<MouseMoveEvent>();
     std::function<void()> quitHoveringfunc = [this]() {
         if(this->action.isHovered) {
@@ -77,7 +77,7 @@ void Widget::onMouseMove(const Event<MouseEvent> &e) {
     }
 }
 
-void Widget::onKeyPress(const Event<KeyboardEvent> &e) {
+void Widget::onKeyPress(const Event &e) {
     auto event = e.as<KeyPressEvent>();
     if(instanceof<TextInput>(this)) {
         TextInput* self = dynamic_cast<TextInput*>(this);
@@ -114,7 +114,7 @@ void Widget::onKeyPress(const Event<KeyboardEvent> &e) {
     }
 }
 
-void Widget::onCharInput(const Event<KeyboardEvent> &e) {
+void Widget::onCharInput(const Event &e) {
     auto event = e.as<CharacterInputEvent>();
     this->action.onCharType();
     

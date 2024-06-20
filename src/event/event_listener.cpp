@@ -7,10 +7,10 @@
 
 #include <event/event_listener.h>
 
-void onEvent(const Event<MouseEvent>&) {
+void onEvent(const Event&) {
     
 }
 
-void EventListener::addMouseListener(MouseEvent type, std::function<void(const Event<MouseEvent>&)> func) {
-    EventHandler::getInstance()->mouseEventDispatcher.addListener(type, func);
+void EventListener::addListener(Event type, std::function<void(const Event&)> func) {
+    EventHandler::getInstance()->dispatcher.addListener(type, func);
 }
