@@ -14,17 +14,17 @@ TextRenderer::TextRenderer(FT_Library* lib) {
 void TextRenderer::loadFont(const char* pathToFont, int resolution) {
     this->resolution = resolution;
     if(FT_New_Face(*lib, pathToFont, 0, &face)) {
-        std::wcout << "Failed to load font at location: " << pathToFont << "\n";
+        Logger::CampEngine.error("Failed to load font at location: " + std::string(pathToFont));
     } else {
         //FT_Select_Charmap(face, ft_encoding_apple_roman);
         FT_Set_Pixel_Sizes(face, 0, 48);
-        std::wcout << "Loading chars...\n";
+        Logger::CampEngine.info("Loading chars...");
         glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
         unsigned int index = 0;
         unsigned long c = 0;
         while((c = FT_Get_Next_Char(face, c, &index))) {
             if(FT_Load_Glyph(face, index, FT_LOAD_RENDER)) {
-                std::wcout << "Failed to load character \"" << c << "\"\n";
+                Logger::CampEngine.warn(std::string("Failed to load character \"") + (char)c + "\"");
                 continue;
             }
             //std::wcout << "Loading character " << index << "\"\n";
@@ -53,7 +53,7 @@ void TextRenderer::loadFont(const char* pathToFont, int resolution) {
     FT_Done_Face(face);
     FT_Done_FreeType(*lib);
     
-    std::cout << "Generating vertex array and vertex buffer objects...\n";
+    Logger::CampEngine.info("Generating vertex array and vertex buffer objects...");
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     
@@ -65,7 +65,7 @@ void TextRenderer::loadFont(const char* pathToFont, int resolution) {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
     
-    std::cout << "Done!\n";
+    Logger::CampEngine.info("Done!");
 }
 
 void TextRenderer::text(std::wstring text, float x, float y, float boundX, float boundY, int size, glm::vec3 color, TextPos textAlign) {

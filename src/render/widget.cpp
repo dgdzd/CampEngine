@@ -17,7 +17,6 @@ Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float 
     this->selected = false;
     
     // Add listeners
-    
     ADD_LISTENER(MouseClickEvent(), Widget::onMouseClick, this);
     ADD_LISTENER(MouseReleaseEvent(), Widget::onMouseRelease, this);
     ADD_LISTENER(MouseMoveEvent(), Widget::onMouseMove, this);
@@ -42,6 +41,13 @@ void Widget::onMouseClick(const Event &e) {
         this->action.isClicked = true;
         selected = true;
         this->action.onClick();
+        
+        WidgetClickEvent event_;
+        event_.widget = this;
+        event_.mouseX = event.mouseX;
+        event_.mouseY = event.mouseY;
+        event_.mouseButton = event.mouseButton;
+        SEND_EVENT(event_);
     } else {
         this->action.isClicked = false;
     }
@@ -52,23 +58,44 @@ void Widget::onMouseRelease(const Event &e) {
     if(this->action.isClicked && this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
         this->action.isClicked = false;
         this->action.onRelease();
+        
+        WidgetReleaseEvent event_;
+        event_.widget = this;
+        event_.mouseX = event.mouseX;
+        event_.mouseY = event.mouseY;
+        event_.mouseButton = event.mouseButton;
+        SEND_EVENT(event_);
     }
     this->action.isClicked = false;
 }
 
 void Widget::onMouseMove(const Event &e) {
     auto event = e.as<MouseMoveEvent>();
-    std::function<void()> quitHoveringfunc = [this]() {
+    std::function<void()> quitHoveringfunc = [this, event]() {
         if(this->action.isHovered) {
             this->action.onQuitHovering();
+            
+            WidgetStopHoveringEvent event_;
+            event_.widget = this;
+            event_.mouseX = event.mouseX;
+            event_.mouseY = event.mouseY;
+            SEND_EVENT(event_);
         }
         this->action.isHovered = false;
     };
     
     if(position.x - boxSize.x/2 <= event.mouseX && event.mouseX <= position.x + boxSize.x/2) {
         if((Game::activeGame->frame.height - position.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - position.y) + boxSize.y/2) {
-            this->action.isHovered = true;
-            this->action.onStartHovering();
+            if(!this->action.isHovered) {
+                this->action.isHovered = true;
+                this->action.onStartHovering();
+                
+                WidgetStartHoveringEvent event_;
+                event_.widget = this;
+                event_.mouseX = event.mouseX;
+                event_.mouseY = event.mouseY;
+                SEND_EVENT(event_);
+            }
         } else {
             quitHoveringfunc();
         }
@@ -91,9 +118,14 @@ void Widget::onKeyPress(const Event &e) {
                     }
                     break;
                     
-                case GLFW_KEY_ENTER:
+                case GLFW_KEY_ENTER: {
                     self->selected = false;
+                    WidgetSubmitEvent event_;
+                    event_.widget = self;
+                    event_.input = self->text;
+                    SEND_EVENT(event_);
                     break;
+                }
                     
                 case GLFW_KEY_ESCAPE:
                     self->selected = false;

@@ -12,6 +12,7 @@
 
 #include <utils/filereader.h>
 #include <utils/resource_manager.h>
+#include <utils/logger.h>
 #include <shaders/shader.h>
 #include <textures/texture.h>
 #include <view/camera.h>
@@ -67,7 +68,7 @@ int init() {
     #endif
     
     if (FT_Init_FreeType(&lib)) {
-        std::cout << "Failed to initialize FreeType Library" << std::endl;
+        Logger::CampEngine.error("Failed to initialize FreeType Library");
         return -1;
     }
 
@@ -80,7 +81,7 @@ int main(void) {
         return -1;
     }
     
-    /* Create a windowed mode window and its OpenGL context */
+    /* Create a window and it's OpenGL context */
     GLFWwindow* window = glfwCreateWindow(CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT, CE_WINDOW_TITLE, glfwGetPrimaryMonitor(), NULL);
     if (!window) {
         glfwTerminate();
@@ -92,7 +93,7 @@ int main(void) {
     
     /* Checks if GLAD loaded well */
     if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress)) {
-        std::cout << "Failed to initialize GLAD" << std::endl;
+        Logger::CampEngine.error("Failed to initialize GLAD");
         return -1;
     }  
 
@@ -136,6 +137,7 @@ int main(void) {
     
     Game game(window, &ts, &level, GAME_MENU);
     game.tr = &tr;
+    game.actions.addInputAction("pause", GLFW_KEY_ESCAPE, 1.0);
     
     TextRenderer::common = &tr;
     

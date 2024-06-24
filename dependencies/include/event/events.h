@@ -53,19 +53,4 @@ public:
     }
 };
 
-class InputActionEvent {
-public:
-    std::string name;
-    int key;
-    float value;
-    
-    InputActionEvent(std::string name, int key, int value);
-};
-
-class AxisActionEvent {
-public:
-    int axis;
-    float value;
-};
-
 #endif

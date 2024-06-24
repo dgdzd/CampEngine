@@ -4,6 +4,8 @@
 #include <render/renderable.h>
 #include <event/categories/mouse_events.h>
 #include <event/categories/keyboard_events.h>
+#include <event/categories/widget_events.h>
+#include <event/categories/action_events.h>
 #include <utils/conversions.h>
 #include <render/text/text_renderer.h>
 #include <game/game.h>

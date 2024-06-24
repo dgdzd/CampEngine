@@ -8,12 +8,15 @@
 #include <glm/gtc/type_ptr.hpp>
 
 #include <utils/filereader.h>
+#include <utils/logger.h>
 #include <textures/texture.h>
 
 #include <string>
 
 class Shader {
 public:
+    static Logger logger;
+    
     unsigned int id;
     char* vertexShaderSource;
     char* fragmentShaderSource;

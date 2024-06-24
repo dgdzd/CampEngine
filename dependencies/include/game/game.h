@@ -14,12 +14,12 @@
 
 #include <view/screens/screen.h>
 #include <view/level.h>
-#include <event/categories/mouse_events.h>
-#include <event/categories/keyboard_events.h>
+#include <event/events.h>
+#include <event/event_handler.h>
 #include <utils/conversions.h>
 #include <render/text/text_renderer.h>
 #include <render/post_processor.h>
-#include <event/event_listener.h>
+#include <input/input.h>
 
 /*---- Forward Declaration ----*/
 class Screen;
@@ -45,10 +45,15 @@ struct Frame {
     int height;
 };
 
+struct FT {
+    FT_Library lib;
+};
+
 class Game {
 public:
     static Game* activeGame;
     
+    ActionMapper actions;
     GameStatus status;
     Screen* activeScreen;
     Level* activeLevel;
@@ -61,6 +66,13 @@ public:
     PostProcessor pp;
     
     Game(GLFWwindow* window, Screen* activeScreen, Level* activeLevel, GameStatus status);
+    
+    /*!
+     * @brief This must be called before running the game loop, so as to initialize every variables and libraries correctly.
+     *
+     * @returns Either the task was done successfully (0 or 1);
+     */
+    int initialize();
     
     /*!
      * @brief This is the main method of this class. Updates each widgets from the active screen, and poll events for GLFW's callbacks.
@@ -90,6 +102,8 @@ public:
     void quit();
     
 private:
+    FT ft;
+    int init_libs();
     static void mouse_pos_callback(GLFWwindow* window, double xpos, double ypos);
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
     

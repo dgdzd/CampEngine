@@ -25,6 +25,14 @@ public:
     int key = -1, scancode = -1, action = -1, mods = -1;
 };
 
+class KeyReleaseEvent : public Event {
+public:
+    KeyReleaseEvent() : Event("KeyReleaseEvent") {}
+    virtual ~KeyReleaseEvent() {}
+    
+    int key = -1, scancode = -1, action = -1, mods = -1;
+};
+
 class CharacterInputEvent : public Event {
 public:
     CharacterInputEvent() : Event("CharacterInputEvent") {}
