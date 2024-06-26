@@ -1,40 +1,12 @@
 #include <game/game.h>
 
-Game::Game(GLFWwindow* window, Screen* activeScreen, Level* activeLevel, GameStatus status) {
-    // Init libs
-    init_libs();
-    
-    // Init each var
-    TextRenderer::common = new TextRenderer(&ft.lib);
-    this->tr = TextRenderer::common;
-    
-    srand((unsigned) time(NULL));
-    this->status = status;
-    this->activeScreen = activeScreen;
-    this->window = window;
-    this->activeLevel = activeLevel;
-    this->frame = {
-        CE_WINDOW_WIDTH,
-        CE_WINDOW_HEIGHT
-    };
-    this->projection = glm::ortho(0.0f, static_cast<float>(CE_WINDOW_WIDTH), 0.0f, static_cast<float>(CE_WINDOW_HEIGHT), -1.0f, 1.0f);
-    this->actions = ActionMapper();
-    
-    glfwSetCursorPosCallback(window, mouse_pos_callback);
-    glfwSetMouseButtonCallback(window, mouse_button_callback);
-    glfwSetCharCallback(window, char_callback);
-    glfwSetKeyCallback(window, key_callback);
-    
-    pp = *rm.getPostProcessor("basic");
-    
-    activeGame = this;
-}
+Game::Game() {}
 
 int Game::initialize() {
     if(init_libs() != 0) return 0;
     
     /* Create a window and it's OpenGL context */
-    GLFWwindow* window = glfwCreateWindow(CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT, CE_WINDOW_TITLE, glfwGetPrimaryMonitor(), NULL);
+    this->window = glfwCreateWindow(CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT, CE_WINDOW_TITLE, glfwGetPrimaryMonitor(), NULL);
     if (!window) {
         glfwTerminate();
         return 0;
@@ -48,6 +20,45 @@ int Game::initialize() {
         Logger::CampEngine.error("Failed to initialize GLAD");
         return 0;
     }
+    
+    /* Initializes the viewport */
+    glViewport(0, 0, CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    
+    /* Loading font */
+    TextRenderer::common = new TextRenderer(&ft.lib);
+    this->tr = TextRenderer::common;
+    tr->loadFont(GET_RESOURCE(fonts/helveticaLight.ttf), 48);
+
+    /* Setting up the objects */
+    ResourceManager &rm = ResourceManager::standard;
+    rm.loadShader("unlitShader", GET_RESOURCE(shaders/unlitShader.vs), GET_RESOURCE(shaders/unlitShader.fs));
+    rm.loadShader("litShader", GET_RESOURCE(shaders/lit/defaultLitShader.vs), GET_RESOURCE(shaders/lit/defaultLitShader.fs));
+    rm.loadShader("text", GET_RESOURCE(shaders/text.vs), GET_RESOURCE(shaders/text.fs));
+    
+    /* Loading post-processing effect shaders */
+    rm.loadShader("pp.none", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/screen.fs));
+    rm.loadShader("pp.reverse_colors", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/reverse_colors.fs));
+    rm.loadShader("pp.grayscale", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/grayscale.fs));
+    
+    rm.loadPostProcessor("basic", *rm.getShader("pp.none"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    rm.loadPostProcessor("reverse_colors", *rm.getShader("pp.reverse_colors"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    rm.loadPostProcessor("grayscale", *rm.getShader("pp.grayscale"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
+    
+    /* Loading widget shader */
+    rm.loadShader("widget", GET_RESOURCE(shaders/widget/widget.vs), GET_RESOURCE(shaders/widget/widget.fs));
+    
+    this->status = GAME_MENU;
+    this->frame = { CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT };
+    this->pp = *rm.getPostProcessor("basic");
+    this->projection = glm::ortho(0.0f, static_cast<float>(CE_WINDOW_WIDTH), 0.0f, static_cast<float>(CE_WINDOW_HEIGHT), -1.0f, 1.0f);
+    this->actions = new ActionMapper();
+    
+    glfwSetKeyCallback(window, key_callback);
+    glfwSetCharCallback(window, char_callback);
+    glfwSetMouseButtonCallback(window, mouse_button_callback);
+    glfwSetCursorPosCallback(window, mouse_pos_callback);
+    
+    activeGame = this;
     
     return 1;
 }
@@ -77,6 +88,8 @@ int Game::init_libs() {
 }
 
 void Game::update() {
+    actions->update();
+    
     /* Rendering functions here */
     pp.start();
 
@@ -166,6 +179,13 @@ void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
 void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if(action == GLFW_PRESS || action == GLFW_REPEAT) {
         KeyPressEvent event;
+        event.key = key;
+        event.scancode = scancode;
+        event.action = action;
+        event.mods = mods;
+        SEND_EVENT(event);
+    } else if(action == GLFW_RELEASE) {
+        KeyReleaseEvent event;
         event.key = key;
         event.scancode = scancode;
         event.action = action;
