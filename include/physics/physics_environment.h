@@ -9,15 +9,23 @@
 #define CE_PHYSICS_ENVIRONMENT_H
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include <physics/maths.h>
 
 class PhysicsEnvironment {
+private:
+    static PhysicsEnvironment* instance;
+public:
     float deltaTime;
+    int substeps;
     float fpsCount;
-    glm::vec2 gravity;
+    glm::vec2 g;
+    float pixelPerMeter;
+    
+    PhysicsEnvironment();
+    PhysicsEnvironment(int substeps, glm::vec2 gravity);
+    
+    static PhysicsEnvironment* getInstance();
 };
 
 #endif

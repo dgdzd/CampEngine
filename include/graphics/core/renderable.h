@@ -13,7 +13,6 @@
 #include <graphics/texture.h>
 #include <graphics/shader.h>
 #include <graphics/camera.h>
-#include <utils/conversions.h>
 
 #include <list>
 #include <vector>
@@ -27,13 +26,16 @@ public:
     Texture texture;
     Shader shader;
     glm::vec3 transform;
+    glm::vec3 rotation;
     glm::vec4 color;
     std::vector<float> vertices;
     std::vector<int> indices;
+    bool enabled;
     
-    Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform);
+    Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation);
     Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale);
     Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot);
 
     virtual void update(Camera camera, glm::mat4 projection);
     virtual void update();
@@ -44,38 +46,6 @@ public:
     
 private:
     void gen_buffers();
-};
-
-class Sprite : public Renderable {
-public:
-    glm::vec3 position;
-    Sprite(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float scale);
-    Sprite(GLFWwindow* window, Shader shader, Texture texture, glm::vec3 position, float scale);
-};
-
-class Tile : public Sprite {
-public:
-    glm::vec2 tilePosition;
-    
-    Tile(GLFWwindow* window, Shader shader, Texture texture, float xtile, float ytile);
-    Tile(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 tilePosition);
-};
-
-class Decoration : public Sprite {
-    // TODO
-};
-
-class Particle : public Sprite {
-    // TODO
-};
-
-class Entity : public Sprite {
-public:
-    glm::vec2 velocity;
-    glm::vec2 acceleration;
-
-    Entity(Shader shader, Texture texture, float xpos, float ypos, float xvel=0.0f, float yvel=0.0f, float xaccel=0.0f, float yaccel=0.0f);
-    Entity(Shader shader, Texture texture, glm::vec2 position, glm::vec2 velocity=glm::vec2(0.0f), glm::vec2 acceleration=glm::vec2(0.0f));
 };
 
 #endif

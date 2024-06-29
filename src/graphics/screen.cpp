@@ -24,6 +24,27 @@ void Screen::render(glm::mat4 projection) {
     }
 }
 
+DebugScreen::DebugScreen(GLFWwindow* window) : Screen(window) {
+    this->init();
+}
+
+void DebugScreen::init() {
+    Screen::init();
+    
+    GuiHelper gh(window, glm::vec2(0.0, 1070.0));
+    gh.setPadding(0);
+    gh.setMargin(0);
+    
+    textFPS = gh.createTextBox(L"FPS: ", 0, 20);
+    textDeltaTime = gh.createTextBox(L"DeltaTime: ", 0, 20);
+    
+    /* Assign objects to shared pointers, and add them to the widget list */
+    std::shared_ptr<TextBox> _textFPS = std::shared_ptr<TextBox>(textFPS);
+    std::shared_ptr<TextBox> _textDeltaTime = std::shared_ptr<TextBox>(textDeltaTime);
+    
+    widgets.push_back(_textFPS);
+    widgets.push_back(_textDeltaTime);
+}
 
 TestScreen::TestScreen(GLFWwindow* window) : Screen(window) {
     this->init();

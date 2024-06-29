@@ -9,18 +9,19 @@
 #include <graphics/camera.h>
 
 #include <vector>
+#include <memory>
 
 class Level {
 public:
     const char* name;
-    std::vector<Renderable> objects;
+    std::vector<std::shared_ptr<Renderable>> objects;
     Camera* activeCamera;
 
     Level(const char* name, Camera &activeCamera);
     
     void update(glm::mat4 projection);
     void render(glm::mat4 projection);
-    void addObject(Renderable obj);
+    void addObject(std::shared_ptr<Renderable> obj);
     void removeObject(int index);
     void setActiveCamera(Camera* newCamera);
     Camera* getActiveCamera();

@@ -160,7 +160,7 @@ void Widget::onCharInput(const Event &e) {
     }
 }
 
-TextBox::TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float boundX, float boundY, std::wstring text) : Widget(window, shader, texture, xpos, ypos, 1, 1, Action()) {
+TextBox::TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float boundX, float boundY, std::wstring text) : Widget(window, shader, Texture(boundX, boundY), xpos, ypos, 1, 1, Action()) {
     this->boxSize = glm::vec2(boundX, boundY);
     this->text = text;
     this->textColor = glm::vec3(1.0);

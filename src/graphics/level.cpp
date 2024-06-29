@@ -10,11 +10,11 @@ void Level::update(glm::mat4 projection) {
 
 void Level::render(glm::mat4 projection) {
     for(int i = 0; i < objects.size(); i++) {
-        objects.at(i).update(*activeCamera, projection);
+        objects.at(i).get()->update(*activeCamera, projection);
     }
 }
 
-void Level::addObject(Renderable obj) {
+void Level::addObject(std::shared_ptr<Renderable> obj) {
     objects.push_back(obj);
 }
 

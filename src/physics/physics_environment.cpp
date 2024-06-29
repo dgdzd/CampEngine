@@ -7,6 +7,22 @@
 
 #include <physics/physics_environment.h>
 
-float func() {
-    return distance(glm::vec2(1), glm::vec2(3));
+PhysicsEnvironment* PhysicsEnvironment::instance;
+
+PhysicsEnvironment::PhysicsEnvironment() {
+    
+}
+
+PhysicsEnvironment::PhysicsEnvironment(int substeps, glm::vec2 gravity) {
+    this->substeps = substeps;
+    this->g = gravity;
+    this->deltaTime = 0.008;
+    this->pixelPerMeter = 32;
+}
+
+PhysicsEnvironment* PhysicsEnvironment::getInstance() {
+    if(!instance) {
+        instance = new PhysicsEnvironment(1, glm::vec2(0, -9.81));
+    }
+    return instance;
 }

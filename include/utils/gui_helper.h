@@ -42,7 +42,7 @@ public:
     Button* createButton(std::string label, int textSize, float width, float height);
     TexturedButton* createTexturedButton(Shader shader, Texture idle, Texture hover, std::string label);
     TexturedButton* createTexturedButton(Shader shader, std::string pathToImages, std::string label);
-    TextBox* createTextBox(std::wstring text);
+    TextBox* createTextBox(std::wstring text, int boundX, int boundY);
     TextInput* createTextInput(float width, float height);
     
 private:

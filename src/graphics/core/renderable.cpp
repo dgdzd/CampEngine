@@ -4,18 +4,22 @@
 class Game;
 /*-----------------------------*/
 
-Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform) : texture(texture), shader(shader), transform(transform) {
+Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation) : texture(texture), shader(shader), transform(transform), rotation(rotation) {
+    this->enabled = true;
     this->window = window;
     this->vertices = vertices;
     this->texture = texture;
     this->shader = shader;
     this->transform = transform;
+    this->rotation = rotation;
 
     gen_buffers();
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale) : shader(shader), texture(texture) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot) : shader(shader), texture(texture) {
+    this->enabled = true;
     this->transform = glm::vec3(xpos, ypos, 0.0f);
+    this->rotation = glm::vec3(xrot, yrot, zrot);
     this->vertices = {
         // position                                 // Texture coordinates
         -texture.width/2*xscale, -texture.height/2*yscale, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -32,6 +36,10 @@ Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float
     gen_buffers();
 }
 
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale) : Renderable(window, shader, texture, xpos, ypos, xscale, yscale, 0, 0, 0) {
+    
+}
+
 Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale) : Renderable(window, shader, texture, xpos, ypos, scale, scale) {
     
 }
@@ -41,12 +49,15 @@ void Renderable::update(Camera camera, glm::mat4 projection) {
 }
 
 void Renderable::update() {
-    this->render();
+    if(this->enabled) this->render();
 }
 
 void Renderable::render(Camera camera, glm::mat4 projection) {
     glm::mat4 model(1.0f);
     model = glm::translate(model, transform - camera.position);
+    model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
+    model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
+    model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
     
     shader.use();
     shader.setMat4("model", model);
@@ -63,6 +74,9 @@ void Renderable::render(Camera camera, glm::mat4 projection) {
 void Renderable::render(glm::mat4 projection) {
     glm::mat4 model(1.0f);
     model = glm::translate(model, transform);
+    model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
+    model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
+    model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
     
     shader.use();
     shader.setMat4("model", model);
@@ -79,6 +93,9 @@ void Renderable::render(glm::mat4 projection) {
 void Renderable::render() {
     glm::mat4 model(1.0f);
     model = glm::translate(model, transform);
+    model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
+    model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
+    model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
     glm::mat4 projection = glm::ortho(0.0f, 800.0f, 600.0f, 0.0f, -1.0f, 1.0f);
     
     shader.use();
@@ -116,17 +133,4 @@ void Renderable::gen_buffers() {
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-}
-
-Sprite::Sprite(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float scale) : Renderable(window, shader, texture, xpos, ypos, scale) {
-    this->position = glm::vec3(xpos, ypos, zpos);
-}
-
-Sprite::Sprite(GLFWwindow* window, Shader shader, Texture texture, glm::vec3 position, float scale) : Sprite(window, shader, texture, position.x, position.y, position.z, scale) {
-    this->position = position;
-}
-
-Tile::Tile(GLFWwindow* window, Shader shader, Texture texture, float xtile, float ytile) : Sprite(window, shader, texture, (xtile+0.5)*CE_TILE_SIZE, (ytile+0.5)*CE_TILE_SIZE, 0.0f, CE_TILE_SIZE/texture.width) {
-    this->tilePosition = glm::vec2(xtile, ytile);
-    //Game::activeGame->activeLevel->addObject(this);
 }

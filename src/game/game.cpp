@@ -89,17 +89,17 @@ int Game::init_libs() {
 
 void Game::update() {
     actions->update();
-    
+    CollisionsHandler::step();
     /* Rendering functions here */
     pp.start();
 
-    if(status == GAME_PLAYING) {
-        /* Render the entire level */
-        activeLevel->update(projection);
-    } else if(status == GAME_MENU) {
-        /* Render the screen */
-        activeScreen->render(projection);
+    if(activeLevel) activeLevel->update(projection);
+    if(activeScreen) activeScreen->render(projection);
+    if(auto ds = dynamic_cast<DebugScreen*>(activeScreen)) {
+        ds->textFPS->text = L"FPS: " + std::to_wstring((int)PhysicsEnvironment::getInstance()->fpsCount);
+        ds->textDeltaTime->text = L"DeltaTime: " + std::to_wstring(PhysicsEnvironment::getInstance()->deltaTime);
     }
+    
     pp.end();
     pp.render();
     

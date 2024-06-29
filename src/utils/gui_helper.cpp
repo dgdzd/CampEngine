@@ -49,7 +49,6 @@ Button* GuiHelper::createButton(std::string label, int textSize) {
     result->with_textSize(textSize);
     
     pos.y -= (textSize+6)/2;
-    
     return result;
 }
 
@@ -60,7 +59,15 @@ Button* GuiHelper::createButton(std::string label, int textSize, float width, fl
     result->with_textSize(textSize);
     
     pos.y -= height/2;
+    return result;
+}
+
+TextBox* GuiHelper::createTextBox(std::wstring text, int boundX, int boundY) {
+    pos.y -= padding+boundY/2;
     
+    TextBox* result = new TextBox(window, *ResourceManager::standard.getShader("text"), Texture(boundX, boundY), pos.x + margin + boundX/2, pos.y, boundX, boundY, text);
+    
+    pos.y -= padding+boundY/2;
     return result;
 }
 
@@ -70,6 +77,5 @@ TextInput* GuiHelper::createTextInput(float width, float height) {
     TextInput* result = new TextInput(window, pos.x + margin + width/2, pos.y, width, height);
     
     pos.y -= height;
-    
     return result;
 }

@@ -17,6 +17,9 @@
 
 class GuiHelper;
 class Widget;
+class Button;
+class TextBox;
+class TextInput;
 
 /// This is the base class from which other sample screens class will inherit.
 class Screen {
@@ -31,6 +34,15 @@ public:
     virtual void init();
     void render(glm::mat4 projection);
     void addRenderableWidget(Widget* widget);
+};
+
+class DebugScreen : public Screen {
+public:
+    TextBox* textFPS;
+    TextBox* textDeltaTime;
+    DebugScreen(GLFWwindow* window);
+    
+    virtual void init();
 };
 
 class TestScreen : public Screen {

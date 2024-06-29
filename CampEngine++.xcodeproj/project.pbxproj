@@ -23,15 +23,42 @@
 		E255ECA62C2C0397002EC062 /* physics_environment.h in Headers */ = {isa = PBXBuildFile; fileRef = E255ECA52C2C0397002EC062 /* physics_environment.h */; };
 		E255ECA82C2C04D1002EC062 /* physics_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECA72C2C04D1002EC062 /* physics_environment.cpp */; };
 		E255ECA92C2C04D1002EC062 /* physics_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECA72C2C04D1002EC062 /* physics_environment.cpp */; };
-		E255ECAB2C2C067E002EC062 /* physics_object.h in Headers */ = {isa = PBXBuildFile; fileRef = E255ECAA2C2C067E002EC062 /* physics_object.h */; };
-		E255ECAD2C2C0701002EC062 /* physics_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECAC2C2C0701002EC062 /* physics_object.cpp */; };
-		E255ECAE2C2C0701002EC062 /* physics_object.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECAC2C2C0701002EC062 /* physics_object.cpp */; };
+		E255ECAB2C2C067E002EC062 /* rigid_body.h in Headers */ = {isa = PBXBuildFile; fileRef = E255ECAA2C2C067E002EC062 /* rigid_body.h */; };
+		E255ECAD2C2C0701002EC062 /* rigid_body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECAC2C2C0701002EC062 /* rigid_body.cpp */; };
+		E255ECAE2C2C0701002EC062 /* rigid_body.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECAC2C2C0701002EC062 /* rigid_body.cpp */; };
 		E255ECB02C2C088E002EC062 /* maths.h in Headers */ = {isa = PBXBuildFile; fileRef = E255ECAF2C2C088E002EC062 /* maths.h */; };
-		E255ECB22C2C08C3002EC062 /* maths.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECB12C2C08C3002EC062 /* maths.cpp */; };
-		E255ECB32C2C08C3002EC062 /* maths.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECB12C2C08C3002EC062 /* maths.cpp */; };
+		E255ECB52C2C451B002EC062 /* maths.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECB42C2C451B002EC062 /* maths.cpp */; };
+		E255ECB62C2C451B002EC062 /* maths.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECB42C2C451B002EC062 /* maths.cpp */; };
+		E25A7A532C30704100A36F66 /* collision_manifold.h in Headers */ = {isa = PBXBuildFile; fileRef = E25A7A522C30704100A36F66 /* collision_manifold.h */; };
+		E25A7A552C30710A00A36F66 /* collision_manifold.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25A7A542C30710A00A36F66 /* collision_manifold.cpp */; };
+		E25A7A562C30710A00A36F66 /* collision_manifold.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25A7A542C30710A00A36F66 /* collision_manifold.cpp */; };
+		E25D1ABF2C2DA4BC00985A3F /* sprite.h in Headers */ = {isa = PBXBuildFile; fileRef = E25D1ABE2C2DA4BC00985A3F /* sprite.h */; };
+		E25D1AC12C2DA4E500985A3F /* tile.h in Headers */ = {isa = PBXBuildFile; fileRef = E25D1AC02C2DA4E500985A3F /* tile.h */; };
+		E25D1AC32C2DA50000985A3F /* decoration.h in Headers */ = {isa = PBXBuildFile; fileRef = E25D1AC22C2DA50000985A3F /* decoration.h */; };
+		E25D1AC52C2DA53A00985A3F /* particle.h in Headers */ = {isa = PBXBuildFile; fileRef = E25D1AC42C2DA53A00985A3F /* particle.h */; };
+		E25D1AC72C2DA56600985A3F /* entity.h in Headers */ = {isa = PBXBuildFile; fileRef = E25D1AC62C2DA56600985A3F /* entity.h */; };
+		E25D1AC92C2DA5BD00985A3F /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1AC82C2DA5BD00985A3F /* sprite.cpp */; };
+		E25D1ACA2C2DA5BD00985A3F /* sprite.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1AC82C2DA5BD00985A3F /* sprite.cpp */; };
+		E25D1ACC2C2DA5EC00985A3F /* tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1ACB2C2DA5EC00985A3F /* tile.cpp */; };
+		E25D1ACD2C2DA5EC00985A3F /* tile.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1ACB2C2DA5EC00985A3F /* tile.cpp */; };
+		E25D1ACF2C2DA61100985A3F /* decoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1ACE2C2DA61100985A3F /* decoration.cpp */; };
+		E25D1AD02C2DA61100985A3F /* decoration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1ACE2C2DA61100985A3F /* decoration.cpp */; };
+		E25D1AD22C2DA62B00985A3F /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1AD12C2DA62B00985A3F /* particle.cpp */; };
+		E25D1AD32C2DA62B00985A3F /* particle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1AD12C2DA62B00985A3F /* particle.cpp */; };
+		E25D1AD52C2DA64500985A3F /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1AD42C2DA64500985A3F /* entity.cpp */; };
+		E25D1AD62C2DA64500985A3F /* entity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E25D1AD42C2DA64500985A3F /* entity.cpp */; };
+		E25D1AD82C2DE85A00985A3F /* collidable.h in Headers */ = {isa = PBXBuildFile; fileRef = E25D1AD72C2DE85A00985A3F /* collidable.h */; };
+		E26383642C2E902700D4972D /* collisions_handler.h in Headers */ = {isa = PBXBuildFile; fileRef = E26383632C2E902700D4972D /* collisions_handler.h */; };
+		E26383662C2E90BA00D4972D /* collisions_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26383652C2E90BA00D4972D /* collisions_handler.cpp */; };
+		E26383672C2E90BA00D4972D /* collisions_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26383652C2E90BA00D4972D /* collisions_handler.cpp */; };
+		E26383692C2E914B00D4972D /* collidable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26383682C2E914B00D4972D /* collidable.cpp */; };
+		E263836A2C2E914B00D4972D /* collidable.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26383682C2E914B00D4972D /* collidable.cpp */; };
 		E26906AA2BF89D2300A8B887 /* gui_helper.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E26906A92BF89D2300A8B887 /* gui_helper.cpp */; };
 		E2725D992BA09DF00063A0B6 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E2725D982BA09DF00063A0B6 /* libfreetype.a */; };
 		E2725DA12BA0A1770063A0B6 /* character.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2725DA02BA0A1770063A0B6 /* character.cpp */; };
+		E27584532C2C860A00C531FB /* force.h in Headers */ = {isa = PBXBuildFile; fileRef = E27584522C2C860A00C531FB /* force.h */; };
+		E27584552C2D43AB00C531FB /* force.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27584542C2D43AB00C531FB /* force.cpp */; };
+		E27584562C2D43AB00C531FB /* force.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27584542C2D43AB00C531FB /* force.cpp */; };
 		E275E7382C21CAE000A44E10 /* event_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E275E7372C21CAE000A44E10 /* event_handler.cpp */; };
 		E275E7392C21CAE000A44E10 /* event_handler.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E275E7372C21CAE000A44E10 /* event_handler.cpp */; };
 		E27C9AE02BE21F97006C10CB /* input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E27C9ADF2BE21F97006C10CB /* input.cpp */; };
@@ -405,10 +432,26 @@
 		E247DF3F2BA21AEC00FCC578 /* arial_narrow_7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_narrow_7.ttf; sourceTree = "<group>"; };
 		E255ECA52C2C0397002EC062 /* physics_environment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = physics_environment.h; sourceTree = "<group>"; };
 		E255ECA72C2C04D1002EC062 /* physics_environment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = physics_environment.cpp; sourceTree = "<group>"; };
-		E255ECAA2C2C067E002EC062 /* physics_object.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = physics_object.h; sourceTree = "<group>"; };
-		E255ECAC2C2C0701002EC062 /* physics_object.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = physics_object.cpp; sourceTree = "<group>"; };
+		E255ECAA2C2C067E002EC062 /* rigid_body.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rigid_body.h; sourceTree = "<group>"; };
+		E255ECAC2C2C0701002EC062 /* rigid_body.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = rigid_body.cpp; sourceTree = "<group>"; };
 		E255ECAF2C2C088E002EC062 /* maths.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = maths.h; sourceTree = "<group>"; };
-		E255ECB12C2C08C3002EC062 /* maths.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maths.cpp; sourceTree = "<group>"; };
+		E255ECB42C2C451B002EC062 /* maths.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = maths.cpp; sourceTree = "<group>"; };
+		E25A7A522C30704100A36F66 /* collision_manifold.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = collision_manifold.h; sourceTree = "<group>"; };
+		E25A7A542C30710A00A36F66 /* collision_manifold.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = collision_manifold.cpp; sourceTree = "<group>"; };
+		E25D1ABE2C2DA4BC00985A3F /* sprite.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = sprite.h; sourceTree = "<group>"; };
+		E25D1AC02C2DA4E500985A3F /* tile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tile.h; sourceTree = "<group>"; };
+		E25D1AC22C2DA50000985A3F /* decoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = decoration.h; sourceTree = "<group>"; };
+		E25D1AC42C2DA53A00985A3F /* particle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = particle.h; sourceTree = "<group>"; };
+		E25D1AC62C2DA56600985A3F /* entity.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = entity.h; sourceTree = "<group>"; };
+		E25D1AC82C2DA5BD00985A3F /* sprite.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = sprite.cpp; sourceTree = "<group>"; };
+		E25D1ACB2C2DA5EC00985A3F /* tile.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tile.cpp; sourceTree = "<group>"; };
+		E25D1ACE2C2DA61100985A3F /* decoration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = decoration.cpp; sourceTree = "<group>"; };
+		E25D1AD12C2DA62B00985A3F /* particle.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = particle.cpp; sourceTree = "<group>"; };
+		E25D1AD42C2DA64500985A3F /* entity.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = entity.cpp; sourceTree = "<group>"; };
+		E25D1AD72C2DE85A00985A3F /* collidable.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = collidable.h; sourceTree = "<group>"; };
+		E26383632C2E902700D4972D /* collisions_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = collisions_handler.h; sourceTree = "<group>"; };
+		E26383652C2E90BA00D4972D /* collisions_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = collisions_handler.cpp; sourceTree = "<group>"; };
+		E26383682C2E914B00D4972D /* collidable.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = collidable.cpp; sourceTree = "<group>"; };
 		E26906A82BF89D0800A8B887 /* gui_helper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = gui_helper.h; sourceTree = "<group>"; };
 		E26906A92BF89D2300A8B887 /* gui_helper.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = gui_helper.cpp; sourceTree = "<group>"; };
 		E2725D982BA09DF00063A0B6 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = ../../../../../opt/homebrew/Cellar/freetype/2.13.2/lib/libfreetype.a; sourceTree = "<group>"; };
@@ -417,6 +460,8 @@
 		E2725DA22BA0AD600063A0B6 /* text_renderer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = text_renderer.h; sourceTree = "<group>"; };
 		E2725DA32BA0CEC70063A0B6 /* text.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.vs; sourceTree = "<group>"; };
 		E2725DA42BA0CF010063A0B6 /* text.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = text.fs; sourceTree = "<group>"; };
+		E27584522C2C860A00C531FB /* force.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = force.h; sourceTree = "<group>"; };
+		E27584542C2D43AB00C531FB /* force.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = force.cpp; sourceTree = "<group>"; };
 		E275E7342C21BAC200A44E10 /* keyboard_events.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = keyboard_events.h; sourceTree = "<group>"; };
 		E275E7372C21CAE000A44E10 /* event_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = event_handler.cpp; sourceTree = "<group>"; };
 		E27C7B582B8F255700CF2772 /* widget.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = widget.h; sourceTree = "<group>"; };
@@ -1060,6 +1105,30 @@
 			path = data;
 			sourceTree = "<group>";
 		};
+		E25D1ABC2C2DA45A00985A3F /* render */ = {
+			isa = PBXGroup;
+			children = (
+				E25D1AC82C2DA5BD00985A3F /* sprite.cpp */,
+				E25D1ACB2C2DA5EC00985A3F /* tile.cpp */,
+				E25D1ACE2C2DA61100985A3F /* decoration.cpp */,
+				E25D1AD12C2DA62B00985A3F /* particle.cpp */,
+				E25D1AD42C2DA64500985A3F /* entity.cpp */,
+			);
+			path = render;
+			sourceTree = "<group>";
+		};
+		E25D1ABD2C2DA49500985A3F /* render */ = {
+			isa = PBXGroup;
+			children = (
+				E25D1ABE2C2DA4BC00985A3F /* sprite.h */,
+				E25D1AC02C2DA4E500985A3F /* tile.h */,
+				E25D1AC22C2DA50000985A3F /* decoration.h */,
+				E25D1AC42C2DA53A00985A3F /* particle.h */,
+				E25D1AC62C2DA56600985A3F /* entity.h */,
+			);
+			path = render;
+			sourceTree = "<group>";
+		};
 		E2725D9A2BA09F150063A0B6 /* text */ = {
 			isa = PBXGroup;
 			children = (
@@ -1172,6 +1241,7 @@
 				E2158CE12B8E0FBE00605117 /* screen.h */,
 				E21589F72B8C86F100605117 /* level.h */,
 				E21589F52B8C86F100605117 /* camera.h */,
+				E25D1ABD2C2DA49500985A3F /* render */,
 				E2DA8B252C2AF8AA000FF821 /* core */,
 			);
 			path = graphics;
@@ -1181,8 +1251,12 @@
 			isa = PBXGroup;
 			children = (
 				E255ECA52C2C0397002EC062 /* physics_environment.h */,
-				E255ECAA2C2C067E002EC062 /* physics_object.h */,
+				E255ECAA2C2C067E002EC062 /* rigid_body.h */,
 				E255ECAF2C2C088E002EC062 /* maths.h */,
+				E27584522C2C860A00C531FB /* force.h */,
+				E25D1AD72C2DE85A00985A3F /* collidable.h */,
+				E26383632C2E902700D4972D /* collisions_handler.h */,
+				E25A7A522C30704100A36F66 /* collision_manifold.h */,
 			);
 			path = physics;
 			sourceTree = "<group>";
@@ -1248,6 +1322,7 @@
 				E2C5106B2B9219BD00AC1EBA /* screen.cpp */,
 				E2158B9B2B8C873500605117 /* level.cpp */,
 				E2158B9C2B8C873500605117 /* camera.cpp */,
+				E25D1ABC2C2DA45A00985A3F /* render */,
 				E2DA8B2B2C2B0005000FF821 /* core */,
 			);
 			path = graphics;
@@ -1257,8 +1332,12 @@
 			isa = PBXGroup;
 			children = (
 				E255ECA72C2C04D1002EC062 /* physics_environment.cpp */,
-				E255ECAC2C2C0701002EC062 /* physics_object.cpp */,
-				E255ECB12C2C08C3002EC062 /* maths.cpp */,
+				E255ECAC2C2C0701002EC062 /* rigid_body.cpp */,
+				E255ECB42C2C451B002EC062 /* maths.cpp */,
+				E27584542C2D43AB00C531FB /* force.cpp */,
+				E26383682C2E914B00D4972D /* collidable.cpp */,
+				E26383652C2E90BA00D4972D /* collisions_handler.cpp */,
+				E25A7A542C30710A00A36F66 /* collision_manifold.cpp */,
 			);
 			path = physics;
 			sourceTree = "<group>";
@@ -1441,11 +1520,20 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E25D1AC52C2DA53A00985A3F /* particle.h in Headers */,
+				E25D1AD82C2DE85A00985A3F /* collidable.h in Headers */,
+				E27584532C2C860A00C531FB /* force.h in Headers */,
 				E2DA8B3F2C2B03D4000FF821 /* input.h in Headers */,
+				E25D1AC12C2DA4E500985A3F /* tile.h in Headers */,
+				E26383642C2E902700D4972D /* collisions_handler.h in Headers */,
 				E255ECB02C2C088E002EC062 /* maths.h in Headers */,
+				E25D1AC32C2DA50000985A3F /* decoration.h in Headers */,
 				E255ECA62C2C0397002EC062 /* physics_environment.h in Headers */,
+				E25A7A532C30704100A36F66 /* collision_manifold.h in Headers */,
+				E25D1ABF2C2DA4BC00985A3F /* sprite.h in Headers */,
 				E2DA8B3E2C2B03AD000FF821 /* cenginepp.h in Headers */,
-				E255ECAB2C2C067E002EC062 /* physics_object.h in Headers */,
+				E255ECAB2C2C067E002EC062 /* rigid_body.h in Headers */,
+				E25D1AC72C2DA56600985A3F /* entity.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1533,9 +1621,16 @@
 			files = (
 				E2DA8B3A2C2B030D000FF821 /* stb.cpp in Sources */,
 				E2DA8B3D2C2B0313000FF821 /* gui_helper.cpp in Sources */,
+				E25D1ACD2C2DA5EC00985A3F /* tile.cpp in Sources */,
+				E25D1AD32C2DA62B00985A3F /* particle.cpp in Sources */,
+				E25D1AD02C2DA61100985A3F /* decoration.cpp in Sources */,
+				E27584562C2D43AB00C531FB /* force.cpp in Sources */,
 				E2DA8B382C2B0308000FF821 /* widget.cpp in Sources */,
+				E25D1ACA2C2DA5BD00985A3F /* sprite.cpp in Sources */,
 				E2DA8B332C2B02FF000FF821 /* level.cpp in Sources */,
 				E275E7392C21CAE000A44E10 /* event_handler.cpp in Sources */,
+				E263836A2C2E914B00D4972D /* collidable.cpp in Sources */,
+				E25D1AD62C2DA64500985A3F /* entity.cpp in Sources */,
 				E2DA8B322C2B02FD000FF821 /* screen.cpp in Sources */,
 				E2DA8B312C2B02FB000FF821 /* post_processor.cpp in Sources */,
 				E255ECA92C2C04D1002EC062 /* physics_environment.cpp in Sources */,
@@ -1543,17 +1638,19 @@
 				E2DA8B392C2B030C000FF821 /* filereader.cpp in Sources */,
 				E2DA8B302C2B02F9000FF821 /* shader.cpp in Sources */,
 				E2DA8B342C2B0301000FF821 /* camera.cpp in Sources */,
-				E255ECAE2C2C0701002EC062 /* physics_object.cpp in Sources */,
+				E255ECAE2C2C0701002EC062 /* rigid_body.cpp in Sources */,
 				E2DA8B362C2B0305000FF821 /* character.cpp in Sources */,
 				E2DA8B352C2B0303000FF821 /* text_renderer.cpp in Sources */,
-				E255ECB32C2C08C3002EC062 /* maths.cpp in Sources */,
+				E255ECB62C2C451B002EC062 /* maths.cpp in Sources */,
 				E2DA8B372C2B0307000FF821 /* renderable.cpp in Sources */,
 				E2DA8B2C2C2B02EF000FF821 /* input.cpp in Sources */,
 				E2DA8B2F2C2B02F7000FF821 /* texture.cpp in Sources */,
 				E2DA8B2E2C2B02F5000FF821 /* constants.cpp in Sources */,
 				E2DA8B2D2C2B02F4000FF821 /* game.cpp in Sources */,
+				E25A7A562C30710A00A36F66 /* collision_manifold.cpp in Sources */,
 				E2DA8B3B2C2B030F000FF821 /* conversions.cpp in Sources */,
 				E2DA8B3C2C2B0311000FF821 /* resource_manager.cpp in Sources */,
+				E26383672C2E90BA00D4972D /* collisions_handler.cpp in Sources */,
 				E2DA8B422C2B04FC000FF821 /* glad.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1563,10 +1660,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E2158BA42B8C873500605117 /* stb.cpp in Sources */,
+				E27584552C2D43AB00C531FB /* force.cpp in Sources */,
 				E26906AA2BF89D2300A8B887 /* gui_helper.cpp in Sources */,
+				E26383662C2E90BA00D4972D /* collisions_handler.cpp in Sources */,
+				E25D1AD52C2DA64500985A3F /* entity.cpp in Sources */,
 				E27F04002B8FAE3100195F41 /* widget.cpp in Sources */,
+				E25D1ACF2C2DA61100985A3F /* decoration.cpp in Sources */,
 				E2158BA72B8C873500605117 /* level.cpp in Sources */,
-				E255ECAD2C2C0701002EC062 /* physics_object.cpp in Sources */,
+				E255ECAD2C2C0701002EC062 /* rigid_body.cpp in Sources */,
 				E275E7382C21CAE000A44E10 /* event_handler.cpp in Sources */,
 				E2C5106C2B9219BD00AC1EBA /* screen.cpp in Sources */,
 				E292F4252C246D8000F10BDD /* logger.cpp in Sources */,
@@ -1574,19 +1675,24 @@
 				E2158CD32B8CB36200605117 /* conversions.cpp in Sources */,
 				E2158BA62B8C873500605117 /* shader.cpp in Sources */,
 				E2158BA12B8C873500605117 /* renderable.cpp in Sources */,
+				E26383692C2E914B00D4972D /* collidable.cpp in Sources */,
 				E2DE4D142B9F7B0D00813FF4 /* text_renderer.cpp in Sources */,
 				E255ECA82C2C04D1002EC062 /* physics_environment.cpp in Sources */,
 				E20013AC2BD2670E00340268 /* post_processor.cpp in Sources */,
+				E25D1AD22C2DA62B00985A3F /* particle.cpp in Sources */,
 				E238EAEB2B9DA57200F3D1E8 /* constants.cpp in Sources */,
 				E2158BA32B8C873500605117 /* camera.cpp in Sources */,
-				E255ECB22C2C08C3002EC062 /* maths.cpp in Sources */,
+				E255ECB52C2C451B002EC062 /* maths.cpp in Sources */,
 				E27C9AE02BE21F97006C10CB /* input.cpp in Sources */,
 				E2158BA22B8C873500605117 /* filereader.cpp in Sources */,
 				E2725DA12BA0A1770063A0B6 /* character.cpp in Sources */,
 				E2158BA52B8C873500605117 /* texture.cpp in Sources */,
+				E25D1ACC2C2DA5EC00985A3F /* tile.cpp in Sources */,
 				E2158B8A2B8C86FD00605117 /* glad.c in Sources */,
 				E29292D02B91CD1A008CF89C /* game.cpp in Sources */,
 				E2DE4D1B2B9F89ED00813FF4 /* resource_manager.cpp in Sources */,
+				E25A7A552C30710A00A36F66 /* collision_manifold.cpp in Sources */,
+				E25D1AC92C2DA5BD00985A3F /* sprite.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

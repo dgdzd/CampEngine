@@ -3,8 +3,6 @@
 
 #include <game/constants.h>
 
-#include <vector>
-
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
@@ -20,6 +18,10 @@
 #include <utils/conversions.h>
 #include <graphics/core/text/text_renderer.h>
 #include <graphics/post_processor.h>
+#include <physics/collisions_handler.h>
+
+#include <vector>
+#include <string>
 
 /*---- Forward Declaration ----*/
 class Screen;
