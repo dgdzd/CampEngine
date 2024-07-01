@@ -33,11 +33,14 @@ private:
     static glm::vec2 closestPointOnPolygon(glm::vec2 target, std::vector<glm::vec2> vertices);
     static void findContactPoints(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
     static void findCircleContactPoint(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
-    static void findCirclePolygonContactPoint(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
+    static void findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
+    static void findCirclePolygonContactPoint(RigidBody2D* circle, RigidBody2D* polygon, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
     static void resolveCollision(CollisionManifold contact);
+    static void resolveCollisionWithRotation(CollisionManifold contact);
     
 public:
     static std::vector<RigidBody2D*> bodies;
+    static std::vector<glm::vec2> totalContacts;
     
     static void step();
     static void fixCollisions();

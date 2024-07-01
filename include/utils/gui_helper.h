@@ -19,6 +19,7 @@
 #include <cstdlib>
 
 /*---- Forward Declaration ----*/
+class Screen;
 class Widget;
 class Button;
 class TexturedButton;
@@ -29,11 +30,12 @@ class TextInput;
 class GuiHelper {
 public:
     GLFWwindow* window;
+    Screen* screen;
     int padding;
     int margin;
     glm::vec2 pos;
     
-    GuiHelper(GLFWwindow* window, glm::vec2 startPosition);
+    GuiHelper(GLFWwindow* window, glm::vec2 startPosition, Screen* screen);
     
     void setPadding(int padding);
     void setMargin(int margin);

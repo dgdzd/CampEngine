@@ -31,19 +31,12 @@ DebugScreen::DebugScreen(GLFWwindow* window) : Screen(window) {
 void DebugScreen::init() {
     Screen::init();
     
-    GuiHelper gh(window, glm::vec2(0.0, 1070.0));
+    GuiHelper gh(window, glm::vec2(0.0, 1070.0), this);
     gh.setPadding(0);
     gh.setMargin(0);
     
     textFPS = gh.createTextBox(L"FPS: ", 0, 20);
     textDeltaTime = gh.createTextBox(L"DeltaTime: ", 0, 20);
-    
-    /* Assign objects to shared pointers, and add them to the widget list */
-    std::shared_ptr<TextBox> _textFPS = std::shared_ptr<TextBox>(textFPS);
-    std::shared_ptr<TextBox> _textDeltaTime = std::shared_ptr<TextBox>(textDeltaTime);
-    
-    widgets.push_back(_textFPS);
-    widgets.push_back(_textDeltaTime);
 }
 
 TestScreen::TestScreen(GLFWwindow* window) : Screen(window) {
@@ -54,36 +47,25 @@ void TestScreen::init() {
     Screen::init();
     
     /* Initialize GUI Helper */
-    GuiHelper gh(window, glm::vec2(0.0, 400.0));
+    GuiHelper gh(window, glm::vec2(0.0, 400.0), this);
     gh.setPadding(0);
     gh.setMargin(0);
     
     /* Create widgets */
-    auto button = gh.createButton("unlitShader.fs (open in Visual Studio Code)", 20)
+    gh.createButton("unlitShader.fs (open in Visual Studio Code)", 20)
     ->with_onRelease([]() {
         system("open -a /Applications/Visual\\ Studio\\ Code.app /Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/shaders/unlitShader.fs -F");
     })
     ->with_textAlign(ALIGN_LEFT)
     ->with_theme(primary);
     
-    auto button1 = gh.createButton("Quit", 20)
+    gh.createButton("Quit", 20)
     ->with_onRelease([]() {
         Game::activeGame->quit();
     })
     ->with_textAlign(ALIGN_LEFT)
     ->with_theme(danger);
     
-    auto input = gh.createTextInput(200, 25)
+    gh.createTextInput(200, 25)
     ->with_floatingLabel(L"Type anything");
-    
-    
-    
-    /* Assign objects to shared pointers, and add them to the widget list */
-    std::shared_ptr<Button> _button = std::shared_ptr<Button>(button);
-    std::shared_ptr<Button> _button1 = std::shared_ptr<Button>(button1);
-    std::shared_ptr<TextInput> _input = std::shared_ptr<TextInput>(input);
-    
-    widgets.push_back(_button);
-    widgets.push_back(_button1);
-    widgets.push_back(_input);
 }

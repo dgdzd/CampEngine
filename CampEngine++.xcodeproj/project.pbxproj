@@ -125,6 +125,7 @@
 		E20013AD2BD2673D00340268 /* post_processor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = post_processor.h; sourceTree = "<group>"; };
 		E20013AF2BD2696B00340268 /* screen.vs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = screen.vs; sourceTree = "<group>"; };
 		E20013B02BD269DD00340268 /* screen.fs */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.glsl; path = screen.fs; sourceTree = "<group>"; };
+		E20BE4312C32AF390095CF5C /* marker.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = marker.png; sourceTree = "<group>"; };
 		E21410202C0A551E0021C146 /* libCampEngine-0.1-BETA.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libCampEngine-0.1-BETA.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E215417C2BAC060500404CCD /* Impact.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Impact.ttf; sourceTree = "<group>"; };
 		E215417D2BAC074300404CCD /* Keyboard.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Keyboard.ttf; sourceTree = "<group>"; };
@@ -680,6 +681,7 @@
 				E28C51DB2BACC44F008B35DB /* button */,
 				E21589472B8C86E800605117 /* quartz_pillar_top.png */,
 				E21589482B8C86E800605117 /* diamond_ore.png */,
+				E20BE4312C32AF390095CF5C /* marker.png */,
 			);
 			path = textures;
 			sourceTree = "<group>";

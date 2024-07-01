@@ -18,6 +18,7 @@
 #include <utils/conversions.h>
 #include <graphics/core/text/text_renderer.h>
 #include <graphics/post_processor.h>
+#include <graphics/render/particle.h>
 #include <physics/collisions_handler.h>
 
 #include <vector>

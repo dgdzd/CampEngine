@@ -9,9 +9,20 @@
 #define CE_PARTICLE_H
 
 #include <graphics/render/sprite.h>
+#include <graphics/level.h>
 
 class Particle : public Sprite {
-    // TODO
+public:
+    long lifetime;
+    
+    Particle(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, long lifetime);
+    Particle(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, long lifetime);
+    Particle(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, long lifetime);
+    Particle(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 pos, float xscale, float yscale, long lifetime);
+    Particle(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 pos, float scale, long lifetime);
+    Particle(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 pos, long lifetime);
+    
+    virtual void update(Camera camera, glm::mat4 projection);
 };
 
 #endif

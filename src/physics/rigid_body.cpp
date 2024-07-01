@@ -7,7 +7,7 @@
 
 #include <physics/rigid_body.h>
 
-RigidBody2D::RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, bool isStatic, bool hasGravity) {
+RigidBody2D::RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, Collidable collision, bool isStatic, bool hasGravity) {
     this->env = env;
     this->parent = parent;
     this->mass = mass;
@@ -15,6 +15,9 @@ RigidBody2D::RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, bo
     this->isStatic = isStatic;
     this->hasGravity = hasGravity;
     this->force = glm::vec2(0.0f);
+    this->collision = collision;
+    this->staticFriction = 0.6f;
+    this->dynamicFriction = 0.4f;
     this->rotationalInertia = calculateRotationalInertia();
 }
 
@@ -36,15 +39,22 @@ void RigidBody2D::step() {
         glm::vec2 acceleration = force / mass;
         linearVelocity += acceleration;
         parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) * (env->deltaTime / (float)env->substeps);
+        parent->rotation += angularVelocity;
         force = glm::vec2(0.0f);
     }
 }
 
 void RigidBody2D::applyForce(glm::vec2 force) {
-    this->force += force * env->pixelPerMeter * env->deltaTime;
+    this->force += force * env->pixelPerMeter * env->deltaTime / (float)env->substeps;
 }
 
 float RigidBody2D::getInverseMass() {
     if(isStatic) return 0;
     return 1.0f / mass;
+}
+
+float RigidBody2D::getInverseInertia() {
+    if(rotationalInertia == 0) return 0;
+    
+    return 1 / rotationalInertia;
 }

@@ -31,6 +31,7 @@ public:
     std::vector<float> vertices;
     std::vector<int> indices;
     bool enabled;
+    long index;
     
     Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation);
     Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale);

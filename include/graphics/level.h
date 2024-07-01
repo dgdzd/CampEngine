@@ -16,13 +16,15 @@ public:
     const char* name;
     std::vector<std::shared_ptr<Renderable>> objects;
     Camera* activeCamera;
+    static Level* active;
 
     Level(const char* name, Camera &activeCamera);
     
     void update(glm::mat4 projection);
     void render(glm::mat4 projection);
-    void addObject(std::shared_ptr<Renderable> obj);
-    void removeObject(int index);
+    void addObject(Renderable* obj);
+    void removeObject(long index);
+    void removeObject(Renderable* obj);
     void setActiveCamera(Camera* newCamera);
     Camera* getActiveCamera();
 };

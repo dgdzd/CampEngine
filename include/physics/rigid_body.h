@@ -32,13 +32,16 @@ public:
     bool isStatic;
     bool hasGravity;
     glm::vec2 linearVelocity;
-    glm::vec2 rotationalVelocity;
+    float angularVelocity;
+    float staticFriction;
+    float dynamicFriction;
     
-    RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, bool isStatic=false, bool hasGravity=true);
+    RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, Collidable collision, bool isStatic=false, bool hasGravity=true);
     
     void step();
     void applyForce(glm::vec2 force);
     float getInverseMass();
+    float getInverseInertia();
 };
 
 #endif

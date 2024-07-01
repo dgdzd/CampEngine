@@ -6,7 +6,7 @@ int Game::initialize() {
     if(init_libs() != 0) return 0;
     
     /* Create a window and it's OpenGL context */
-    this->window = glfwCreateWindow(CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT, CE_WINDOW_TITLE, glfwGetPrimaryMonitor(), NULL);
+    this->window = glfwCreateWindow(CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT, CE_WINDOW_TITLE, NULL, NULL);
     if (!window) {
         glfwTerminate();
         return 0;
@@ -90,6 +90,10 @@ int Game::init_libs() {
 void Game::update() {
     actions->update();
     CollisionsHandler::step();
+    for(glm::vec2 pos : CollisionsHandler::totalContacts) {
+        Particle* p = new Particle(window, *rm.getShader("unlitShader"), *rm.getTexture("marker"), pos, 1);
+        activeLevel->addObject(p);
+    }
     /* Rendering functions here */
     pp.start();
 

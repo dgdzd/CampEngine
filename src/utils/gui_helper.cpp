@@ -7,8 +7,9 @@
 
 #include <utils/gui_helper.h>
 
-GuiHelper::GuiHelper(GLFWwindow* window, glm::vec2 startPosition) {
+GuiHelper::GuiHelper(GLFWwindow* window, glm::vec2 startPosition, Screen* screen) {
     this->window = window;
+    this->screen = screen;
     this->pos = startPosition;
     this->margin = 10;
     this->padding = 0;
@@ -49,6 +50,9 @@ Button* GuiHelper::createButton(std::string label, int textSize) {
     result->with_textSize(textSize);
     
     pos.y -= (textSize+6)/2;
+    
+    std::shared_ptr<Button> ptr = std::shared_ptr<Button>(result);
+    screen->widgets.push_back(ptr);
     return result;
 }
 
@@ -59,6 +63,9 @@ Button* GuiHelper::createButton(std::string label, int textSize, float width, fl
     result->with_textSize(textSize);
     
     pos.y -= height/2;
+    
+    std::shared_ptr<Button> ptr = std::shared_ptr<Button>(result);
+    screen->widgets.push_back(ptr);
     return result;
 }
 
@@ -68,6 +75,9 @@ TextBox* GuiHelper::createTextBox(std::wstring text, int boundX, int boundY) {
     TextBox* result = new TextBox(window, *ResourceManager::standard.getShader("text"), Texture(boundX, boundY), pos.x + margin + boundX/2, pos.y, boundX, boundY, text);
     
     pos.y -= padding+boundY/2;
+    
+    std::shared_ptr<TextBox> ptr = std::shared_ptr<TextBox>(result);
+    screen->widgets.push_back(ptr);
     return result;
 }
 
@@ -77,5 +87,8 @@ TextInput* GuiHelper::createTextInput(float width, float height) {
     TextInput* result = new TextInput(window, pos.x + margin + width/2, pos.y, width, height);
     
     pos.y -= height;
+    
+    std::shared_ptr<TextInput> ptr = std::shared_ptr<TextInput>(result);
+    screen->widgets.push_back(ptr);
     return result;
 }

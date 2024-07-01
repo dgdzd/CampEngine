@@ -48,12 +48,12 @@ void onCamMoveUp(const Event& e) {
 
 void onTileMoveRight(const Event& e) {
     auto event = e.as<InputActionEvent>();
-    mtile->applyForce(glm::vec2(240.0f * event.value, 0.0f));
+    mtile->applyForce(glm::vec2(100.0f * event.value, 0.0f));
 }
 
 void onTileMoveUp(const Event& e) {
     auto event = e.as<InputActionEvent>();
-    mtile->applyForce(glm::vec2(0.0f, 240.0f * event.value));
+    mtile->applyForce(glm::vec2(0.0f, 100.0f * event.value));
 }
 
 int main(void) {
@@ -82,6 +82,7 @@ int main(void) {
     Texture quartz_texture = *rm.loadTexture("quartz_pillar_top", GET_RESOURCE(textures/quartz_pillar_top.png));
     Texture button_idle_texture = *rm.loadTexture("buttonIdle", GET_RESOURCE(textures/button/idle.png));
     Texture button_hover_texture = *rm.loadTexture("buttonHover", GET_RESOURCE(textures/button/hover.png));
+    Texture marker_texture = *rm.loadTexture("marker", GET_RESOURCE(textures/marker.png));
     
     TestScreen ts(game.window);
     DebugScreen ds(game.window);
@@ -90,40 +91,39 @@ int main(void) {
     
     Shader shader = *rm.getShader("unlitShader");
     
-    mtile = new Entity(game.window, shader, diamond_ore_texture, 640, 640, 4, false);
-    Entity* tile = new Entity(game.window, shader, quartz_texture, 352, 544, 4);
-    Tile* tile1 = new Tile(game.window, shader, quartz_texture, 1, 0);
-    Tile* tile2 = new Tile(game.window, shader, quartz_texture, 2, 0);
-    Tile* tile3 = new Tile(game.window, shader, quartz_texture, 3, 0);
-    Tile* tile4 = new Tile(game.window, shader, quartz_texture, 4, 0);
-    Tile* tile5 = new Tile(game.window, shader, quartz_texture, 5, 0);
-    Tile* tile6 = new Tile(game.window, shader, quartz_texture, 6, 0);
+    mtile = new Entity(game.window, shader, diamond_ore_texture, 640, 640, 4);
+//    Entity* etile = new Entity(game.window, shader, diamond_ore_texture, 352, 544, 4);
+    Entity* etile1 = new Entity(game.window, shader, diamond_ore_texture, 340, 400, 4);
+    level.addObject(new Tile(game.window, shader, quartz_texture, 0, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 0, 1));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 1, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 2, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 3, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 4, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 5, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 6, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 7, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 8, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 9, 0));
+    level.addObject(new Tile(game.window, shader, quartz_texture, 9, 1));
     
-    std::shared_ptr<Entity> mtile_ = std::shared_ptr<Entity>(mtile);
-    std::shared_ptr<Entity> tile_ = std::shared_ptr<Entity>(tile);
-    std::shared_ptr<Tile> tile1_ = std::shared_ptr<Tile>(tile1);
-    std::shared_ptr<Tile> tile2_ = std::shared_ptr<Tile>(tile2);
-    std::shared_ptr<Tile> tile3_ = std::shared_ptr<Tile>(tile3);
-    std::shared_ptr<Tile> tile4_ = std::shared_ptr<Tile>(tile4);
-    std::shared_ptr<Tile> tile5_ = std::shared_ptr<Tile>(tile5);
-    std::shared_ptr<Tile> tile6_ = std::shared_ptr<Tile>(tile6);
+    level.addObject(mtile);
+//    level.addObject(etile);
+    level.addObject(etile1);
     
-    level.addObject(mtile_);
-    level.addObject(tile_);
-    level.addObject(tile1_);
-    level.addObject(tile2_);
-    level.addObject(tile3_);
-    level.addObject(tile4_);
-    level.addObject(tile5_);
-    level.addObject(tile6_);
     level.setActiveCamera(&camera);
     
     /* Set active screen and level */
     game.activeScreen = &ds;
     game.activeLevel = &level;
+    Level::active = game.activeLevel;
 
     /* Textures options */
     diamond_ore_texture.use();
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    
+    quartz_texture.use();
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     
@@ -132,6 +132,10 @@ int main(void) {
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     
     button_hover_texture.use();
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+    
+    marker_texture.use();
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST_MIPMAP_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 

@@ -7,8 +7,7 @@
 
 #include <graphics/render/entity.h>
 
-Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, bool hasGravity) : Sprite(window, shader, texture, xpos, ypos, 0, scale), RigidBody2D(PhysicsEnvironment::getInstance(), this, 10, false, hasGravity) {
-    collision = Collidable(vertices);
+Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, bool hasGravity) : Sprite(window, shader, texture, xpos, ypos, 0, scale), RigidBody2D(PhysicsEnvironment::getInstance(), this, 10, Collidable(vertices), false, hasGravity) {
     CollisionsHandler::bodies.push_back(this);
 }
 

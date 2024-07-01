@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>top-level-items</key>
+	<array>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>11</string>
+					<key>EndingLineNumber</key>
+					<string>92</string>
+					<key>StartingColumnNumber</key>
+					<string>8</string>
+					<key>StartingLineNumber</key>
+					<string>92</string>
+					<key>Timestamp</key>
+					<string>741535601.395077</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>glm</string>
+				<key>leading</key>
+				<string>        
+        glm::vec2 edge = vb - va;
+        </string>
+				<key>trailing</key>
+				<string>::vec2 axis = glm::vec2(-edge.y, edge.x);
+        axis = normalize(axis);
+        
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>23</string>
+					<key>EndingLineNumber</key>
+					<string>115</string>
+					<key>StartingColumnNumber</key>
+					<string>22</string>
+					<key>StartingLineNumber</key>
+					<string>115</string>
+					<key>Timestamp</key>
+					<string>741535610.998938</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string> </string>
+				<key>leading</key>
+				<string>        
+        glm::vec2 edge = vb - va;
+        glm::vec2 axis</string>
+				<key>trailing</key>
+				<string>= glm::vec2(-edge.y, edge.x);
+        axis = normalize(axis);
+        
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>39</string>
+					<key>EndingLineNumber</key>
+					<string>156</string>
+					<key>StartingColumnNumber</key>
+					<string>35</string>
+					<key>StartingLineNumber</key>
+					<string>156</string>
+					<key>Timestamp</key>
+					<string>741535618.639701</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>-edg</string>
+				<key>leading</key>
+				<string>        
+        glm::vec2 edge = vb - va;
+        glm::vec2 axis = glm::vec2(</string>
+				<key>trailing</key>
+				<string>e.y, edge.x);
+        axis = normalize(axis);
+        
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>448</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>447</string>
+					<key>Timestamp</key>
+					<string>741536105.316447</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>        glm::vec2 raP = glm::vec2(-ra.y, ra.x);
+</string>
+				<key>leading</key>
+				<string>        glm::vec2 ra = contact - positionA;
+        glm::vec2 rb = contact - positionB;
+</string>
+				<key>trailing</key>
+				<string>        glm::vec2 rbP = glm::vec2(-rb.y, rb.x);
+        glm::vec2 angularLinearVelA = raP * bodyA-&gt;angularVelocity;
+        glm::vec2 angularLinearVelB = rbP * bodyB-&gt;angularVelocity;
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>449</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>448</string>
+					<key>Timestamp</key>
+					<string>741536105.3163919</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>        glm::vec2 rbP = glm::vec2(-rb.y, rb.x);
+</string>
+				<key>leading</key>
+				<string>        glm::vec2 rb = contact - positionB;
+        glm::vec2 raP = glm::vec2(-ra.y, ra.x);
+</string>
+				<key>trailing</key>
+				<string>        glm::vec2 angularLinearVelA = raP * bodyA-&gt;angularVelocity;
+        glm::vec2 angularLinearVelB = rbP * bodyB-&gt;angularVelocity;
+        
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>481</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>480</string>
+					<key>Timestamp</key>
+					<string>741536105.316435</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>        glm::vec2 raP = glm::vec2(-ra.y, ra.x);
+</string>
+				<key>leading</key>
+				<string>        glm::vec2 ra = contact - positionA;
+        glm::vec2 rb = contact - positionB;
+</string>
+				<key>trailing</key>
+				<string>        glm::vec2 rbP = glm::vec2(-rb.y, rb.x);
+        glm::vec2 angularLinearVelA = raP * bodyA-&gt;angularVelocity;
+        glm::vec2 angularLinearVelB = rbP * bodyB-&gt;angularVelocity;
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+		<dict>
+			<key>destination</key>
+			<dict>
+				<key>location-parameters</key>
+				<dict>
+					<key>EndingColumnNumber</key>
+					<string>0</string>
+					<key>EndingLineNumber</key>
+					<string>482</string>
+					<key>StartingColumnNumber</key>
+					<string>0</string>
+					<key>StartingLineNumber</key>
+					<string>481</string>
+					<key>Timestamp</key>
+					<string>741536105.316421</string>
+				</dict>
+				<key>rebasable-url</key>
+				<dict>
+					<key>base</key>
+					<string>workspace</string>
+					<key>payload</key>
+					<dict>
+						<key>relative-path</key>
+						<string>src/physics/collisions_handler.cpp</string>
+					</dict>
+				</dict>
+			</dict>
+			<key>text-context</key>
+			<dict>
+				<key>focused</key>
+				<string>        glm::vec2 rbP = glm::vec2(-rb.y, rb.x);
+</string>
+				<key>leading</key>
+				<string>        glm::vec2 rb = contact - positionB;
+        glm::vec2 raP = glm::vec2(-ra.y, ra.x);
+</string>
+				<key>trailing</key>
+				<string>        glm::vec2 angularLinearVelA = raP * bodyA-&gt;angularVelocity;
+        glm::vec2 angularLinearVelB = rbP * bodyB-&gt;angularVelocity;
+        float sf = (bodyA-&gt;staticFriction + bodyB-&gt;staticFriction) * 0.5f;
+</string>
+			</dict>
+			<key>type</key>
+			<string>bookmark</string>
+		</dict>
+	</array>
+</dict>
+</plist>
