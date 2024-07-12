@@ -90,10 +90,7 @@ int Game::init_libs() {
 void Game::update() {
     actions->update();
     CollisionsHandler::step();
-    for(glm::vec2 pos : CollisionsHandler::totalContacts) {
-        Particle* p = new Particle(window, *rm.getShader("unlitShader"), *rm.getTexture("marker"), pos, 1);
-        activeLevel->addObject(p);
-    }
+    
     /* Rendering functions here */
     pp.start();
 

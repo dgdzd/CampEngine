@@ -35,8 +35,14 @@ private:
     static void findCircleContactPoint(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
     static void findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
     static void findCirclePolygonContactPoint(RigidBody2D* circle, RigidBody2D* polygon, glm::vec2& contact1, glm::vec2& contact2, int& contactCount);
+    static void broadPhase(std::vector<std::pair<int, int>>& contactPairs);
+    static bool intersectAABB(RigidBody2D* bodyA, RigidBody2D* bodyB);
+    static void narrowPhase(std::vector<std::pair<int, int>> contactPairs);
+    static void separateBodies(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2 normal, float depth);
     static void resolveCollision(CollisionManifold contact);
     static void resolveCollisionWithRotation(CollisionManifold contact);
+    static void resolveCollisionWithRotationAndFriction(CollisionManifold contact);
+    
     
 public:
     static std::vector<RigidBody2D*> bodies;

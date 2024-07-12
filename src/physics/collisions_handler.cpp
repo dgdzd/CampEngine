@@ -292,12 +292,9 @@ void CollisionsHandler::findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D*
             
             if(nearlyEqual(distSquared, minDistSquared)) {
                 if(!nearlyEqual(contact, contact1)) {
+                    minDistSquared = distSquared;
                     contact2 = contact;
                     contactCount = 2;
-                } else if(distSquared < minDistSquared) {
-                    minDistSquared = distSquared;
-                    contact1 = contact;
-                    contactCount = 1;
                 }
             } else if(distSquared < minDistSquared) {
                 minDistSquared = distSquared;
@@ -320,10 +317,6 @@ void CollisionsHandler::findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D*
                 if(!nearlyEqual(contact, contact1)) {
                     contact2 = contact;
                     contactCount = 2;
-                } else if(distSquared < minDistSquared) {
-                    minDistSquared = distSquared;
-                    contact1 = contact;
-                    contactCount = 1;
                 }
             } else if(distSquared < minDistSquared) {
                 minDistSquared = distSquared;
@@ -363,7 +356,7 @@ void CollisionsHandler::step() {
         lastUpdate = glfwGetTime();
     } else {
         double now = glfwGetTime();
-        env->deltaTime = now - lastUpdate;
+        env->deltaTime = (now - lastUpdate);
         env->fpsCount = 1.0f / env->deltaTime;
         lastUpdate = now;
     }
@@ -377,35 +370,68 @@ void CollisionsHandler::step() {
 }
 
 void CollisionsHandler::fixCollisions() {
-    std::vector<CollisionManifold> contacts;
-    glm::vec2 normal;
-    float depth;
-    
+    std::vector<std::pair<int, int>> contactPairs;
+    broadPhase(contactPairs);
+    narrowPhase(contactPairs);
+}
+
+void CollisionsHandler::broadPhase(std::vector<std::pair<int, int>>& contactPairs) {
     for(int i = 0; i < bodies.size() - 1; i++) {
         RigidBody2D* bodyA = bodies.at(i);
         for(int j = i+1; j < bodies.size(); j++) {
             RigidBody2D* bodyB = bodies.at(j);
-            if(collide(bodyA, bodyB, normal, depth)) {
-                if(bodyA->isStatic && bodyB->isStatic) continue;
-                if(bodyA->isStatic) bodyB->parent->position += glm::vec3(normal.x, normal.y, 0) * depth;
-                else if(bodyB->isStatic) bodyA->parent->position -= glm::vec3(normal.x, normal.y, 0) * depth;
-                else {
-                    bodyA->parent->position -= glm::vec3(normal.x, normal.y, 0) * depth / 2.0f;
-                    bodyB->parent->position += glm::vec3(normal.x, normal.y, 0) * depth / 2.0f;
-                }
-                
-                glm::vec2 contact1, contact2;
-                int contactCount;
-                findContactPoints(bodyA, bodyB, contact1, contact2, contactCount);
-                contacts.push_back(CollisionManifold(bodyA, bodyB, normal, depth, contact1, contact2, contactCount));
-                totalContacts.push_back(contact1);
-                if(contact2 != glm::vec2(0)) totalContacts.push_back(contact2);
-            }
+            
+            if(bodyA->isStatic && bodyB->isStatic) continue;
+             if(!intersectAABB(bodyA, bodyB)) continue;
+            
+            contactPairs.push_back(std::pair<int, int>(i, j));
         }
     }
+}
+
+bool CollisionsHandler::intersectAABB(RigidBody2D* bodyA, RigidBody2D* bodyB) {
+    glm::vec2 positionA = bodyA->parent->position;
+    glm::vec2 positionB = bodyB->parent->position;
+    AABB a = bodyA->collision.getAABB(positionA, bodyA->parent->rotation);
+    AABB b = bodyB->collision.getAABB(positionB, bodyB->parent->rotation);
     
-    for(CollisionManifold contact : contacts) {
-        resolveCollisionWithRotation(contact);
+    if(a.max.x <= b.min.x || b.max.x <= a.min.x ||
+       a.max.y <= b.min.y || b.max.y <= a.min.y) {
+        return false;
+    }
+    return true;
+}
+
+void CollisionsHandler::narrowPhase(std::vector<std::pair<int, int>> contactPairs) {
+    glm::vec2 normal;
+    float depth;
+    
+    for(std::pair<int, int> contactPair : contactPairs) {
+        RigidBody2D* bodyA = bodies[contactPair.first];
+        RigidBody2D* bodyB = bodies[contactPair.second];
+        
+        if(collide(bodyA, bodyB, normal, depth)) {
+            glm::vec2 contact1, contact2;
+            int contactCount;
+            
+            separateBodies(bodyA, bodyB, normal, depth);
+            findContactPoints(bodyA, bodyB, contact1, contact2, contactCount);
+            
+//            totalContacts.push_back(contact1);
+//            if(contactCount == 2) totalContacts.push_back(contact2);
+            
+            CollisionManifold contact(bodyA, bodyB, normal, depth, contact1, contact2, contactCount);
+            resolveCollisionWithRotationAndFriction(contact);
+        }
+    }
+}
+
+void CollisionsHandler::separateBodies(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2 normal, float depth) {
+    if(bodyA->isStatic) bodyB->parent->position += glm::vec3(normal.x, normal.y, 0) * depth;
+    else if(bodyB->isStatic) bodyA->parent->position -= glm::vec3(normal.x, normal.y, 0) * depth;
+    else {
+        bodyA->parent->position -= glm::vec3(normal.x, normal.y, 0) * depth / 2.0f;
+        bodyB->parent->position += glm::vec3(normal.x, normal.y, 0) * depth / 2.0f;
     }
 }
 
@@ -442,9 +468,10 @@ void CollisionsHandler::resolveCollisionWithRotation(CollisionManifold contact) 
     std::vector<glm::vec2> rbs;
     float e = std::min(bodyA->restitution, bodyB->restitution);
     
-    for(glm::vec2 contact : contacts) {
-        glm::vec2 ra = contact - positionA;
-        glm::vec2 rb = contact - positionB;
+    for(int i = 0; i < contactCount; i++) {
+        glm::vec2 contactPoint = contacts[i];
+        glm::vec2 ra = contactPoint - positionA;
+        glm::vec2 rb = contactPoint - positionB;
         glm::vec2 raP = glm::vec2(-ra.y, ra.x);
         glm::vec2 rbP = glm::vec2(-rb.y, rb.x);
         glm::vec2 angularLinearVelA = raP * bodyA->angularVelocity;
@@ -472,6 +499,81 @@ void CollisionsHandler::resolveCollisionWithRotation(CollisionManifold contact) 
         impulses.push_back(impulse);
         ras.push_back(ra);
         rbs.push_back(rb);
+    }
+    
+    for(int i = 0; i < impulses.size(); i++) {
+        glm::vec2 impulse = impulses[i];
+        glm::vec2 ra = ras[i];
+        glm::vec2 rb = rbs[i];
+        
+        bodyA->linearVelocity += -impulse * bodyA->getInverseMass();
+        bodyB->linearVelocity += impulse * bodyB->getInverseMass();
+        
+        bodyA->angularVelocity += -cross(ra, impulse) * bodyA->getInverseInertia();
+        bodyB->angularVelocity += cross(rb, impulse) * bodyB->getInverseInertia();
+    }
+}
+
+void CollisionsHandler::resolveCollisionWithRotationAndFriction(CollisionManifold contact) {
+    RigidBody2D* bodyA = contact.bodyA;
+    RigidBody2D* bodyB = contact.bodyB;
+    glm::vec2 positionA = glm::vec2(bodyA->parent->position.x, bodyA->parent->position.y);
+    glm::vec2 positionB = glm::vec2(bodyB->parent->position.x, bodyB->parent->position.y);
+    glm::vec2 normal = contact.normal;
+    glm::vec2 contact1 = contact.contact1;
+    glm::vec2 contact2 = contact.contact2;
+    int contactCount = contact.contactCount;
+    std::vector<glm::vec2> contacts = { contact1, contact2 };
+    std::vector<glm::vec2> impulses;
+    std::vector<glm::vec2> frictionImpulses;
+    std::vector<float> js;
+    std::vector<glm::vec2> ras;
+    std::vector<glm::vec2> rbs;
+    float e = std::min(bodyA->restitution, bodyB->restitution);
+    
+    for(int i = 0; i < contactCount; i++) {
+        glm::vec2 contactPoint = contacts[i];
+        glm::vec2 ra = contactPoint - positionA;
+        glm::vec2 rb = contactPoint - positionB;
+        glm::vec2 raP = glm::vec2(-ra.y, ra.x);
+        glm::vec2 rbP = glm::vec2(-rb.y, rb.x);
+        glm::vec2 angularLinearVelA = raP * bodyA->angularVelocity;
+        glm::vec2 angularLinearVelB = rbP * bodyB->angularVelocity;
+        
+        glm::vec2 relativeVel = (bodyB->linearVelocity + angularLinearVelB) - (bodyA->linearVelocity + angularLinearVelA);
+        float contactVelMag = dot(relativeVel, normal);
+        
+        if(contactVelMag > 0.0f) continue;
+        
+        float raPdotN = dot(raP, normal);
+        float rbPdotN = dot(rbP, normal);
+        
+        float invMassA = bodyA->getInverseMass();
+        float invMassB = bodyB->getInverseMass();
+        float invInertA = bodyA->getInverseInertia();
+        float invInertB = bodyB->getInverseInertia();
+        
+        float j = -(1.0f + e) * contactVelMag;
+        j /= invMassA + invMassB + (raPdotN * raPdotN) * invInertA + (rbPdotN * rbPdotN) * invInertB;
+        j /= (float)contactCount;
+        glm::vec2 impulse = j * normal;
+        
+        js.push_back(j);
+        impulses.push_back(impulse);
+        ras.push_back(ra);
+        rbs.push_back(rb);
+    }
+    
+    for(int i = 0; i < impulses.size(); i++) {
+        glm::vec2 impulse = impulses[i];
+        glm::vec2 ra = ras[i];
+        glm::vec2 rb = rbs[i];
+        
+        bodyA->linearVelocity += -impulse * bodyA->getInverseMass();
+        bodyB->linearVelocity += impulse * bodyB->getInverseMass();
+        
+        bodyA->angularVelocity += -cross(ra, impulse) * bodyA->getInverseInertia();
+        bodyB->angularVelocity += cross(rb, impulse) * bodyB->getInverseInertia();
     }
     
     for(int i = 0; i < js.size(); i++) {
@@ -514,18 +616,6 @@ void CollisionsHandler::resolveCollisionWithRotation(CollisionManifold contact) 
         frictionImpulses.push_back(frictionImpulse);
         ras.push_back(ra);
         rbs.push_back(rb);
-    }
-    
-    for(int i = 0; i < impulses.size(); i++) {
-        glm::vec2 impulse = impulses[i];
-        glm::vec2 ra = ras[i];
-        glm::vec2 rb = rbs[i];
-        
-        bodyA->linearVelocity += -impulse * bodyA->getInverseMass();
-        bodyB->linearVelocity += impulse * bodyB->getInverseMass();
-        
-        bodyA->angularVelocity += -cross(ra, impulse) * bodyA->getInverseInertia();
-        bodyB->angularVelocity += cross(rb, impulse) * bodyB->getInverseInertia();
     }
     
     for(int i = 0; i < frictionImpulses.size(); i++) {

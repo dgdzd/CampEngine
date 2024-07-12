@@ -16,6 +16,7 @@
 
 #include <glm/glm.hpp>
 
+#include <physics/aabb.h>
 #include <utils/logger.h>
 
 #include <vector>
@@ -33,6 +34,16 @@ public:
     std::vector<glm::vec2> getRotatedCorners(glm::vec2 origin, float angle, int coordsType=0);
     float getWidth();
     float getHeight();
+    
+    /*!
+     * @brief Gets the current relative bouding box of the collider, based on the current rotation.
+     *
+     * @param[in] origin Center of the body.
+     * @param[in] rotation Rotation of the body.
+     *
+     * @returns A axis-aligned bounding box (AABB).
+     */
+    AABB getAABB(glm::vec2 origin, float rotation);
 };
 
 #endif

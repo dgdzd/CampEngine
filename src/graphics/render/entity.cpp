@@ -7,10 +7,14 @@
 
 #include <graphics/render/entity.h>
 
-Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, bool hasGravity) : Sprite(window, shader, texture, xpos, ypos, 0, scale), RigidBody2D(PhysicsEnvironment::getInstance(), this, 10, Collidable(vertices), false, hasGravity) {
+Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, bool isStatic, bool hasGravity) : Sprite(window, shader, texture, xpos, ypos, 0, xscale, yscale, 0, 0, 0), RigidBody2D(PhysicsEnvironment::getInstance(), this, 1, Collidable(vertices), isStatic, hasGravity) {
     CollisionsHandler::bodies.push_back(this);
 }
 
-Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 position, float scale, bool hasGravity) : Entity(window, shader, texture, position.x, position.y, scale, hasGravity) {
+Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, bool isStatic, bool hasGravity) : Entity(window, shader, texture, xpos, ypos, scale, scale, isStatic, hasGravity) {
+    
+}
+
+Entity::Entity(GLFWwindow* window, Shader shader, Texture texture, glm::vec2 position, float scale, bool isStatic, bool hasGravity) : Entity(window, shader, texture, position.x, position.y, scale, isStatic, hasGravity) {
     
 }

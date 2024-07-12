@@ -11,7 +11,6 @@
 #include <graphics/render/entity.h>
 
 #include <iostream>
-#include <memory>
 
 
 #define GET_RESOURCE(path) "/Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/" #path
@@ -56,7 +55,13 @@ void onTileMoveUp(const Event& e) {
     mtile->applyForce(glm::vec2(0.0f, 100.0f * event.value));
 }
 
-int main(void) {
+void onClick(const Event& e) {
+    auto event = e.as<MouseClickEvent>();
+    Entity* etile = new Entity(game.window, *ResourceManager::standard.getShader("unlitShader"), *ResourceManager::standard.getTexture("diamond_ore"), event.mouseX, CE_WINDOW_HEIGHT-event.mouseY, 4);
+    Level::active->addObject(etile);
+}
+
+int main() {
     ResourceManager &rm = ResourceManager::standard;
     game = Game();
     game.initialize();
@@ -66,6 +71,7 @@ int main(void) {
     game.actions->addInputAction("tile_moveRight", GLFW_KEY_LEFT, -1.0f, true);
     game.actions->addInputAction("tile_moveUp", GLFW_KEY_UP, 1.0f, true);
     game.actions->addInputAction("tile_moveUp", GLFW_KEY_DOWN, -1.0f, true);
+    
 //    game.actions->addInputAction("camera_moveRight", GLFW_KEY_RIGHT, 1.0f, true);
 //    game.actions->addInputAction("camera_moveRight", GLFW_KEY_LEFT, -1.0f, true);
 //    game.actions->addInputAction("camera_moveUp", GLFW_KEY_UP, 1.0f, true);
@@ -77,6 +83,7 @@ int main(void) {
     ADD_STATIC_LISTENER(InputActionEvent("camera_moveUp"), onCamMoveUp);
     ADD_STATIC_LISTENER(InputActionEvent("tile_moveRight"), onTileMoveRight);
     ADD_STATIC_LISTENER(InputActionEvent("tile_moveUp"), onTileMoveUp);
+    ADD_STATIC_LISTENER(MouseClickEvent(), onClick);
     
     Texture diamond_ore_texture = *rm.loadTexture("diamond_ore", GET_RESOURCE(textures/diamond_ore.png));
     Texture quartz_texture = *rm.loadTexture("quartz_pillar_top", GET_RESOURCE(textures/quartz_pillar_top.png));
@@ -89,11 +96,10 @@ int main(void) {
     camera = Camera(0.0f, 0.0f, 0.0f);
     Level level("MyLevel", camera);
     
-    Shader shader = *rm.getShader("unlitShader");
+    const Shader shader = *rm.getShader("unlitShader");
     
-    mtile = new Entity(game.window, shader, diamond_ore_texture, 640, 640, 4);
-//    Entity* etile = new Entity(game.window, shader, diamond_ore_texture, 352, 544, 4);
-    Entity* etile1 = new Entity(game.window, shader, diamond_ore_texture, 340, 400, 4);
+    mtile = new Entity(game.window, shader, diamond_ore_texture, 500, 640, 4);
+    mtile->rotation = 45;
     level.addObject(new Tile(game.window, shader, quartz_texture, 0, 0));
     level.addObject(new Tile(game.window, shader, quartz_texture, 0, 1));
     level.addObject(new Tile(game.window, shader, quartz_texture, 1, 0));
@@ -106,10 +112,9 @@ int main(void) {
     level.addObject(new Tile(game.window, shader, quartz_texture, 8, 0));
     level.addObject(new Tile(game.window, shader, quartz_texture, 9, 0));
     level.addObject(new Tile(game.window, shader, quartz_texture, 9, 1));
+    level.addObject(new Entity(game.window, shader, quartz_texture, 700, 200, 4, 4, true, false));
     
     level.addObject(mtile);
-//    level.addObject(etile);
-    level.addObject(etile1);
     
     level.setActiveCamera(&camera);
     

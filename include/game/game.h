@@ -74,7 +74,7 @@ public:
     /*!
      * @brief This must be called before running the game loop, so as to initialize every variables and libraries correctly.
      *
-     * @returns Either the task was done successfully (0 or 1);
+     * @returns Either the task was done successfully (0 or 1).
      */
     int initialize();
     
@@ -112,17 +112,17 @@ private:
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);
     
     /*!
-     * @brief This is a callback function that should be used only for in-game actions, such as player control
+     * @brief This is a callback function that should be used only for in-game actions, such as player control.
      *
-     * @param[in] key An integer representing a key, which can be obtained through
+     * @param[in] key An integer representing a key, which can be obtained through.
      * @param[in] scancode The key's associated scancode.
-     * @param[in] action The action done on the key, can be GLFW_PRESS, GLFW_RELEASE, or GLFW_REPEAT
+     * @param[in] action The action done on the key, can be GLFW_PRESS, GLFW_RELEASE, or GLFW_REPEAT.
      * @param[in] mods Modifiers applied to the action, which modifies the key itself. It can be alt, or cmd for example.
      */
     static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods);
     
     /*!
-     * @brief This is a callback function that should be used only for text input and typing, not for in-game actions such as player control
+     * @brief This is a callback function that should be used only for text input and typing, not for in-game actions such as player control.
      *
      * @param[in] codepoint An Unicode codepoint which refers to a single character.
      */

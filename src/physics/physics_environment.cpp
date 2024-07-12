@@ -16,8 +16,8 @@ PhysicsEnvironment::PhysicsEnvironment() {
 PhysicsEnvironment::PhysicsEnvironment(int substeps, glm::vec2 gravity) {
     this->substeps = substeps;
     this->g = gravity;
-    this->deltaTime = 0.008;
-    this->pixelPerMeter = 32;
+    this->deltaTime = 1.0f/60.0f;
+    this->pixelPerMeter = 64;
 }
 
 PhysicsEnvironment* PhysicsEnvironment::getInstance() {

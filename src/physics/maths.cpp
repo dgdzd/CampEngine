@@ -52,7 +52,7 @@ void pointSegmentDistance(glm::vec2 p, glm::vec2 a, glm::vec2 b, float& distSqua
     
     if(d <= 0) {
         cp = a;
-    } if(d >= 1) {
+    } else if(d >= 1) {
         cp = b;
     } else {
         cp = a + ab * d;
@@ -63,9 +63,10 @@ void pointSegmentDistance(glm::vec2 p, glm::vec2 a, glm::vec2 b, float& distSqua
 
 bool nearlyEqual(float a, float b) {
     float dist = abs(b - a);
-    return dist < 0.0005;
+    return dist < 0.0005f;
 }
 
 bool nearlyEqual(glm::vec2 a, glm::vec2 b) {
-    return nearlyEqual(a.x, b.x) && nearlyEqual(a.y, b.y);
+    float dist = distanceSquared(a, b);
+    return dist < 0.00025f;
 }

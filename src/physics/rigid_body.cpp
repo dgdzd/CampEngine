@@ -11,13 +11,13 @@ RigidBody2D::RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, Co
     this->env = env;
     this->parent = parent;
     this->mass = mass;
-    this->restitution = 0.2f;
+    this->restitution = 0.0f;
     this->isStatic = isStatic;
     this->hasGravity = hasGravity;
     this->force = glm::vec2(0.0f);
     this->collision = collision;
     this->staticFriction = 0.6f;
-    this->dynamicFriction = 0.4f;
+    this->dynamicFriction = 0.3f;
     this->rotationalInertia = calculateRotationalInertia();
 }
 
@@ -27,7 +27,7 @@ float RigidBody2D::calculateRotationalInertia() {
     } else if(collision.type == POLYGON_COLLIDABLE) {
         float width = collision.getWidth();
         float height = collision.getHeight();
-        return (mass * (width * width + height * height))/12.0f;
+        return 1.0f/12.0f * mass * (width * width + height * height);
     }
     
     return -1;
@@ -35,17 +35,19 @@ float RigidBody2D::calculateRotationalInertia() {
 
 void RigidBody2D::step() {
     if(!isStatic) {
-        if(hasGravity) applyForce(env->g * mass);
+        float dt = env->deltaTime;
+        if(hasGravity) applyForce(env->g * mass / (float)env->substeps);
         glm::vec2 acceleration = force / mass;
         linearVelocity += acceleration;
-        parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) * (env->deltaTime / (float)env->substeps);
-        parent->rotation += angularVelocity;
+        parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) * dt;
+        parent->rotation += glm::degrees(angularVelocity) * dt;
         force = glm::vec2(0.0f);
     }
 }
 
 void RigidBody2D::applyForce(glm::vec2 force) {
-    this->force += force * env->pixelPerMeter * env->deltaTime / (float)env->substeps;
+    float dt = env->deltaTime;
+    this->force += force * env->pixelPerMeter * dt;
 }
 
 float RigidBody2D::getInverseMass() {
@@ -54,7 +56,7 @@ float RigidBody2D::getInverseMass() {
 }
 
 float RigidBody2D::getInverseInertia() {
-    if(rotationalInertia == 0) return 0;
+    if(isStatic) return 0;
     
-    return 1 / rotationalInertia;
+    return 1.0f / rotationalInertia;
 }

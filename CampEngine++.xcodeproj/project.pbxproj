@@ -20,6 +20,9 @@
 		E2158CD32B8CB36200605117 /* conversions.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E2158CD22B8CB36200605117 /* conversions.cpp */; };
 		E2158CD52B8CB90A00605117 /* libglfw.3.3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E21589DF2B8C86F100605117 /* libglfw.3.3.dylib */; };
 		E238EAEB2B9DA57200F3D1E8 /* constants.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E238EAEA2B9DA57200F3D1E8 /* constants.cpp */; };
+		E255D64C2C357A7800A7DAD9 /* aabb.h in Headers */ = {isa = PBXBuildFile; fileRef = E255D64B2C357A7800A7DAD9 /* aabb.h */; };
+		E255D64E2C357B6300A7DAD9 /* aabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255D64D2C357B6300A7DAD9 /* aabb.cpp */; };
+		E255D64F2C357B6300A7DAD9 /* aabb.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255D64D2C357B6300A7DAD9 /* aabb.cpp */; };
 		E255ECA62C2C0397002EC062 /* physics_environment.h in Headers */ = {isa = PBXBuildFile; fileRef = E255ECA52C2C0397002EC062 /* physics_environment.h */; };
 		E255ECA82C2C04D1002EC062 /* physics_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECA72C2C04D1002EC062 /* physics_environment.cpp */; };
 		E255ECA92C2C04D1002EC062 /* physics_environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = E255ECA72C2C04D1002EC062 /* physics_environment.cpp */; };
@@ -431,6 +434,8 @@
 		E238EAEA2B9DA57200F3D1E8 /* constants.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constants.cpp; sourceTree = "<group>"; };
 		E247DF3E2BA21A8B00FCC578 /* Arvo-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Arvo-Regular.ttf"; sourceTree = "<group>"; };
 		E247DF3F2BA21AEC00FCC578 /* arial_narrow_7.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = arial_narrow_7.ttf; sourceTree = "<group>"; };
+		E255D64B2C357A7800A7DAD9 /* aabb.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aabb.h; sourceTree = "<group>"; };
+		E255D64D2C357B6300A7DAD9 /* aabb.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aabb.cpp; sourceTree = "<group>"; };
 		E255ECA52C2C0397002EC062 /* physics_environment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = physics_environment.h; sourceTree = "<group>"; };
 		E255ECA72C2C04D1002EC062 /* physics_environment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = physics_environment.cpp; sourceTree = "<group>"; };
 		E255ECAA2C2C067E002EC062 /* rigid_body.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = rigid_body.h; sourceTree = "<group>"; };
@@ -1259,6 +1264,7 @@
 				E25D1AD72C2DE85A00985A3F /* collidable.h */,
 				E26383632C2E902700D4972D /* collisions_handler.h */,
 				E25A7A522C30704100A36F66 /* collision_manifold.h */,
+				E255D64B2C357A7800A7DAD9 /* aabb.h */,
 			);
 			path = physics;
 			sourceTree = "<group>";
@@ -1340,6 +1346,7 @@
 				E26383682C2E914B00D4972D /* collidable.cpp */,
 				E26383652C2E90BA00D4972D /* collisions_handler.cpp */,
 				E25A7A542C30710A00A36F66 /* collision_manifold.cpp */,
+				E255D64D2C357B6300A7DAD9 /* aabb.cpp */,
 			);
 			path = physics;
 			sourceTree = "<group>";
@@ -1527,6 +1534,7 @@
 				E27584532C2C860A00C531FB /* force.h in Headers */,
 				E2DA8B3F2C2B03D4000FF821 /* input.h in Headers */,
 				E25D1AC12C2DA4E500985A3F /* tile.h in Headers */,
+				E255D64C2C357A7800A7DAD9 /* aabb.h in Headers */,
 				E26383642C2E902700D4972D /* collisions_handler.h in Headers */,
 				E255ECB02C2C088E002EC062 /* maths.h in Headers */,
 				E25D1AC32C2DA50000985A3F /* decoration.h in Headers */,
@@ -1638,6 +1646,7 @@
 				E255ECA92C2C04D1002EC062 /* physics_environment.cpp in Sources */,
 				E292F4262C246D8000F10BDD /* logger.cpp in Sources */,
 				E2DA8B392C2B030C000FF821 /* filereader.cpp in Sources */,
+				E255D64F2C357B6300A7DAD9 /* aabb.cpp in Sources */,
 				E2DA8B302C2B02F9000FF821 /* shader.cpp in Sources */,
 				E2DA8B342C2B0301000FF821 /* camera.cpp in Sources */,
 				E255ECAE2C2C0701002EC062 /* rigid_body.cpp in Sources */,
@@ -1679,6 +1688,7 @@
 				E2158BA12B8C873500605117 /* renderable.cpp in Sources */,
 				E26383692C2E914B00D4972D /* collidable.cpp in Sources */,
 				E2DE4D142B9F7B0D00813FF4 /* text_renderer.cpp in Sources */,
+				E255D64E2C357B6300A7DAD9 /* aabb.cpp in Sources */,
 				E255ECA82C2C04D1002EC062 /* physics_environment.cpp in Sources */,
 				E20013AC2BD2670E00340268 /* post_processor.cpp in Sources */,
 				E25D1AD22C2DA62B00985A3F /* particle.cpp in Sources */,
