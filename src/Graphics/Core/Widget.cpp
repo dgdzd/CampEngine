@@ -1,5 +1,16 @@
 #include <CampEngine/Graphics/Core/Widget.h>
 
+#include <CampEngine/Game/Game.h>
+
+#include <functional>
+#include <iostream>
+#include <utility>
+#include <vector>
+#include <locale>
+#include <codecvt>
+#include <string>
+#include <map>
+
 /*---- Forward Declaration ----*/
 class Game;
 class Renderable;
@@ -7,11 +18,11 @@ class TextInput;
 class TextBox;
 /*-----------------------------*/
 
-Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action) : Widget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action) {
+Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action) : IWidget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action) {
     
 }
 
-Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action) : Renderable(window, shader, Texture(xsize, ysize), xpos, ypos, xscale, yscale) {
+Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action) : IWidget(window, shader, xpos, ypos, xscale, yscale, xsize, ysize, action) {
     this->position = glm::vec2(xpos, ypos);
     this->boxSize = glm::vec2(xsize * xscale, ysize * yscale);
     this->action = action;

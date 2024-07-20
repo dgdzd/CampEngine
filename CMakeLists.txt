@@ -18,7 +18,7 @@ set(MAIN_FILE main.cpp)
 set(SOURCE_FILES
         src/Utils/stb.cpp
         src/Physics/Force.cpp
-        src/Utils/gui_helper.cpp
+        src/Utils/GuiHelper.cpp
         src/Physics/CollisionsHandler.cpp
         src/Graphics/Scene/Entity.cpp
         src/Graphics/Core/Widget.cpp
@@ -26,7 +26,7 @@ set(SOURCE_FILES
         src/Graphics/Level.cpp
         src/Physics/RigidBody.cpp
         src/Game/Events/EventHandler.cpp
-        src/Graphics/screen.cpp
+        src/Graphics/Screen.cpp
         src/Utils/logger.cpp
         src/Utils/conversions.cpp
         src/Graphics/Shader.cpp
@@ -41,18 +41,21 @@ set(SOURCE_FILES
         src/Graphics/Camera.cpp
         src/Physics/Maths.cpp
         src/Game/Input/Input.cpp
-        src/Utils/filereader.cpp
+        src/Utils/FileReader.cpp
         src/Graphics/Core/Text/Character.cpp
         src/Graphics/Texture.cpp
         src/Graphics/Scene/Tile.cpp
         src/Game/Game.cpp
-        src/Utils/resource_manager.cpp
+        src/Utils/ResourceManager.cpp
         src/Physics/CollisionManifold.cpp
         src/Graphics/Scene/Sprite.cpp
         src/Graphics/Widgets/Button.cpp
         src/Graphics/Widgets/TexturedButton.cpp
         src/Graphics/Widgets/TextBox.cpp
         src/Graphics/Widgets/TextInput.cpp
+        src/Graphics/Core/IWidget.cpp
+        src/Graphics/Screens/TestScreen.cpp
+        src/Graphics/Screens/DebugScreen.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 
@@ -84,7 +87,7 @@ target_include_directories(lib_CampEngine++ PRIVATE ${FREETYPE_INCLUDE_DIRS})
 target_include_directories(lib_CampEngine++
         PUBLIC
         "$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>"
-        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}/CampEngine>"
+        "$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>"
 )
 
 target_link_libraries(lib_CampEngine++ ${LIBS_DYLIB})
@@ -112,7 +115,7 @@ endif()
 
 # without it public headers won't get installed
 set(public_headers
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/gui_helper.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/GuiHelper.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Entity.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Core/Widget.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Decoration.h
@@ -127,16 +130,19 @@ set(public_headers
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Particle.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Game/Constants.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Camera.h
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/filereader.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/FileReader.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Texture.h
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Render/Tile.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Tile.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Game/Game.h
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/resource_manager.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/ResourceManager.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Sprite.h
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Button.cpp
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TexturedButton.cpp
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TextBox.cpp
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TextInput.cpp
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Button.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TexturedButton.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TextBox.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TextInput.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Core/IWidget.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Screens/TestScreen.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Screens/DebugScreen.h
 )
 # note that ${public_headers} has to be in quotes
 #set_target_properties(lib_${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${public_headers}")

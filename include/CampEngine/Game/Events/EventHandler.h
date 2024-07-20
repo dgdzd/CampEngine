@@ -10,6 +10,7 @@
 
 #include <CampEngine/Game/Events/Categories/MouseEvents.h>
 #include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
+#include <CampEngine/Game/Events/Categories/ActionEvents.h>
 #include <CampEngine/Game/Events/Categories/WidgetEvents.h>
 
 #include <vector>

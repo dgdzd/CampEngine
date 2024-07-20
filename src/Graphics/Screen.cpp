@@ -1,8 +1,7 @@
-#include <CampEngine/Utils/resource_manager.h>
 #include <CampEngine/Graphics/Screen.h>
 
-#include <CampEngine/Graphics/Core/Widget.h>
 #include <CampEngine/Graphics/Core/Text/TextRenderer.h>
+#include <CampEngine/Utils/ResourceManager.h>
 
 ResourceManager rm;
 
@@ -13,8 +12,8 @@ Screen::Screen(GLFWwindow* window) {
     init();
 }
 
-void Screen::addRenderableWidget(Widget* widget) {
-    std::shared_ptr<Widget> w = std::shared_ptr<Widget>(widget);
+void Screen::addRenderableWidget(IWidget* widget) {
+    std::shared_ptr<IWidget> w = std::shared_ptr<IWidget>(widget);
     this->widgets.push_back(w);
 }
 

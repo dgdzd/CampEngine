@@ -1,4 +1,4 @@
-#include <CampEngine/Utils/conversions.h>
+#include <CampEngine/Utils/Conversions.h>
 
 glm::vec3 toWorldSpace(GLFWwindow* window, glm::vec3 position) {
     int width, height;

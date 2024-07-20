@@ -5,7 +5,7 @@
 //  Created by Noah Campagne on 20/06/2024.
 //
 
-#include <CampEngine/Utils/logger.h>
+#include <CampEngine/Utils/Logger.h>
 
 std::map<std::string, Logger> Logger::loggers;
 Logger Logger::standard = Logger("LOGGER");
@@ -39,7 +39,7 @@ void Logger::warn(std::string msg) {
     std::ostringstream oss;
     oss << chartime;
     
-    std::cout << "["+oss.str()+"] ["+name+"/WARNING]: "+msg+"\n";
+    std::cout << "\x1b[33m["+oss.str()+"] ["+name+"/WARNING]: "+msg+"\x1b[0m\n";
 }
 
 void Logger::error(std::string msg) {
@@ -49,5 +49,5 @@ void Logger::error(std::string msg) {
     std::ostringstream oss;
     oss << chartime;
     
-    std::cout << "["+oss.str()+"] ["+name+"/ERROR]: "+msg+"\n";
+    std::cout << "\x1b[31m["+oss.str()+"] ["+name+"/ERROR]: "+msg+"\x1b[0m\n";
 }

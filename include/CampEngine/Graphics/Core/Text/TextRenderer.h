@@ -12,7 +12,7 @@
 #include FT_FREETYPE_H
 
 #include <CampEngine/Graphics/Core/Text/Character.h>
-#include <CampEngine/Utils/resource_manager.h>
+#include <CampEngine/Utils/ResourceManager.h>
 
 #include <iostream>
 #include <string>

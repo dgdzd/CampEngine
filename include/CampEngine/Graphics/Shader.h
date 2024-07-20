@@ -7,8 +7,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-#include <CampEngine/Utils/filereader.h>
-#include <CampEngine/Utils/logger.h>
+#include <CampEngine/Utils/FileReader.h>
+#include <CampEngine/Utils/Logger.h>
 #include <CampEngine/Graphics/Texture.h>
 
 #include <string>

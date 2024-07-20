@@ -5,7 +5,7 @@
 //  Created by Noah Campagne on 18/05/2024.
 //
 
-#include <CampEngine/Utils/gui_helper.h>
+#include <CampEngine/Utils/GuiHelper.h>
 
 GuiHelper::GuiHelper(GLFWwindow* window, glm::vec2 startPosition, Screen* screen) {
     this->window = window;

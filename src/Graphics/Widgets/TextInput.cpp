@@ -4,6 +4,9 @@
 
 #include <CampEngine/Graphics/Widgets/TextInput.h>
 
+#include <CampEngine/Game/Events/EventHandler.h>
+#include <CampEngine/Utils/Conversions.h>
+
 TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize) : Widget(window, *ResourceManager::standard.getShader("widget"), Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(""));

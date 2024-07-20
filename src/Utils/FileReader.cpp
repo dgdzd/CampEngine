@@ -1,4 +1,4 @@
-#include <CampEngine/Utils/filereader.h>
+#include <CampEngine/Utils/FileReader.h>
 using namespace std;
 
 char* getFileContent(std::string path) {

@@ -5,7 +5,7 @@
 #include <GLFW/glfw3.h>
 #include <glm/detail/type_mat.hpp>
 
-#include <CampEngine/Graphics/Core/Widget.h>
+#include <CampEngine/Graphics/Core/IWidget.h>
 
 #include <vector>
 #include <cstdlib>
@@ -17,14 +17,14 @@ class Screen {
 public:
     Screen* lastScreen = nullptr;
     const char* name;
-    std::vector<std::shared_ptr<Widget>> widgets;
+    std::vector<std::shared_ptr<IWidget>> widgets;
     GLFWwindow* window;
     
     Screen(GLFWwindow* window);
     
     virtual void init();
     void render(glm::mat4 projection);
-    void addRenderableWidget(Widget* widget);
+    void addRenderableWidget(IWidget* widget);
 };
 
 #endif

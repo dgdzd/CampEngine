@@ -9,16 +9,14 @@
 #define CE_WIDGET_EVENTS_H
 
 #include <CampEngine/Game/Events/Event.h>
-#include <CampEngine/Graphics/Core/Widget.h>
-
-class Widget;
+#include <CampEngine/Graphics/Core/IWidget.h>
 
 class WidgetEvent : public Event {
 public:
     WidgetEvent(std::string name) : Event(name) {}
     virtual ~WidgetEvent() {}
     
-    Widget* widget = nullptr;
+    IWidget* widget = nullptr;
 };
 
 class WidgetClickEvent : public WidgetEvent {
@@ -63,4 +61,4 @@ public:
     std::wstring input;
 };
 
-#endif /* widget_events_h */
+#endif

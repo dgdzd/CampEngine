@@ -2,7 +2,6 @@
 // Created by Noah Campagne on 14/07/2024.
 //
 
-
 #include <CampEngine/Graphics/Widgets/Button.h>
 
 Button::Button(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label) : Widget(window, *ResourceManager::standard.getShader("widget"), Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {

@@ -17,7 +17,7 @@
 #include <glm/glm.hpp>
 
 #include <CampEngine/Physics/AABB.h>
-#include <CampEngine/Utils/logger.h>
+#include <CampEngine/Utils/Logger.h>
 
 #include <vector>
 

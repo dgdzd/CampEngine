@@ -1,16 +1,18 @@
-#include <game/constants.h>
-#include <game/game.h>
+#include <CampEngine/Game/Constants.h>
+#include <CampEngine/Game/Game.h>
 
-#include <utils/resource_manager.h>
-#include <utils/logger.h>
-#include <graphics/shader.h>
-#include <graphics/texture.h>
-#include <graphics/camera.h>
-#include <graphics/level.h>
-#include <graphics/render/tile.h>
-#include <graphics/render/entity.h>
+#include <CampEngine/Utils/ResourceManager.h>
+#include <CampEngine/Utils/Logger.h>
+#include <CampEngine/Graphics/Shader.h>
+#include <CampEngine/Graphics/Texture.h>
+#include <CampEngine/Graphics/Camera.h>
+#include <CampEngine/Graphics/Level.h>
+#include <CampEngine/Graphics/Scene/Tile.h>
+#include <CampEngine/Graphics/Scene/Entity.h>
+#include <CampEngine/Graphics/Screens/TestScreen.h>
 
 #include <iostream>
+
 
 
 #define GET_RESOURCE(path) "/Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/" #path

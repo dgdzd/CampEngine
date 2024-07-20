@@ -1,4 +1,4 @@
-#include <CampEngine/Utils/resource_manager.h>
+#include <CampEngine/Utils/ResourceManager.h>
 
 std::map<const char*, Shader> ResourceManager::shaders;
 std::map<const char*, Texture> ResourceManager::textures;
