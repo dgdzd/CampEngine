@@ -5,8 +5,9 @@
 //  Created by Noah Campagne on 03/07/2024.
 //
 
-#include <algorithm>
 #include <CampEngine/Physics/AABB.h>
+
+#include <algorithm>
 
 AABB::AABB(glm::vec2 min, glm::vec2 max) {
     this->min = min;

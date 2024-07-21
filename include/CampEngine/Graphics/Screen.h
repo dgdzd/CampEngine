@@ -3,6 +3,7 @@
 
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
 #include <glm/detail/type_mat.hpp>
 
 #include <CampEngine/Graphics/Core/IWidget.h>

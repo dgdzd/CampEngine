@@ -10,7 +10,6 @@
 
 #include <CampEngine/Graphics/Scene/Sprite.h>
 #include <CampEngine/Physics/RigidBody.h>
-#include <CampEngine/Physics/CollisionsHandler.h>
 
 class Entity : public Sprite, public RigidBody2D {
 public:

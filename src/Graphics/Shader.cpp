@@ -1,11 +1,13 @@
 #include <CampEngine/Graphics/Shader.h>
 
-#include <CampEngine/Graphics/Shader.h>
+#include <glad/glad.h>
+
+#include <CampEngine/Utils/FileReader.h>
 
 Logger Shader::logger = Logger("Shader");
 
 Shader::Shader() {
-    
+    id = -1;
 }
 
 Shader::Shader(const char* pathToVertexShader, const char* pathToFragmentShader, bool autocompile) {

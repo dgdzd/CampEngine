@@ -1,5 +1,14 @@
 #include <CampEngine/Graphics/Core/Text/TextRenderer.h>
+
+#include <glad/glad.h>
+
+#include <CampEngine/Graphics/Core/Text/Character.h>
+
+#include <codecvt>
 #include <iomanip>
+#include <iostream>
+#include <locale>
+#include <string>
 
 TextRenderer* TextRenderer::common;
 

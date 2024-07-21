@@ -7,6 +7,12 @@
 
 #include <CampEngine/Physics/CollisionsHandler.h>
 
+#include <CampEngine/Physics/Collidable.h>
+#include <CampEngine/Physics/Maths.h>
+
+#include <limits>
+#include <math.h>
+
 std::vector<RigidBody2D*> CollisionsHandler::bodies;
 std::vector<glm::vec2> CollisionsHandler::totalContacts;
 double CollisionsHandler::lastUpdate = 0.0;

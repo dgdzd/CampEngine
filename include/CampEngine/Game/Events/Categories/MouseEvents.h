@@ -14,7 +14,7 @@
 
 class MouseEvent : public Event {
 public:
-    MouseEvent(std::string name) : Event(name) {}
+    MouseEvent(const std::string& name) : Event(name) {}
     virtual ~MouseEvent() {}
     
     double mouseX = 0, mouseY = 0;

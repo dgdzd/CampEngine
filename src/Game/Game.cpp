@@ -1,5 +1,17 @@
 #include <CampEngine/Game/Game.h>
 
+#include <CampEngine/Game/Constants.h>
+#include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
+#include <CampEngine/Game/Events/Categories/MouseEvents.h>
+#include <CampEngine/Graphics/Screens/DebugScreen.h>
+#include <CampEngine/Graphics/Widgets/TextBox.h>
+#include <CampEngine/Physics/CollisionsHandler.h>
+#include <CampEngine/Utils/Conversions.h>
+
+#include <string>
+
+#include "CampEngine/Game/Events/Categories/WindowEvents.h"
+
 Game::Game() {}
 
 int Game::initialize() {
@@ -57,6 +69,8 @@ int Game::initialize() {
     glfwSetCharCallback(window, char_callback);
     glfwSetMouseButtonCallback(window, mouse_button_callback);
     glfwSetCursorPosCallback(window, mouse_pos_callback);
+    glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
+    //glfwSetWindowCloseCallback(window, window_close_callback);
     
     activeGame = this;
     
@@ -171,12 +185,6 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
     }
 }
 
-void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
-    CharacterInputEvent event;
-    event.codepoint = codepoint;
-    SEND_EVENT(event);
-}
-
 void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
     if(action == GLFW_PRESS || action == GLFW_REPEAT) {
         KeyPressEvent event;
@@ -194,5 +202,37 @@ void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, i
         SEND_EVENT(event);
     }
 }
+
+void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
+    CharacterInputEvent event;
+    event.codepoint = codepoint;
+    SEND_EVENT(event);
+}
+
+void Game::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
+    glViewport(0, 0, width, height);
+    Game::activeGame->projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
+    Game::activeGame->frame = {
+        CE_WINDOW_WIDTH,
+        CE_WINDOW_HEIGHT
+    };
+
+    FramebufferResizeEvent event;
+    event.window = window;
+    event.width = width;
+    event.height = height;
+    SEND_EVENT(event);
+}
+
+void Game::window_close_callback(GLFWwindow *window) {
+    WindowShouldCloseEvent event;
+    event.window = window;
+    SEND_EVENT(event);
+}
+
+void Game::window_refresh_callback(GLFWwindow *window) {
+    activeGame->update();
+}
+
 
 Game* Game::activeGame;

@@ -7,6 +7,8 @@
 
 #include <CampEngine/Graphics/Scene/Particle.h>
 
+#include <CampEngine/Graphics/Level.h>
+
 
 Particle::Particle(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, long lifetime) : Sprite(window, shader, texture, xpos, ypos, 0, xscale, yscale, 0, 0, 0) {
     this->lifetime = lifetime;

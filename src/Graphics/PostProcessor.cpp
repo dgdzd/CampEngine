@@ -7,6 +7,10 @@
 
 #include <CampEngine/Graphics/PostProcessor.h>
 
+#include <glad/glad.h>
+
+#include <CampEngine/Game/Constants.h>
+
 PostProcessor::PostProcessor() {
     
 }

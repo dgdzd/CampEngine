@@ -29,7 +29,7 @@ set(SOURCE_FILES
         src/Graphics/Screen.cpp
         src/Utils/logger.cpp
         src/Utils/conversions.cpp
-        src/Graphics/Shader.cpp
+        src/Graphics/shader.cpp
         src/Graphics/Core/Renderable.cpp
         src/Physics/Collidable.cpp
         src/Graphics/Core/Text/TextRenderer.cpp
@@ -56,6 +56,9 @@ set(SOURCE_FILES
         src/Graphics/Core/IWidget.cpp
         src/Graphics/Screens/TestScreen.cpp
         src/Graphics/Screens/DebugScreen.cpp
+        src/Graphics/Widgets/TabGroup.cpp
+        src/Graphics/Widgets/Tab.cpp
+        src/Graphics/Widgets/TabButton.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 
@@ -143,6 +146,9 @@ set(public_headers
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Core/IWidget.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Screens/TestScreen.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Screens/DebugScreen.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TabGroup.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Tab.cpp
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TabButton.cpp
 )
 # note that ${public_headers} has to be in quotes
 #set_target_properties(lib_${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${public_headers}")

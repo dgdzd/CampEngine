@@ -2,14 +2,12 @@
 #define CE_LEVEL_H
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include <CampEngine/Graphics/Core/Renderable.h>
 #include <CampEngine/Graphics/Camera.h>
+#include <CampEngine/Graphics/Core/Renderable.h>
 
-#include <vector>
 #include <memory>
+#include <vector>
 
 class Level {
 public:

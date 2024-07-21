@@ -4,15 +4,17 @@
 
 #include <CampEngine/Graphics/Widgets/Button.h>
 
-Button::Button(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label) : Widget(window, *ResourceManager::standard.getShader("widget"), Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {
+#include <codecvt>
+
+Button::Button(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label) : Widget(window, *ResourceManager::standard.getShader("widget"), xpos, ypos, xsize, ysize, 1, 1, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(label));
-    std::shared_ptr shared_tb = std::shared_ptr<TextBox>(tb);
+    auto* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(label));
+    std::shared_ptr<TextBox> shared_tb = std::shared_ptr<TextBox>(tb);
     children.push_back(shared_tb);
 
-    this->textAlign = &shared_tb.get()->textAlign;
-    this->textSize = &shared_tb.get()->textSize;
-    this->textColor = &shared_tb.get()->textColor;
+    this->textAlign = &shared_tb->textAlign;
+    this->textSize = &shared_tb->textSize;
+    this->textColor = &shared_tb->textColor;
     this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
     this->outlineThickness = 1;
     this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);

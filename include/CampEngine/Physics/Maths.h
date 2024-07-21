@@ -9,10 +9,6 @@
 #define CE_MATHS_H
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
-
-#include <cmath>
 
 extern float distance(glm::vec2 a, glm::vec2 b);
 extern float distanceSquared(glm::vec2 a, glm::vec2 b);

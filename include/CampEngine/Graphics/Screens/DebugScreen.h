@@ -6,7 +6,6 @@
 #define CE_DEBUG_SCREEN_H
 
 #include <CampEngine/Graphics/Screen.h>
-#include <CampEngine/Utils/GuiHelper.h>
 
 class Button;
 class TexturedButton;

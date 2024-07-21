@@ -7,6 +7,8 @@
 
 #include <CampEngine/Physics/PhysicsEnvironment.h>
 
+#include <CampEngine/Physics/Maths.h>
+
 PhysicsEnvironment* PhysicsEnvironment::instance;
 
 PhysicsEnvironment::PhysicsEnvironment() {

@@ -10,7 +10,6 @@
 
 #include <CampEngine/Graphics/Shader.h>
 #include <CampEngine/Graphics/Texture.h>
-#include <CampEngine/Game/Constants.h>
 
 #include <map>
 #include <string>

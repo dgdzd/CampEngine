@@ -4,10 +4,10 @@
 
 #include <CampEngine/Graphics/Screens/TestScreen.h>
 
+#include <CampEngine/Game/Game.h>
 #include <CampEngine/Graphics/Widgets/Button.h>
 #include <CampEngine/Graphics/Widgets/TextInput.h>
 #include <CampEngine/Utils/GuiHelper.h>
-#include <CampEngine/Game/Game.h>
 
 TestScreen::TestScreen(GLFWwindow* window) : Screen(window) {
     this->init();

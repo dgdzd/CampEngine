@@ -1,31 +1,19 @@
 #ifndef CE_GAME_H
 #define CE_GAME_H
 
-#include <CampEngine/Game/Constants.h>
 #include <CampEngine/Game/Input/Input.h>
-#include <CampEngine/Graphics/Screens/DebugScreen.h>
 #include <CampEngine/Graphics/Level.h>
-#include <CampEngine/Game/Events/Event.h>
-#include <CampEngine/Game/Events/EventHandler.h>
-#include <CampEngine/Utils/Conversions.h>
-#include <CampEngine/Graphics/Core/Text/TextRenderer.h>
 #include <CampEngine/Graphics/PostProcessor.h>
-#include <CampEngine/Graphics/Scene/Particle.h>
-#include <CampEngine/Physics/CollisionsHandler.h>
+#include <CampEngine/Graphics/Core/Text/TextRenderer.h>
 
-#include <glad/glad.h>
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
 #include <vector>
-#include <string>
 
 /*---- Forward Declaration ----*/
 class Screen;
-class Level;
 class ActionMapper;
 /*-----------------------------*/
 
@@ -126,6 +114,24 @@ private:
      * @param[in] codepoint An Unicode codepoint which refers to a single character.
      */
     static void char_callback(GLFWwindow* window, unsigned int codepoint);
+
+    /*!
+     * @brief This is a callback function that detects whenever the window is resized.
+     *
+     * @param[in] window The concerned window.
+     * @param[in] width The new width of the window.
+     * @param[in] height The new height of the window.
+     */
+    static void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+
+    /*!
+     * @brief This is a callback function that detects whenever the window should close.
+     *
+     * @param[in] window The concerned window.
+     */
+     static void window_close_callback(GLFWwindow* window);
+
+     static void window_refresh_callback(GLFWwindow* window);
 };
 
 #endif

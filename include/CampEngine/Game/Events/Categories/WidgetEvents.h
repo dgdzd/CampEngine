@@ -13,7 +13,7 @@
 
 class WidgetEvent : public Event {
 public:
-    WidgetEvent(std::string name) : Event(name) {}
+    WidgetEvent(const std::string& name) : Event(name) {}
     virtual ~WidgetEvent() {}
     
     IWidget* widget = nullptr;

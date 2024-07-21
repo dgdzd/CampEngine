@@ -1,28 +1,24 @@
 #include <CampEngine/Graphics/Core/Widget.h>
 
 #include <CampEngine/Game/Game.h>
+#include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
+#include <CampEngine/Game/Events/Categories/MouseEvents.h>
+#include <CampEngine/Game/Events/Categories/WidgetEvents.h>
 
 #include <functional>
 #include <iostream>
+#include <locale>
+#include <map>
+#include <string>
 #include <utility>
 #include <vector>
-#include <locale>
-#include <codecvt>
-#include <string>
-#include <map>
 
-/*---- Forward Declaration ----*/
-class Game;
-class Renderable;
-class TextInput;
-class TextBox;
-/*-----------------------------*/
 
-Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action) : IWidget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action) {
-    
+Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action) : Widget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action) {
+    this->texture = texture;
 }
 
-Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action) : IWidget(window, shader, xpos, ypos, xscale, yscale, xsize, ysize, action) {
+Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action) : IWidget(window, shader, xpos, ypos, xsize, ysize, xscale, yscale, action) {
     this->position = glm::vec2(xpos, ypos);
     this->boxSize = glm::vec2(xsize * xscale, ysize * yscale);
     this->action = action;
@@ -35,21 +31,27 @@ Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float 
     ADD_LISTENER(MouseMoveEvent(), Widget::onMouseMove, this);
     ADD_LISTENER(KeyPressEvent(), Widget::onKeyPress, this);
     ADD_LISTENER(CharacterInputEvent(), Widget::onCharInput, this);
+    ADD_LISTENER(WidgetClickEvent(), Widget::onWidgetClick, this);
+    ADD_LISTENER(WidgetReleaseEvent(), Widget::onWidgetRelease, this);
 }
+
+Widget::Widget(GLFWwindow* window, float xpos, float ypos) : Widget(window, Shader(), xpos, ypos, 0, 0, 1, 1, Action()) {
+
+}
+
 
 void Widget::update(glm::mat4 projection) {
     this->render(projection);
     
-    for(int w = 0; w < children.size(); w++) {
-        children.at(w).get()->update(projection);
-        //std::cout << "CHILDRENS\n";
+    for(const std::shared_ptr<IWidget>& w : children) {
+        w->update(projection);
     }
 }
 
 void Widget::onMouseClick(const Event &e) {
     auto event = e.as<MouseClickEvent>();
     selected = false;
-    
+
     if(this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
         this->action.isClicked = true;
         selected = true;

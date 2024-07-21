@@ -7,6 +7,7 @@ class Widget : public IWidget {
 public:
     Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action);
     Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action);
+    Widget(GLFWwindow* window, float xpos, float ypos);
     
     virtual void update(glm::mat4 projection);
     virtual void onMouseClick(const Event &e);

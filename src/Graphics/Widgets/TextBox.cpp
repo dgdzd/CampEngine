@@ -3,6 +3,7 @@
 //
 
 #include <CampEngine/Graphics/Widgets/TextBox.h>
+
 #include <CampEngine/Graphics/Core/Text/TextRenderer.h>
 
 TextBox::TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float boundX, float boundY, std::wstring text) : Widget(window, shader, Texture(boundX, boundY), xpos, ypos, 1, 1, Action()) {

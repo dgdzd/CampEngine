@@ -12,7 +12,6 @@
 
 #include <CampEngine/Physics/PhysicsEnvironment.h>
 #include <CampEngine/Physics/Collidable.h>
-#include <CampEngine/Utils/Logger.h>
 #include <CampEngine/Graphics/Scene/Sprite.h>
 
 class Sprite;

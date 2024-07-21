@@ -7,6 +7,8 @@
 
 #include <CampEngine/Physics/Collidable.h>
 
+#include <CampEngine/Utils/Logger.h>
+
 Collidable::Collidable() {
     
 }

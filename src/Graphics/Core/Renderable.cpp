@@ -1,5 +1,7 @@
 #include <CampEngine/Graphics/Core/Renderable.h>
 
+#include <glm/gtc/matrix_transform.hpp>
+
 /*---- Forward Declaration ----*/
 class Game;
 /*-----------------------------*/
@@ -16,40 +18,31 @@ Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vec
     gen_buffers();
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot) : shader(shader), texture(texture) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot, AnchorPoint anchor) : shader(shader), texture(texture) {
     this->enabled = true;
+    this->window = window;
+    this->anchor = anchor;
     this->transform = glm::vec3(xpos, ypos, 0.0f);
     this->rotation = glm::vec3(xrot, yrot, zrot);
-    this->vertices = {
-        // position                                 // Texture coordinates
-        -texture.width/2*xscale, -texture.height/2*yscale, 0.0f, 0.0f, 0.0f, // Bottom-left
-        texture.width/2*xscale, -texture.height/2*yscale, 0.0f, 1.0f, 0.0f, // Bottom-right
-        texture.width/2*xscale, texture.height/2*yscale, 0.0f, 1.0f, 1.0f, // Top-right
-        -texture.width/2*xscale, texture.height/2*yscale, 0.0f, 0.0f, 1.0f, // Top-left
-    };
 
-    this->indices = {
-        2, 1, 3,
-        1, 0, 3
-    };
-    
+    gen_vertices(xscale, yscale);
     gen_buffers();
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale) : Renderable(window, shader, texture, xpos, ypos, xscale, yscale, 0, 0, 0) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, AnchorPoint anchor) : Renderable(window, shader, texture, xpos, ypos, xscale, yscale, 0, 0, 0) {
     
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale) : Renderable(window, shader, texture, xpos, ypos, scale, scale) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, AnchorPoint anchor) : Renderable(window, shader, texture, xpos, ypos, scale, scale) {
     
 }
 
 void Renderable::update(Camera camera, glm::mat4 projection) {
-    this->render(camera, projection);
+    if(this->enabled && this->shader.id != -1) this->render(camera, projection);
 }
 
 void Renderable::update() {
-    if(this->enabled) this->render();
+    if(this->enabled && this->shader.id != -1) this->render();
 }
 
 void Renderable::render(Camera camera, glm::mat4 projection) {
@@ -134,3 +127,122 @@ void Renderable::gen_buffers() {
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
 }
+
+void Renderable::gen_vertices(float xscale, float yscale) {
+    switch(anchor) {
+        case TOP_LEFT: {
+            float w = texture.width*xscale;
+            float h = texture.height*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                0, -h, 0.0f, 0.0f, 0.0f, // Bottom-left
+                w, -h, 0.0f, 1.0f, 0.0f, // Bottom-right
+                w, 0, 0.0f, 1.0f, 1.0f, // Top-right
+                0, 0, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case TOP: {
+            float halfw = texture.width/2*xscale;
+            float h = texture.height*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                -halfw, -h, 0.0f, 0.0f, 0.0f, // Bottom-left
+                halfw, -h, 0.0f, 1.0f, 0.0f, // Bottom-right
+                halfw, 0, 0.0f, 1.0f, 1.0f, // Top-right
+                -halfw, 0, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case TOP_RIGHT: {
+            float w = texture.width*xscale;
+            float h = texture.height*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                -w, -h, 0.0f, 0.0f, 0.0f, // Bottom-left
+                0, -h, 0.0f, 1.0f, 0.0f, // Bottom-right
+                0, 0, 0.0f, 1.0f, 1.0f, // Top-right
+                -w, 0, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case LEFT: {
+            float w = texture.width*xscale;
+            float halfh = texture.height/2*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                0, -halfh, 0.0f, 0.0f, 0.0f, // Bottom-left
+                w, -halfh, 0.0f, 1.0f, 0.0f, // Bottom-right
+                w, halfh, 0.0f, 1.0f, 1.0f, // Top-right
+                0, halfh, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case CENTER: {
+            float halfw = texture.width/2*xscale;
+            float halfh = texture.height/2*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                -halfw, -halfh, 0.0f, 0.0f, 0.0f, // Bottom-left
+                halfw, -halfh, 0.0f, 1.0f, 0.0f, // Bottom-right
+                halfw, halfh, 0.0f, 1.0f, 1.0f, // Top-right
+                -halfw, halfh, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case RIGHT: {
+            float w = texture.width*xscale;
+            float halfh = texture.height/2*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                -w, -halfh, 0.0f, 0.0f, 0.0f, // Bottom-left
+                0, -halfh, 0.0f, 1.0f, 0.0f, // Bottom-right
+                0, halfh, 0.0f, 1.0f, 1.0f, // Top-right
+                -w, halfh, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case BOTTOM_LEFT: {
+            float w = texture.width*xscale;
+            float h = texture.height*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                0, 0, 0.0f, 0.0f, 0.0f, // Bottom-left
+                w, 0, 0.0f, 1.0f, 0.0f, // Bottom-right
+                w, h, 0.0f, 1.0f, 1.0f, // Top-right
+                0, h, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case BOTTOM: {
+            float halfw = texture.width/2*xscale;
+            float h = texture.height*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                -halfw, 0, 0.0f, 0.0f, 0.0f, // Bottom-left
+                halfw, 0, 0.0f, 1.0f, 0.0f, // Bottom-right
+                halfw, h, 0.0f, 1.0f, 1.0f, // Top-right
+                -halfw, h, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+        case BOTTOM_RIGHT: {
+            float w = texture.width*xscale;
+            float h = texture.height*yscale;
+            this->vertices = {
+                // position     // Texture coordinates
+                -w, 0, 0.0f, 0.0f, 0.0f, // Bottom-left
+                0, 0, 0.0f, 1.0f, 0.0f, // Bottom-right
+                0, h, 0.0f, 1.0f, 1.0f, // Top-right
+                -w, h, 0.0f, 0.0f, 1.0f, // Top-left
+            };
+            break;
+        }
+    }
+
+    this->indices = {
+        2, 1, 3,
+        1, 0, 3
+    };
+}
+

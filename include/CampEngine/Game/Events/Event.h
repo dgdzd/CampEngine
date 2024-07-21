@@ -1,14 +1,10 @@
 #ifndef CE_EVENT_H
 #define CE_EVENT_H
 
-#include <glad/glad.h>
-#include <GLFW/glfw3.h>
-
 #include <string>
 #include <vector>
 #include <map>
 #include <functional>
-#include <random>
 
 class Event {
 protected:
@@ -45,9 +41,9 @@ public:
     }
     
     void propagateEvent(Event& event) {
-        if(listeners.find(event.getName()) == listeners.end()) return;
+        if(!listeners.contains(event.getName())) return;
         
-        for(auto&& listener : listeners.at(event.getName())) {
+        for(auto&& listener : listeners[event.getName()]) {
             if(!event.wasHandled()) listener(event);
         }
     }

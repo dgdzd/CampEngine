@@ -5,8 +5,6 @@
 
 ResourceManager rm;
 
-class Game;
-
 Screen::Screen(GLFWwindow* window) {
     this->window = window;
     init();
@@ -22,7 +20,7 @@ void Screen::init() {
 }
 
 void Screen::render(glm::mat4 projection) {
-    for(int w = 0; w < widgets.size(); w++) {
-        widgets.at(w).get()->update(projection);
+    for(const auto& widget : widgets) {
+        widget->update(projection);
     }
 }

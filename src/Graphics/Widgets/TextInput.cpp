@@ -5,7 +5,13 @@
 #include <CampEngine/Graphics/Widgets/TextInput.h>
 
 #include <CampEngine/Game/Events/EventHandler.h>
+#include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
+#include <CampEngine/Game/Events/Categories/WidgetEvents.h>
 #include <CampEngine/Utils/Conversions.h>
+
+#include <codecvt>
+
+
 
 TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize) : Widget(window, *ResourceManager::standard.getShader("widget"), Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;

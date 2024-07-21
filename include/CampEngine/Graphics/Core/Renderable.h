@@ -7,17 +7,21 @@
 #include <GLFW/glfw3.h>
 
 #include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-#include <glm/gtc/type_ptr.hpp>
 
-#include <CampEngine/Graphics/Texture.h>
-#include <CampEngine/Graphics/Shader.h>
 #include <CampEngine/Graphics/Camera.h>
+#include <CampEngine/Graphics/Shader.h>
+#include <CampEngine/Graphics/Texture.h>
 
 #include <list>
 #include <vector>
 
-const int TILE_SIZE = 32;
+constexpr int TILE_SIZE = 32;
+
+enum AnchorPoint {
+    TOP_LEFT, TOP, TOP_RIGHT,
+    LEFT, CENTER, RIGHT,
+    BOTTOM_LEFT, BOTTOM, BOTTOM_RIGHT
+};
 
 class Renderable {
 public:
@@ -25,6 +29,7 @@ public:
     GLFWwindow* window;
     Texture texture;
     Shader shader;
+    AnchorPoint anchor;
     glm::vec3 transform;
     glm::vec3 rotation;
     glm::vec4 color;
@@ -34,9 +39,9 @@ public:
     long index;
     
     Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation);
-    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale);
-    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale);
-    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, AnchorPoint anchor=CENTER);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, AnchorPoint anchor=CENTER);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot, AnchorPoint anchor=CENTER);
 
     virtual void update(Camera camera, glm::mat4 projection);
     virtual void update();
@@ -47,6 +52,7 @@ public:
     
 private:
     void gen_buffers();
+    void gen_vertices(float xscale, float yscale);
 };
 
 #endif

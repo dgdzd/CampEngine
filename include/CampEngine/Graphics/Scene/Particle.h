@@ -9,7 +9,6 @@
 #define CE_PARTICLE_H
 
 #include <CampEngine/Graphics/Scene/Sprite.h>
-#include <CampEngine/Graphics/Level.h>
 
 class Particle : public Sprite {
 public:

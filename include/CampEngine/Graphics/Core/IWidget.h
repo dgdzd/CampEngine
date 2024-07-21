@@ -63,7 +63,8 @@ public:
     bool selected;
 
     IWidget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action);
-    IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xscale, float yscale, float xsize, float ysize, Action action);
+    IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action);
+    IWidget(GLFWwindow* window, float xpos, float ypos);
 
     virtual void update(glm::mat4 projection);
     virtual void onMouseClick(const Event &e);
@@ -71,6 +72,8 @@ public:
     virtual void onMouseMove(const Event &e);
     virtual void onKeyPress(const Event &e);
     virtual void onCharInput(const Event &e);
+    virtual void onWidgetClick(const Event &e);
+    virtual void onWidgetRelease(const Event &e);
 };
 
 #endif

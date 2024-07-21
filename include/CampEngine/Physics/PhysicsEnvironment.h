@@ -10,8 +10,6 @@
 
 #include <glm/glm.hpp>
 
-#include <CampEngine/Physics/Maths.h>
-
 class PhysicsEnvironment {
 private:
     static PhysicsEnvironment* instance;

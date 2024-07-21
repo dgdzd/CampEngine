@@ -1,15 +1,18 @@
 #include <CampEngine/Game/Constants.h>
 #include <CampEngine/Game/Game.h>
 
-#include <CampEngine/Utils/ResourceManager.h>
-#include <CampEngine/Utils/Logger.h>
-#include <CampEngine/Graphics/Shader.h>
-#include <CampEngine/Graphics/Texture.h>
+#include <CampEngine/Game/Events/Categories/ActionEvents.h>
+#include <CampEngine/Game/Events/Categories/MouseEvents.h>
 #include <CampEngine/Graphics/Camera.h>
 #include <CampEngine/Graphics/Level.h>
-#include <CampEngine/Graphics/Scene/Tile.h>
+#include <CampEngine/Graphics/Shader.h>
+#include <CampEngine/Graphics/Texture.h>
 #include <CampEngine/Graphics/Scene/Entity.h>
+#include <CampEngine/Graphics/Scene/Tile.h>
+#include <CampEngine/Graphics/Screens/DebugScreen.h>
 #include <CampEngine/Graphics/Screens/TestScreen.h>
+#include <CampEngine/Utils/Logger.h>
+#include <CampEngine/Utils/ResourceManager.h>
 
 #include <iostream>
 
@@ -21,15 +24,6 @@
 Game game;
 Camera camera;
 Entity* mtile;
-
-void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
-    glViewport(0, 0, width, height);
-    Game::activeGame->projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
-    Game::activeGame->frame = {
-        CE_WINDOW_WIDTH,
-        CE_WINDOW_HEIGHT
-    };
-}
 
 void onPause(const Event& e) {
     auto event = e.as<InputActionEvent>();
@@ -121,7 +115,7 @@ int main() {
     level.setActiveCamera(&camera);
     
     /* Set active screen and level */
-    game.activeScreen = &ds;
+    game.activeScreen = &ts;
     game.activeLevel = &level;
     Level::active = game.activeLevel;
 

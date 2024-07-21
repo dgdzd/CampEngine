@@ -7,6 +7,9 @@
 
 #include <CampEngine/Game/Input/Input.h>
 
+#include <CampEngine/Game/Events/Categories/ActionEvents.h>
+#include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
+
 InputAction::InputAction(int key, float value, bool isContinuous) {
     this->key = key;
     this->value = value;

@@ -4,6 +4,8 @@
 
 #include <CampEngine/Graphics/Screens/DebugScreen.h>
 
+#include <CampEngine/Utils/GuiHelper.h>
+
 DebugScreen::DebugScreen(GLFWwindow* window) : Screen(window) {
     this->init();
 }

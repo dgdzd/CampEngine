@@ -12,6 +12,11 @@ IWidget::IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, floa
 
 }
 
+IWidget::IWidget(GLFWwindow* window, float xpos, float ypos) : IWidget(window, Shader(), xpos, ypos, 0, 0, 0, 0, Action())  {
+
+}
+
+
 void IWidget::update(glm::mat4 projection) {
 
 }
@@ -33,5 +38,13 @@ void IWidget::onKeyPress(const Event &e) {
 }
 
 void IWidget::onCharInput(const Event &e) {
+
+}
+
+void IWidget::onWidgetClick(const Event &e) {
+
+}
+
+void IWidget::onWidgetRelease(const Event &e) {
 
 }

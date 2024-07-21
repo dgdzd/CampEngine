@@ -7,6 +7,10 @@
 
 #include <CampEngine/Utils/GuiHelper.h>
 
+#include <CampEngine/Graphics/Core/Text/Character.h>
+
+#include <codecvt>
+
 GuiHelper::GuiHelper(GLFWwindow* window, glm::vec2 startPosition, Screen* screen) {
     this->window = window;
     this->screen = screen;

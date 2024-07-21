@@ -8,14 +8,10 @@
 #ifndef CE_COLLISIONS_HANDLER_H
 #define CE_COLLISIONS_HANDLER_H
 
-#include <CampEngine/Physics/Collidable.h>
 #include <CampEngine/Physics/RigidBody.h>
-#include <CampEngine/Physics/Maths.h>
 #include <CampEngine/Physics/CollisionManifold.h>
 
 #include <vector>
-#include <limits>
-#include <math.h>
 
 class RigidBody2D;
 

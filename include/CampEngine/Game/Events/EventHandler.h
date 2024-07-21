@@ -8,16 +8,9 @@
 #ifndef CE_EVENT_HANDLER_H
 #define CE_EVENT_HANDLER_H
 
-#include <CampEngine/Game/Events/Categories/MouseEvents.h>
-#include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
-#include <CampEngine/Game/Events/Categories/ActionEvents.h>
-#include <CampEngine/Game/Events/Categories/WidgetEvents.h>
 
-#include <vector>
-#include <map>
-#include <functional>
-#include <memory>
-#include <any>
+#include <CampEngine/Game/Events/Event.h>
+
 
 /* Just a wrapper class for EventDispatcher */
 class EventHandler {
