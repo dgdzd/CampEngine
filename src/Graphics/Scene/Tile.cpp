@@ -7,7 +7,7 @@
 
 #include <CampEngine/Graphics/Scene/Tile.h>
 
-Tile::Tile(GLFWwindow* window, Shader shader, Texture texture, float xtile, float ytile) : Sprite(window, shader, texture, (xtile+0.5)*CE_TILE_SIZE, (ytile+0.5)*CE_TILE_SIZE, 0.0f, CE_TILE_SIZE/texture.width), RigidBody2D(PhysicsEnvironment::getInstance(), this, 10, Collidable(vertices), true) {
+Tile::Tile(GLFWwindow* window, Shader shader, Texture texture, float xtile, float ytile) : Sprite(window, shader, texture, (xtile+0.5)*CE_TILE_SIZE, (ytile+0.5)*CE_TILE_SIZE, 0.0f, CE_TILE_SIZE/texture.width), RigidBody2D(PhysicsEnvironment::getInstance(), this, 10, Collidable(this, POLYGON_COLLIDABLE), true) {
     CollisionsHandler::bodies.push_back(this);
 }
 

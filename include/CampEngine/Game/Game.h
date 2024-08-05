@@ -44,14 +44,14 @@ class Game {
 public:
     static Game* activeGame;
     
-    ActionMapper* actions;
+    ActionMapper* actions{};
     GameStatus status;
-    Screen* activeScreen;
-    Level* activeLevel;
-    GLFWwindow* window;
-    TextRenderer* tr;
+    Screen* activeScreen{};
+    Level* activeLevel{};
+    GLFWwindow* window{};
+    TextRenderer* tr{};
     Mouse mouse;
-    Frame frame;
+    Frame frame{};
     glm::mat4 projection;
     ResourceManager rm;
     PostProcessor pp;
@@ -93,7 +93,7 @@ public:
     void quit();
     
 private:
-    FT ft;
+    FT ft{};
     int init_libs();
     static void mouse_pos_callback(GLFWwindow* window, double xpos, double ypos);
     static void mouse_button_callback(GLFWwindow* window, int button, int action, int mods);

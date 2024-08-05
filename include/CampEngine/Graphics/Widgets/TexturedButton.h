@@ -19,10 +19,9 @@ public:
     TexturedButton(GLFWwindow* window, Shader shader, Texture idle, Texture hover, float xpos, float ypos, float xscale, float yscale, std::string label);
 
     virtual void update(glm::mat4 projection);
-    TexturedButton* with_onClick(std::function<void()> onClick);
-    TexturedButton* with_onRelease(std::function<void()> onRelease);
+    TexturedButton* with_onClick(std::function<void(Widget* self)> onClick);
+    TexturedButton* with_onRelease(std::function<void(Widget* self)> onRelease);
     TexturedButton* with_color(glm::vec4 color);
-    TexturedButton* with_color(Color color);
     TexturedButton* with_textSize(int size);
     TexturedButton* with_textColor(glm::vec3 color);
 };

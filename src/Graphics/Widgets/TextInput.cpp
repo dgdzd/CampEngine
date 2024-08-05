@@ -10,10 +10,11 @@
 #include <CampEngine/Utils/Conversions.h>
 
 #include <codecvt>
+#include <utility>
 
 
 
-TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize) : Widget(window, *ResourceManager::standard.getShader("widget"), Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {
+TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize) : Widget(window, CE_WIDGET_SHADER, Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
     TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(""));
     std::shared_ptr shared_tb = std::shared_ptr<TextBox>(tb);
@@ -65,18 +66,18 @@ void TextInput::update(glm::mat4 projection) {
     }
 }
 
-TextInput* TextInput::with_onClick(std::function<void ()> onClick) {
-    this->action.onClick = onClick;
+TextInput* TextInput::with_onClick(std::function<void(Widget* self)> onClick) {
+    this->action.onClick = std::move(onClick);
     return this;
 }
 
-TextInput* TextInput::with_onRelease(std::function<void ()> onRelease) {
-    this->action.onRelease = onRelease;
+TextInput* TextInput::with_onRelease(std::function<void(Widget* self)> onRelease) {
+    this->action.onRelease = std::move(onRelease);
     return this;
 }
 
-TextInput* TextInput::with_onCharType(std::function<void ()> onCharType) {
-    this->action.onCharType = onCharType;
+TextInput* TextInput::with_onCharType(std::function<void(Widget* self)> onCharType) {
+    this->action.onCharType = std::move(onCharType);
     return this;
 }
 
@@ -84,6 +85,46 @@ TextInput* TextInput::with_color(glm::vec4 color) {
     this->color = color;
     return this;
 }
+
+TextInput* TextInput::with_theme(Color color) {
+    switch(color) {
+        case normal:
+            this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
+            this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);
+        return this;
+
+        case primary:
+            this->color = glm::vec4(0.1, 0.46, 0.82, 1.0);
+            this->outlineColor = glm::vec4(0.25, 0.64, 0.96, 1.0);
+        return this;
+
+        case success:
+            this->color = glm::vec4(0.18, 0.49, 0.2, 1.0);
+            this->outlineColor = glm::vec4(0.3, 0.69, 0.31, 1.0);
+        return this;
+
+        case warning:
+            this->color = glm::vec4(0.93, 0.42, 0.01, 1.0);
+            this->outlineColor = glm::vec4(1.0, 0.6, 0.0, 1.0);
+        return this;
+
+        case danger:
+            this->color = glm::vec4(0.83, 0.18, 0.18, 1.0);
+            this->outlineColor = glm::vec4(0.94, 0.33, 0.31, 1.0);
+        return this;
+
+        default:
+            return this;
+    }
+}
+
+
+TextInput* TextInput::with_outline(float thickness, glm::vec4 color) {
+    this->outlineThickness = thickness;
+    this->outlineColor = color;
+    return this;
+}
+
 
 TextInput* TextInput::with_text(std::wstring text) {
     this->text = text;

@@ -36,12 +36,12 @@ void TexturedButton::update(glm::mat4 projection) {
     Widget::update(projection);
 }
 
-TexturedButton* TexturedButton::with_onClick(std::function<void ()> onClick) {
+TexturedButton* TexturedButton::with_onClick(std::function<void(Widget* self)> onClick) {
     this->action.onClick = onClick;
     return this;
 }
 
-TexturedButton* TexturedButton::with_onRelease(std::function<void ()> onRelease) {
+TexturedButton* TexturedButton::with_onRelease(std::function<void(Widget* self)> onRelease) {
     this->action.onRelease = onRelease;
     return this;
 }

@@ -59,6 +59,7 @@ set(SOURCE_FILES
         src/Graphics/Widgets/TabGroup.cpp
         src/Graphics/Widgets/Tab.cpp
         src/Graphics/Widgets/TabButton.cpp
+        src/Graphics/Widgets/Panel.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 

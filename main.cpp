@@ -1,6 +1,5 @@
 #include <CampEngine/Game/Constants.h>
 #include <CampEngine/Game/Game.h>
-
 #include <CampEngine/Game/Events/Categories/ActionEvents.h>
 #include <CampEngine/Game/Events/Categories/MouseEvents.h>
 #include <CampEngine/Graphics/Camera.h>
@@ -11,12 +10,9 @@
 #include <CampEngine/Graphics/Scene/Tile.h>
 #include <CampEngine/Graphics/Screens/DebugScreen.h>
 #include <CampEngine/Graphics/Screens/TestScreen.h>
-#include <CampEngine/Utils/Logger.h>
 #include <CampEngine/Utils/ResourceManager.h>
 
 #include <iostream>
-
-
 
 #define GET_RESOURCE(path) "/Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/" #path
 #define GET_SYSTEM_FONT(path) "/System/Library/Fonts/" #path

@@ -7,12 +7,13 @@
 #include <iostream>
 
 Texture::Texture() {
-    
+    isEmpty = true;
 }
 
 Texture::Texture(int width, int height) {
     this->width = width;
     this->height = height;
+    isEmpty = true;
 }
 
 Texture::Texture(const char* pathToImage, bool autogenerate) {
@@ -31,7 +32,9 @@ Texture::Texture(const char* pathToImage, bool autogenerate) {
         }
     } else {
         std::cout << "Failed to load image" << std::endl;
+        isEmpty = true;
     }
+    isEmpty = (data == nullptr);
 }
 
 void Texture::generateTextureImage() {
@@ -65,15 +68,16 @@ void Texture::use() {
     glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void Texture::generate(int width, int height, unsigned char *data) {
+void Texture::generate(int width, int height, unsigned char* data) {
     this->width = width;
     this->height = height;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);
     
     generatedImg = true;
+    isEmpty = (data == nullptr);
 }

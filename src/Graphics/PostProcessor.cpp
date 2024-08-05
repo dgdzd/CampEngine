@@ -25,14 +25,14 @@ PostProcessor::PostProcessor(Shader shader, unsigned int width, unsigned int hei
     glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_RGB, width, height);
     glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, RBO);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "[PostProcessor] Failed to initialize MSFBO\n";
+        Logger::CampEngine.error("Failed to initialize MSFBO");
     }
     
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
     texture.generate(width, height, NULL);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.id, 0);
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        std::cout << "[PostProcessor] Failed to initialize FBO\n";
+        Logger::CampEngine.error("Failed to initialize FBO");
     }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
     

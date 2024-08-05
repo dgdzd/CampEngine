@@ -1,28 +1,19 @@
 //
-// Created by Noah Campagne on 14/07/2024.
+// Created by Noah Campagne on 23/07/2024.
 //
 
-#include <CampEngine/Graphics/Widgets/Button.h>
+#include <CampEngine/Graphics/Widgets/Internal/Rectangle.h>
 
-#include <codecvt>
-#include <utility>
+#include <CampEngine/Utils/ResourceManager.h>
 
-Button::Button(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, xsize, ysize, 1, 1, Action()) {
-    std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    auto* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(label));
-    std::shared_ptr<TextBox> shared_tb = std::shared_ptr<TextBox>(tb);
-    children.push_back(shared_tb);
-
-    this->textAlign = &shared_tb->textAlign;
-    this->textSize = &shared_tb->textSize;
-    this->textColor = &shared_tb->textColor;
+Rectangle::Rectangle(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, *ResourceManager::standard.getShader("widget"), xpos, ypos, xsize, ysize, 1, 1, Action(), anchor) {
     this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
     this->outlineThickness = 1;
     this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);
     this->hoverModifier = glm::vec4(1.2, 1.2, 1.2, 1.0);
 }
 
-void Button::update(glm::mat4 projection) {
+void Rectangle::update(glm::mat4 projection) {
     shader.use();
     shader.setFloat("outlineThickness", outlineThickness);
     shader.setVec4("outlineColor", outlineColor);
@@ -33,22 +24,11 @@ void Button::update(glm::mat4 projection) {
     Widget::update(projection);
 }
 
-Button* Button::with_onClick(std::function<void(Widget* self)> onClick) {
-    this->action.onClick = std::move(onClick);
-    return this;
-}
-
-Button* Button::with_onRelease(std::function<void(Widget* self)> onRelease) {
-    this->action.onRelease = std::move(onRelease);
-    return this;
-}
-
-Button* Button::with_color(glm::vec4 color) {
+Rectangle* Rectangle::with_color(glm::vec4 color) {
     this->color = color;
-    return this;
 }
 
-Button* Button::with_theme(Color color) {
+Rectangle* Rectangle::with_theme(Color color) {
     switch(color) {
         case normal:
             this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
@@ -80,28 +60,14 @@ Button* Button::with_theme(Color color) {
     }
 }
 
-Button* Button::with_outline(float thickness, glm::vec4 color) {
+
+Rectangle* Rectangle::with_outline(float thickness, glm::vec4 color) {
     this->outlineThickness = thickness;
     this->outlineColor = color;
     return this;
 }
 
-Button* Button::with_textAlign(TextPos alignment) {
-    *this->textAlign = alignment;
-    return this;
-}
-
-Button* Button::with_textSize(int size) {
-    *this->textSize = size;
-    return this;
-}
-
-Button* Button::with_textColor(glm::vec3 color) {
-    *this->textColor = color;
-    return this;
-}
-
-Button* Button::with_hoverColorModifier(glm::vec4 color) {
+Rectangle* Rectangle::with_hoverColorModifier(glm::vec4 color) {
     this->hoverModifier = color;
     return this;
 }

@@ -20,20 +20,23 @@
 
 #include <vector>
 
+class Sprite;
+
 class Collidable {
 public:
     int type;
     float radius;
     std::vector<glm::vec2> corners;
+    Sprite* parent;
     
     Collidable();
-    Collidable(float radius);
-    Collidable(std::vector<float> vertices);
+    Collidable(Sprite* parent, int type);
     
-    std::vector<glm::vec2> getRotatedCorners(glm::vec2 origin, float angle, int coordsType=0);
+    void init();
+    std::vector<glm::vec2> getRotatedCorners(int coordsType=0);
     float getWidth();
     float getHeight();
-    
+
     /*!
      * @brief Gets the current relative bouding box of the collider, based on the current rotation.
      *
@@ -42,7 +45,7 @@ public:
      *
      * @returns A axis-aligned bounding box (AABB).
      */
-    AABB getAABB(glm::vec2 origin, float rotation);
+    AABB getAABB();
 };
 
 #endif

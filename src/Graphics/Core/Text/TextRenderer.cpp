@@ -79,7 +79,7 @@ void TextRenderer::loadFont(const char* pathToFont, int resolution) {
 
 void TextRenderer::text(std::wstring text, float x, float y, float boundX, float boundY, int size, glm::vec3 color, TextPos textAlign) {
     std::wstring::const_iterator c;
-    Shader shader = *rm.getShader("text");
+    Shader shader = CE_TEXT_SHADER;
     float scale = static_cast<float>(size) / resolution;
     shader.use();
     shader.setVec3("textColor", color);

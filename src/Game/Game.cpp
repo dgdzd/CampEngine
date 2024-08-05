@@ -3,6 +3,7 @@
 #include <CampEngine/Game/Constants.h>
 #include <CampEngine/Game/Events/Categories/KeyboardEvents.h>
 #include <CampEngine/Game/Events/Categories/MouseEvents.h>
+#include <CampEngine/Game/Events/Categories/WindowEvents.h>
 #include <CampEngine/Graphics/Screens/DebugScreen.h>
 #include <CampEngine/Graphics/Widgets/TextBox.h>
 #include <CampEngine/Physics/CollisionsHandler.h>
@@ -10,9 +11,8 @@
 
 #include <string>
 
-#include "CampEngine/Game/Events/Categories/WindowEvents.h"
 
-Game::Game() {}
+Game::Game() = default;
 
 int Game::initialize() {
     if(init_libs() != 0) return 0;
@@ -41,24 +41,24 @@ int Game::initialize() {
     this->tr = TextRenderer::common;
     tr->loadFont(GET_RESOURCE(fonts/helveticaLight.ttf), 48);
 
-    /* Setting up the objects */
+    /* Loading shaders */
     ResourceManager &rm = ResourceManager::standard;
     rm.loadShader("unlitShader", GET_RESOURCE(shaders/unlitShader.vs), GET_RESOURCE(shaders/unlitShader.fs));
     rm.loadShader("litShader", GET_RESOURCE(shaders/lit/defaultLitShader.vs), GET_RESOURCE(shaders/lit/defaultLitShader.fs));
     rm.loadShader("text", GET_RESOURCE(shaders/text.vs), GET_RESOURCE(shaders/text.fs));
-    
+    rm.loadShader("widget", GET_RESOURCE(shaders/widget/widget.vs), GET_RESOURCE(shaders/widget/widget.fs));
+    rm.loadShader("rectangle", GET_RESOURCE(shaders/shapes/rectangle.vs), GET_RESOURCE(shaders/shapes/rectangle.fs));
+    rm.loadShader("circle", GET_RESOURCE(shaders/shapes/circle.vs), GET_RESOURCE(shaders/shapes/circle.fs));
+
     /* Loading post-processing effect shaders */
     rm.loadShader("pp.none", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/screen.fs));
     rm.loadShader("pp.reverse_colors", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/reverse_colors.fs));
     rm.loadShader("pp.grayscale", GET_RESOURCE(shaders/screen/screen.vs), GET_RESOURCE(shaders/screen/post_processing/grayscale.fs));
-    
+
     rm.loadPostProcessor("basic", *rm.getShader("pp.none"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
     rm.loadPostProcessor("reverse_colors", *rm.getShader("pp.reverse_colors"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
     rm.loadPostProcessor("grayscale", *rm.getShader("pp.grayscale"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
-    
-    /* Loading widget shader */
-    rm.loadShader("widget", GET_RESOURCE(shaders/widget/widget.vs), GET_RESOURCE(shaders/widget/widget.fs));
-    
+
     this->status = GAME_MENU;
     this->frame = { CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT };
     this->pp = *rm.getPostProcessor("basic");
@@ -224,13 +224,13 @@ void Game::framebuffer_size_callback(GLFWwindow* window, int width, int height) 
     SEND_EVENT(event);
 }
 
-void Game::window_close_callback(GLFWwindow *window) {
+void Game::window_close_callback(GLFWwindow* window) {
     WindowShouldCloseEvent event;
     event.window = window;
     SEND_EVENT(event);
 }
 
-void Game::window_refresh_callback(GLFWwindow *window) {
+void Game::window_refresh_callback(GLFWwindow* window) {
     activeGame->update();
 }
 

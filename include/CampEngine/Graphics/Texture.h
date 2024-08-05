@@ -8,6 +8,7 @@ public:
     unsigned char* data;
     bool generatedImg = false;
     bool generatedMipmap = false;
+    bool isEmpty;
 
     Texture();
     Texture(int width, int height);

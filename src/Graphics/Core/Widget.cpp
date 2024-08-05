@@ -14,11 +14,11 @@
 #include <vector>
 
 
-Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action) : Widget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action) {
+Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action, AnchorPoint anchor) : Widget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action, anchor) {
     this->texture = texture;
 }
 
-Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action) : IWidget(window, shader, xpos, ypos, xsize, ysize, xscale, yscale, action) {
+Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, xsize, ysize, xscale, yscale, action, anchor) {
     this->position = glm::vec2(xpos, ypos);
     this->boxSize = glm::vec2(xsize * xscale, ysize * yscale);
     this->action = action;
@@ -35,7 +35,7 @@ Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float 
     ADD_LISTENER(WidgetReleaseEvent(), Widget::onWidgetRelease, this);
 }
 
-Widget::Widget(GLFWwindow* window, float xpos, float ypos) : Widget(window, Shader(), xpos, ypos, 0, 0, 1, 1, Action()) {
+Widget::Widget(GLFWwindow* window, float xpos, float ypos, AnchorPoint anchor) : Widget(window, Shader(), xpos, ypos, 0, 0, 1, 1, Action(), anchor) {
 
 }
 
@@ -55,7 +55,7 @@ void Widget::onMouseClick(const Event &e) {
     if(this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
         this->action.isClicked = true;
         selected = true;
-        this->action.onClick();
+        this->action.onClick(this);
         
         WidgetClickEvent event_;
         event_.widget = this;
@@ -72,7 +72,7 @@ void Widget::onMouseRelease(const Event &e) {
     auto event = e.as<MouseReleaseEvent>();
     if(this->action.isClicked && this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
         this->action.isClicked = false;
-        this->action.onRelease();
+        this->action.onRelease(this);
         
         WidgetReleaseEvent event_;
         event_.widget = this;
@@ -88,7 +88,7 @@ void Widget::onMouseMove(const Event &e) {
     auto event = e.as<MouseMoveEvent>();
     std::function<void()> quitHoveringfunc = [this, event]() {
         if(this->action.isHovered) {
-            this->action.onQuitHovering();
+            this->action.onQuitHovering(this);
             
             WidgetStopHoveringEvent event_;
             event_.widget = this;
@@ -103,7 +103,7 @@ void Widget::onMouseMove(const Event &e) {
         if((Game::activeGame->frame.height - position.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - position.y) + boxSize.y/2) {
             if(!this->action.isHovered) {
                 this->action.isHovered = true;
-                this->action.onStartHovering();
+                this->action.onStartHovering(this);
                 
                 WidgetStartHoveringEvent event_;
                 event_.widget = this;
@@ -119,11 +119,19 @@ void Widget::onMouseMove(const Event &e) {
     }
 }
 
+void Widget::onStartHovering(const Event &e) {
+    auto event = e.as<WidgetStartHoveringEvent>();
+}
+
+void Widget::onStopHovering(const Event &e) {
+    auto event = e.as<WidgetStopHoveringEvent>();
+}
+
 void Widget::onKeyPress(const Event &e) {
     auto event = e.as<KeyPressEvent>();
 }
 
 void Widget::onCharInput(const Event &e) {
     auto event = e.as<CharacterInputEvent>();
-    this->action.onCharType();
+    this->action.onCharType(this);
 }

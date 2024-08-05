@@ -16,3 +16,8 @@ void TabButton::onWidgetClick(const Event &e) {
         tab->group->activeTab = tab;
     }
 }
+
+TabButton* TabButton::with_tab(Tab* tab) {
+    this->tab = tab;
+    return this;
+}

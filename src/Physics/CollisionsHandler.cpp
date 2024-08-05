@@ -83,8 +83,8 @@ bool CollisionsHandler::intersectPolygons(RigidBody2D* bodyA, RigidBody2D* bodyB
     glm::vec2 positionA = glm::vec2(bodyA->parent->position.x, bodyA->parent->position.y);
     glm::vec2 positionB = glm::vec2(bodyB->parent->position.x, bodyB->parent->position.y);
     glm::vec2 dir = positionB - positionA;
-    std::vector<glm::vec2> cornersA = bodyA->collision.getRotatedCorners(positionA, bodyA->parent->rotation, COORDS_WORLD);
-    std::vector<glm::vec2> cornersB = bodyB->collision.getRotatedCorners(positionB, bodyB->parent->rotation, COORDS_WORLD);
+    std::vector<glm::vec2> cornersA = bodyA->collision.getRotatedCorners(COORDS_WORLD);
+    std::vector<glm::vec2> cornersB = bodyB->collision.getRotatedCorners(COORDS_WORLD);
     normal = glm::vec2(0.0f);
     depth = 0.0f;
     
@@ -150,7 +150,7 @@ bool CollisionsHandler::intersectCirclePolygon(RigidBody2D* circle, RigidBody2D*
     glm::vec2 positionA = glm::vec2(circle->parent->position.x, circle->parent->position.y);
     glm::vec2 positionB = glm::vec2(polygon->parent->position.x, polygon->parent->position.y);
     glm::vec2 dir = positionB - positionA;
-    std::vector<glm::vec2> corners = polygon->collision.getRotatedCorners(positionB, polygon->parent->rotation);
+    std::vector<glm::vec2> corners = polygon->collision.getRotatedCorners();
     normal = glm::vec2(0.0f);
     depth = 0.0f;
     
@@ -283,8 +283,8 @@ void CollisionsHandler::findCircleContactPoint(RigidBody2D* bodyA, RigidBody2D* 
 void CollisionsHandler::findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D* bodyB, glm::vec2& contact1, glm::vec2& contact2, int& contactCount) {
     glm::vec2 positionA = glm::vec2(bodyA->parent->position.x, bodyA->parent->position.y);
     glm::vec2 positionB = glm::vec2(bodyB->parent->position.x, bodyB->parent->position.y);
-    std::vector<glm::vec2> cornersA = bodyA->collision.getRotatedCorners(positionA, bodyA->parent->rotation, COORDS_WORLD);
-    std::vector<glm::vec2> cornersB = bodyB->collision.getRotatedCorners(positionB, bodyB->parent->rotation, COORDS_WORLD);
+    std::vector<glm::vec2> cornersA = bodyA->collision.getRotatedCorners(COORDS_WORLD);
+    std::vector<glm::vec2> cornersB = bodyB->collision.getRotatedCorners(COORDS_WORLD);
     float minDistSquared = std::numeric_limits<float>().max();
     
     for(glm::vec2 p : cornersA) {
@@ -336,7 +336,7 @@ void CollisionsHandler::findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D*
 void CollisionsHandler::findCirclePolygonContactPoint(RigidBody2D* circle, RigidBody2D* polygon, glm::vec2& contact1, glm::vec2& contact2, int& contactCount) {
     glm::vec2 positionA = glm::vec2(circle->parent->position.x, circle->parent->position.y);
     glm::vec2 positionB = glm::vec2(polygon->parent->position.x, polygon->parent->position.y);
-    std::vector<glm::vec2> corners = polygon->collision.getRotatedCorners(positionB, polygon->parent->rotation, COORDS_WORLD);
+    std::vector<glm::vec2> corners = polygon->collision.getRotatedCorners(COORDS_WORLD);
     float minDistSquared = std::numeric_limits<float>().max();
     
     for(int i = 0; i < corners.size(); i++) {
@@ -388,7 +388,7 @@ void CollisionsHandler::broadPhase(std::vector<std::pair<int, int>>& contactPair
             RigidBody2D* bodyB = bodies.at(j);
             
             if(bodyA->isStatic && bodyB->isStatic) continue;
-             if(!intersectAABB(bodyA, bodyB)) continue;
+            if(!intersectAABB(bodyA, bodyB)) continue;
             
             contactPairs.push_back(std::pair<int, int>(i, j));
         }
@@ -398,8 +398,8 @@ void CollisionsHandler::broadPhase(std::vector<std::pair<int, int>>& contactPair
 bool CollisionsHandler::intersectAABB(RigidBody2D* bodyA, RigidBody2D* bodyB) {
     glm::vec2 positionA = bodyA->parent->position;
     glm::vec2 positionB = bodyB->parent->position;
-    AABB a = bodyA->collision.getAABB(positionA, bodyA->parent->rotation);
-    AABB b = bodyB->collision.getAABB(positionB, bodyB->parent->rotation);
+    AABB a = bodyA->collision.getAABB();
+    AABB b = bodyB->collision.getAABB();
     
     if(a.max.x <= b.min.x || b.max.x <= a.min.x ||
        a.max.y <= b.min.y || b.max.y <= a.min.y) {

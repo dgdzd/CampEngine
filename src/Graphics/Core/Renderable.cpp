@@ -14,6 +14,7 @@ Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vec
     this->shader = shader;
     this->transform = transform;
     this->rotation = rotation;
+    this->scale = glm::vec3(1.0f);
 
     gen_buffers();
 }
@@ -24,8 +25,9 @@ Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float
     this->anchor = anchor;
     this->transform = glm::vec3(xpos, ypos, 0.0f);
     this->rotation = glm::vec3(xrot, yrot, zrot);
+    this->scale = glm::vec3(xscale, yscale, 1.0f);
 
-    gen_vertices(xscale, yscale);
+    gen_vertices();
     gen_buffers();
 }
 
@@ -48,10 +50,11 @@ void Renderable::update() {
 void Renderable::render(Camera camera, glm::mat4 projection) {
     glm::mat4 model(1.0f);
     model = glm::translate(model, transform - camera.position);
+    model = glm::scale(model, scale);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
-    
+
     shader.use();
     shader.setMat4("model", model);
     shader.setMat4("projection", projection);
@@ -67,6 +70,7 @@ void Renderable::render(Camera camera, glm::mat4 projection) {
 void Renderable::render(glm::mat4 projection) {
     glm::mat4 model(1.0f);
     model = glm::translate(model, transform);
+    model = glm::scale(model, scale);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
@@ -86,6 +90,7 @@ void Renderable::render(glm::mat4 projection) {
 void Renderable::render() {
     glm::mat4 model(1.0f);
     model = glm::translate(model, transform);
+    model = glm::scale(model, scale);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.z), glm::vec3(0.0, 0.0, 1.0));
@@ -128,11 +133,11 @@ void Renderable::gen_buffers() {
     glBindVertexArray(0);
 }
 
-void Renderable::gen_vertices(float xscale, float yscale) {
+void Renderable::gen_vertices() {
     switch(anchor) {
         case TOP_LEFT: {
-            float w = texture.width*xscale;
-            float h = texture.height*yscale;
+            float w = texture.width;
+            float h = texture.height;
             this->vertices = {
                 // position     // Texture coordinates
                 0, -h, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -143,8 +148,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case TOP: {
-            float halfw = texture.width/2*xscale;
-            float h = texture.height*yscale;
+            float halfw = texture.width/2;
+            float h = texture.height;
             this->vertices = {
                 // position     // Texture coordinates
                 -halfw, -h, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -155,8 +160,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case TOP_RIGHT: {
-            float w = texture.width*xscale;
-            float h = texture.height*yscale;
+            float w = texture.width;
+            float h = texture.height;
             this->vertices = {
                 // position     // Texture coordinates
                 -w, -h, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -167,8 +172,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case LEFT: {
-            float w = texture.width*xscale;
-            float halfh = texture.height/2*yscale;
+            float w = texture.width;
+            float halfh = texture.height/2;
             this->vertices = {
                 // position     // Texture coordinates
                 0, -halfh, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -179,8 +184,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case CENTER: {
-            float halfw = texture.width/2*xscale;
-            float halfh = texture.height/2*yscale;
+            float halfw = texture.width/2;
+            float halfh = texture.height/2;
             this->vertices = {
                 // position     // Texture coordinates
                 -halfw, -halfh, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -191,8 +196,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case RIGHT: {
-            float w = texture.width*xscale;
-            float halfh = texture.height/2*yscale;
+            float w = texture.width;
+            float halfh = texture.height/2;
             this->vertices = {
                 // position     // Texture coordinates
                 -w, -halfh, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -203,8 +208,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case BOTTOM_LEFT: {
-            float w = texture.width*xscale;
-            float h = texture.height*yscale;
+            float w = texture.width;
+            float h = texture.height;
             this->vertices = {
                 // position     // Texture coordinates
                 0, 0, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -215,8 +220,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case BOTTOM: {
-            float halfw = texture.width/2*xscale;
-            float h = texture.height*yscale;
+            float halfw = texture.width/2;
+            float h = texture.height;
             this->vertices = {
                 // position     // Texture coordinates
                 -halfw, 0, 0.0f, 0.0f, 0.0f, // Bottom-left
@@ -227,8 +232,8 @@ void Renderable::gen_vertices(float xscale, float yscale) {
             break;
         }
         case BOTTOM_RIGHT: {
-            float w = texture.width*xscale;
-            float h = texture.height*yscale;
+            float w = texture.width;
+            float h = texture.height;
             this->vertices = {
                 // position     // Texture coordinates
                 -w, 0, 0.0f, 0.0f, 0.0f, // Bottom-left

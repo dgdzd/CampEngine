@@ -23,14 +23,14 @@ void TestScreen::init() {
 
     /* Create widgets */
     gh.createButton("unlitShader.fs (open in Visual Studio Code)", 20)
-    ->with_onRelease([]() {
+    ->with_onRelease([](Widget* self) {
         system("open -a /Applications/Visual\\ Studio\\ Code.app /Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/shaders/unlitShader.fs -F");
     })
     ->with_textAlign(ALIGN_LEFT)
     ->with_theme(primary);
 
     gh.createButton("Quit", 20)
-    ->with_onRelease([]() {
+    ->with_onRelease([](Widget* self) {
         Game::activeGame->quit();
     })
     ->with_textAlign(ALIGN_LEFT)

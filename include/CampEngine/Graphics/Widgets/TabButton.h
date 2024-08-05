@@ -14,8 +14,8 @@ public:
 
     TabButton(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label);
 
-    TabButton* with_tab(Tab* tab);
     virtual void onWidgetClick(const Event &e);
+    TabButton* with_tab(Tab* tab);
 };
 
 #endif

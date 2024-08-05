@@ -32,6 +32,7 @@ public:
     AnchorPoint anchor;
     glm::vec3 transform;
     glm::vec3 rotation;
+    glm::vec3 scale;
     glm::vec4 color;
     std::vector<float> vertices;
     std::vector<int> indices;
@@ -48,11 +49,16 @@ public:
     void render(Camera camera, glm::mat4 projection);
     void render(glm::mat4 projection);
     void render();
+
+    template<typename T>
+    T* as() {
+        return dynamic_cast<T>(this);
+    }
     
     
 private:
     void gen_buffers();
-    void gen_vertices(float xscale, float yscale);
+    void gen_vertices();
 };
 
 #endif

@@ -29,11 +29,12 @@ public:
     TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize);
 
     virtual void update(glm::mat4 projection);
-    TextInput* with_onClick(std::function<void()> onClick);
-    TextInput* with_onRelease(std::function<void()> onRelease);
-    TextInput* with_onCharType(std::function<void()> onCharType);
+    TextInput* with_onClick(std::function<void(Widget* self)> onClick);
+    TextInput* with_onRelease(std::function<void(Widget* self)> onRelease);
+    TextInput* with_onCharType(std::function<void(Widget* self)> onCharType);
     TextInput* with_color(glm::vec4 color);
-    TextInput* with_color(Color color);
+    TextInput* with_theme(Color color);
+    TextInput* with_outline(float thickness=1, glm::vec4 color=glm::vec4(0.4, 0.4, 0.4, 1));
     TextInput* with_text(std::wstring text);
     TextInput* with_textSize(int size);
     TextInput* with_textColor(glm::vec3 color);
