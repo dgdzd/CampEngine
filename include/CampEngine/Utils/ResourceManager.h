@@ -36,20 +36,20 @@ public:
     
     ResourceManager();
     
-    Shader* loadShader(const std::string &name, const char* vertexShaderPath, const char* fragmentShaderPath);
-    Shader* getShader(const std::string &name);
+    Shader* loadShader(std::string name, const char* vertexShaderPath, const char* fragmentShaderPath);
+    Shader* getShader(std::string name);
     
-    Texture* loadTexture(const std::string &name, const char* texturePath);
-    Texture* getTexture(const std::string &name);
+    Texture* loadTexture(std::string name, const char* texturePath);
+    Texture* getTexture(std::string name);
     
-    PostProcessor* loadPostProcessor(const std::string &name, Shader shader, unsigned int width, unsigned int height);
-    PostProcessor* getPostProcessor(const std::string &name);
+    PostProcessor* loadPostProcessor(std::string name, Shader shader, unsigned int width, unsigned int height);
+    PostProcessor* getPostProcessor(std::string name);
 
     void startEmbedding(const char* pathToFile);
     void stopEmbedding();
-    void embedShader(const std::string &name);
-    void embedTexture(const std::string &name);
-    void embedPostProcessor(const std::string &name);
+    void embedShader(std::string name);
+    void embedTexture(std::string name);
+    void embedPostProcessor(std::string name);
     void loadEmbeddedData(const char* pathToFile);
 };
 

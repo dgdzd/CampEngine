@@ -11,36 +11,36 @@ ResourceManager::ResourceManager() {
     
 }
 
-Shader* ResourceManager::loadShader(const std::string &name, const char* vertexShaderPath, const char* fragmentShaderPath) {
+Shader* ResourceManager::loadShader(std::string name, const char* vertexShaderPath, const char* fragmentShaderPath) {
     Shader shader(vertexShaderPath, fragmentShaderPath);
     shaders[name] = shader;
     
     return &shaders[name];
 }
 
-Shader* ResourceManager::getShader(const std::string &name) {
+Shader* ResourceManager::getShader(std::string name) {
     return &shaders[name];
 }
 
-Texture* ResourceManager::loadTexture(const std::string &name, const char* texturePath) {
+Texture* ResourceManager::loadTexture(std::string name, const char* texturePath) {
     Texture texture(texturePath);
     textures[name] = texture;
     
     return &textures[name];
 }
 
-Texture* ResourceManager::getTexture(const std::string &name) {
+Texture* ResourceManager::getTexture(std::string name) {
     return &textures[name];
 }
 
-PostProcessor* ResourceManager::loadPostProcessor(const std::string &name, Shader shader, unsigned int width, unsigned int height) {
+PostProcessor* ResourceManager::loadPostProcessor(std::string name, Shader shader, unsigned int width, unsigned int height) {
     PostProcessor processor(shader, width, height);
     post_processors[name] = processor;
     
     return &post_processors[name];
 }
 
-PostProcessor* ResourceManager::getPostProcessor(const std::string &name) {
+PostProcessor* ResourceManager::getPostProcessor(std::string name) {
     return &post_processors[name];
 }
 
@@ -57,7 +57,7 @@ void ResourceManager::stopEmbedding() {
 }
 
 
-void ResourceManager::embedShader(const std::string &name) {
+void ResourceManager::embedShader(std::string name) {
     Shader* shader = getShader(name);
     if(shader) {
         embedFile->write("Shader");
@@ -66,7 +66,7 @@ void ResourceManager::embedShader(const std::string &name) {
     }
 }
 
-void ResourceManager::embedTexture(const std::string &name) {
+void ResourceManager::embedTexture(std::string name) {
     Texture* texture = getTexture(name);
     if(texture) {
         embedFile->write("Texture");
@@ -75,7 +75,7 @@ void ResourceManager::embedTexture(const std::string &name) {
     }
 }
 
-void ResourceManager::embedPostProcessor(const std::string &name) {
+void ResourceManager::embedPostProcessor(std::string name) {
     PostProcessor* pp = getPostProcessor(name);
     if(pp) {
         embedFile->write("PostProc");
@@ -105,4 +105,3 @@ void ResourceManager::loadEmbeddedData(const char* pathToFile) {
         }
     }
 }
-
