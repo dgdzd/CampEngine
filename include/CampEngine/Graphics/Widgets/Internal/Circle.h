@@ -9,8 +9,8 @@
 
 class Circle : public Widget {
 public:
-    float radius{};
-    float outlineThickness{};
+    float radius;
+    float outlineThickness;
     glm::vec4 outlineColor;
     glm::vec4 hoverModifier;
 
@@ -19,7 +19,7 @@ public:
     virtual void update(glm::mat4 projection);
     Circle* with_color(glm::vec4 color);
     Circle* with_theme(Color color);
-    Circle* with_outline(float thickness=1, glm::vec4 color);
+    Circle* with_outline(float thickness=1, glm::vec4 color=glm::vec4(0.4, 0.4, 0.4, 1.0));
 };
 
 #endif

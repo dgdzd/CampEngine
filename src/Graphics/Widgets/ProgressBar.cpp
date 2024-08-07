@@ -4,29 +4,31 @@
 
 #include <CampEngine/Graphics/Widgets/ProgressBar.h>
 
-ProgressBar::ProgressBar(GLFWwindow* window, float &value, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, xpos, ypos, anchor), value(value) {
+ProgressBar::ProgressBar(GLFWwindow* window, float value, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, xpos, ypos, anchor) {
+    this->value = value;
     this->oldValue = 0.0f;
     this->minValue = std::numeric_limits<float>::min();
     this->maxValue = std::numeric_limits<float>::max();
 
     this->background = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
-    background->with_color(glm::vec4(0.0f, 0.0f, 0.0f, 1.0f))
-    ->with_outline(0.0f, background->color);
+    background->with_color(glm::vec4(0.0f))
+    ->with_outline(1.5f, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
 
-    this->baseStart = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
-    baseStart->scale = glm::vec3(0.0f, 0.0f, 1.0f);
+    this->baseStart = new Rectangle(window, xpos - xsize/2, ypos, xsize, ysize, anchor);
+    baseStart->scale = glm::vec3(0.0f, 1.0f, 1.0f);
     baseStart->with_theme(danger);
 
     this->baseFinal = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
-    baseStart->scale = glm::vec3(1.0f, 1.0f, 1.0f);
-    baseStart->with_theme(success);
+    baseFinal->scale = glm::vec3(1.0f, 1.0f, 1.0f);
+    baseFinal->with_theme(success);
 
     this->base = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
 }
 
 void ProgressBar::update(glm::mat4 projection) {
     if(oldValue != value) this->updateBar();
-    Widget::update(projection);
+    background->update(projection);
+    base->update(projection);
     oldValue = value;
 }
 
@@ -35,6 +37,7 @@ inline void ProgressBar::updateBar() {
 
     float d = maxValue - minValue;
     float a = (value - minValue) / d;
+    a = std::max(std::min(a, 1.0f), 0.0f);
 
     // Position
     glm::vec3 dPos = baseFinal->transform - baseStart->transform;
@@ -52,8 +55,49 @@ inline void ProgressBar::updateBar() {
     this->base->scale = newScale;
 
     // Color
-    glm::vec3 dColor = baseFinal->scale - baseStart->scale;
-    glm::vec3 newColor = baseStart->scale + a * dColor;
-    this->base->scale = newColor;
+    glm::vec4 dColor = baseFinal->color - baseStart->color;
+    glm::vec4 newColor = baseStart->color + a * dColor;
+    this->base->color = newColor;
+
+    // Outline Color
+    glm::vec4 dOutlineColor = baseFinal->outlineColor - baseStart->outlineColor;
+    glm::vec4 newOutlineColor = baseStart->outlineColor + a * dOutlineColor;
+    this->base->outlineColor = newOutlineColor;
+
+    // Outline Color
+    float dOutlineThickness = baseFinal->outlineThickness - baseStart->outlineThickness;
+    float newOutlineThickness = baseStart->outlineThickness + a * dOutlineThickness;
+    this->base->outlineThickness = newOutlineThickness;
+}
+
+ProgressBar* ProgressBar::with_minValue(float minValue) {
+    this->minValue = minValue;
+    return this;
+}
+
+ProgressBar* ProgressBar::with_maxValue(float maxValue) {
+    this->maxValue = maxValue;
+    return this;
+}
+
+ProgressBar* ProgressBar::with_value(float value) {
+    this->value = value;
+    return this;
+}
+
+ProgressBar* ProgressBar::with_beginState(Rectangle* state) {
+    this->baseStart = state;
+    return this;
+}
+
+ProgressBar* ProgressBar::with_finalState(Rectangle* state) {
+    this->baseFinal = state;
+    return this;
+}
+
+ProgressBar* ProgressBar::with_hoverColorModifier(glm::vec4 color) {
+    base->hoverModifier = color;
+    background->hoverModifier = color;
+    return this;
 }
 

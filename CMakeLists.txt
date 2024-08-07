@@ -41,7 +41,7 @@ set(SOURCE_FILES
         src/Graphics/Camera.cpp
         src/Physics/Maths.cpp
         src/Game/Input/Input.cpp
-        src/Utils/FileReader.cpp
+        src/Utils/FileUtils.cpp
         src/Graphics/Core/Text/Character.cpp
         src/Graphics/Texture.cpp
         src/Graphics/Scene/Tile.cpp
@@ -60,6 +60,9 @@ set(SOURCE_FILES
         src/Graphics/Widgets/Tab.cpp
         src/Graphics/Widgets/TabButton.cpp
         src/Graphics/Widgets/Panel.cpp
+        src/Graphics/Widgets/Internal/Circle.cpp
+        src/Graphics/Widgets/Internal/Rectangle.cpp
+        src/Graphics/Widgets/ProgressBar.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 
@@ -134,7 +137,7 @@ set(public_headers
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Particle.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Game/Constants.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Camera.h
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/FileReader.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/FileUtils.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Texture.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Scene/Tile.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Game/Game.h
@@ -148,8 +151,11 @@ set(public_headers
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Screens/TestScreen.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Screens/DebugScreen.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TabGroup.h
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Tab.cpp
-        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TabButton.cpp
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Tab.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/TabButton.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Internal/Circle.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Internal/Rectangle.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/ProgressBar.h
 )
 # note that ${public_headers} has to be in quotes
 #set_target_properties(lib_${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${public_headers}")

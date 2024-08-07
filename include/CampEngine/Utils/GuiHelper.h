@@ -5,10 +5,11 @@
 //  Created by Noah Campagne on 18/05/2024.
 //
 
-#ifndef gui_helper_h
-#define gui_helper_h
+#ifndef GUI_HELPER_H
+#define GUI_HELPER_H
 
 #include <CampEngine/Graphics/Widgets/Button.h>
+#include <CampEngine/Graphics/Widgets/ProgressBar.h>
 #include <CampEngine/Graphics/Widgets/TextBox.h>
 #include <CampEngine/Graphics/Widgets/TextInput.h>
 #include <CampEngine/Graphics/Widgets/TexturedButton.h>
@@ -46,6 +47,7 @@ public:
     TexturedButton* createTexturedButton(Shader shader, std::string pathToImages, std::string label);
     TextBox* createTextBox(std::wstring text, int boundX, int boundY);
     TextInput* createTextInput(float width, float height);
+    ProgressBar* createProgressBar(float width, float height, float value);
     
 private:
     int textLength(std::string text);

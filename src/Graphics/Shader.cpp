@@ -2,7 +2,7 @@
 
 #include <glad/glad.h>
 
-#include <CampEngine/Utils/FileReader.h>
+#include <CampEngine/Utils/FileUtils.h>
 
 Logger Shader::logger = Logger("Shader");
 

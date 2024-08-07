@@ -20,12 +20,12 @@ private:
     inline void updateBar();
 
 public:
-    float &value;
+    float value;
     float minValue;
     float maxValue;
     glm::vec4 backgroundColor;
 
-    ProgressBar(GLFWwindow* window, float &value, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor=CENTER);
+    ProgressBar(GLFWwindow* window, float value, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor=CENTER);
 
     virtual void update(glm::mat4 projection);
     ProgressBar* with_minValue(float minValue);
@@ -33,6 +33,7 @@ public:
     ProgressBar* with_value(float value);
     ProgressBar* with_beginState(Rectangle* state);
     ProgressBar* with_finalState(Rectangle* state);
+    ProgressBar* with_hoverColorModifier(glm::vec4 color);
 };
 
 #endif

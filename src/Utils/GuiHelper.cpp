@@ -96,3 +96,15 @@ TextInput* GuiHelper::createTextInput(float width, float height) {
     screen->widgets.push_back(ptr);
     return result;
 }
+
+ProgressBar* GuiHelper::createProgressBar(float width, float height, float value) {
+    pos.y -= padding+height/2;
+
+    ProgressBar* result = new ProgressBar(window, value, pos.x + margin + width/2, pos.y, width, height);
+
+    pos.y -= height;
+
+    std::shared_ptr<ProgressBar> ptr = std::shared_ptr<ProgressBar>(result);
+    screen->widgets.push_back(ptr);
+    return result;
+}

@@ -26,6 +26,7 @@ void Rectangle::update(glm::mat4 projection) {
 
 Rectangle* Rectangle::with_color(glm::vec4 color) {
     this->color = color;
+    return this;
 }
 
 Rectangle* Rectangle::with_theme(Color color) {

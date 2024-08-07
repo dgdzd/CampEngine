@@ -89,6 +89,12 @@ int main() {
     Level level("MyLevel", camera);
     
     const Shader shader = *rm.getShader("unlitShader");
+
+    rm.startEmbedding(GET_RESOURCE(data/test.dat));
+    rm.embedShader("unlitShader");
+    rm.embedShader("text");
+    rm.embedShader("widget");
+    rm.stopEmbedding();
     
     mtile = new Entity(game.window, shader, diamond_ore_texture, 500, 640, 4);
     mtile->rotation = 45;

@@ -139,7 +139,7 @@ void TextRenderer::text(std::wstring text, float x, float y, float boundX, float
         glDrawArrays(GL_TRIANGLES, 0, 6);
         
         glDisable(GL_CULL_FACE);
-        glDisable(GL_BLEND);
+        //glDisable(GL_BLEND);
         // advance cursors for next glyph (note that advance is number of 1/64 pixels)
         x += (ch.advance >> 6) * scale; // bitshift by 6 to get value in pixels (2^6 = 64 (divide amount of 1/64th pixels by 64 to get amount of pixels))
     }

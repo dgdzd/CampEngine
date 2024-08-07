@@ -22,23 +22,35 @@
 #define CE_PP_REVERSED_COLORS_SHADER *ResourceManager::standard.getShader("pp.reverse_colors")
 #define CE_PP_GRAYSCALE_SHADER *ResourceManager::standard.getShader("pp.grayscale")
 
+class File;
+
 class ResourceManager {
+private:
+    File* embedFile;
+
 public:
-    static std::map<const char*, Shader> shaders;
-    static std::map<const char*, Texture> textures;
-    static std::map<const char*, PostProcessor> post_processors;
+    static std::map<std::string, Shader> shaders;
+    static std::map<std::string, Texture> textures;
+    static std::map<std::string, PostProcessor> post_processors;
     static ResourceManager standard;
     
     ResourceManager();
     
-    Shader* loadShader(const char* name, const char* vertexShaderPath, const char* fragmentShaderPath);
-    Shader* getShader(const char* name);
+    Shader* loadShader(const std::string &name, const char* vertexShaderPath, const char* fragmentShaderPath);
+    Shader* getShader(const std::string &name);
     
-    Texture* loadTexture(const char* name, const char* texturePath);
-    Texture* getTexture(const char* name);
+    Texture* loadTexture(const std::string &name, const char* texturePath);
+    Texture* getTexture(const std::string &name);
     
-    PostProcessor* loadPostProcessor(const char* name, Shader shader, unsigned int width, unsigned int height);
-    PostProcessor* getPostProcessor(const char* name);
+    PostProcessor* loadPostProcessor(const std::string &name, Shader shader, unsigned int width, unsigned int height);
+    PostProcessor* getPostProcessor(const std::string &name);
+
+    void startEmbedding(const char* pathToFile);
+    void stopEmbedding();
+    void embedShader(const std::string &name);
+    void embedTexture(const std::string &name);
+    void embedPostProcessor(const std::string &name);
+    void loadEmbeddedData(const char* pathToFile);
 };
 
 #endif

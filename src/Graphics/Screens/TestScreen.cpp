@@ -38,4 +38,10 @@ void TestScreen::init() {
 
     gh.createTextInput(200, 25)
     ->with_floatingLabel(L"Type anything");
+
+    float value = 0.8f;
+    gh.createProgressBar(200, 25, value)
+    ->with_minValue(0.0f)
+    ->with_maxValue(1.0f)
+    ->with_hoverColorModifier(glm::vec4(1.0f));
 }
