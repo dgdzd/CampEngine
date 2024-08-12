@@ -63,6 +63,7 @@ set(SOURCE_FILES
         src/Graphics/Widgets/Internal/Circle.cpp
         src/Graphics/Widgets/Internal/Rectangle.cpp
         src/Graphics/Widgets/ProgressBar.cpp
+        src/Graphics/Widgets/Slider.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 

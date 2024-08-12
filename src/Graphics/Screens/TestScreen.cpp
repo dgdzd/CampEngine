@@ -44,4 +44,44 @@ void TestScreen::init() {
     ->with_minValue(0.0f)
     ->with_maxValue(1.0f)
     ->with_hoverColorModifier(glm::vec4(1.0f));
+
+    gh.setMargin(5);
+
+    Slider* slider = gh.createSlider(200, 5, 0.5f)
+    ->with_minValue(0.0f)
+    ->with_maxValue(4.0f);
+
+    gh.setMargin(0);
+
+    TextBox* text = gh.createTextBox(L"Mode: creative", 0, 20);
+
+    slider->with_onValueChange([text](Widget* self) {
+        Slider* slider = self->as<Slider>();
+        int val = (int)slider->value;
+        switch(val) {
+            case 0: {
+                text->text = L"Mode: creative";
+                break;
+            }
+            case 1: {
+                text->text = L"Mode: survival";
+                break;
+            }
+            case 2: {
+                text->text = L"Mode: adventure";
+                break;
+            }
+            case 3: {
+                text->text = L"Mode: hardcode";
+                break;
+            }
+            case 4: {
+                text->text = L"Mode: spectator";
+                break;
+            }
+            default: {
+                text->text = L"Mode: "+std::to_wstring((int)slider->value);
+            }
+        }
+    });
 }

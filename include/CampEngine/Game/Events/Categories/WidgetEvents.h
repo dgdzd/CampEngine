@@ -61,4 +61,13 @@ public:
     std::wstring input;
 };
 
+class WidgetValueChangeEvent : public WidgetEvent {
+public:
+    WidgetValueChangeEvent() : WidgetEvent("WidgetValueChangeEvent") {}
+    virtual ~WidgetValueChangeEvent() {}
+
+    float oldValue;
+    float value;
+};
+
 #endif

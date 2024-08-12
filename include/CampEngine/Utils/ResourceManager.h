@@ -3,9 +3,11 @@
 
 #include <CampEngine/Graphics/Shader.h>
 #include <CampEngine/Graphics/Texture.h>
+#include <CampEngine/Graphics/Level.h>
 #include <CampEngine/Graphics/PostProcessor.h>
 
 #include <map>
+
 
 #define GET_RESOURCE(path) "/Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/" #path
 
@@ -32,6 +34,7 @@ public:
     static std::map<std::string, Shader> shaders;
     static std::map<std::string, Texture> textures;
     static std::map<std::string, PostProcessor> post_processors;
+    static std::map<std::string, Level> levels;
     static ResourceManager standard;
     
     ResourceManager();
@@ -45,11 +48,15 @@ public:
     PostProcessor* loadPostProcessor(std::string name, Shader shader, unsigned int width, unsigned int height);
     PostProcessor* getPostProcessor(std::string name);
 
+    Level* loadLevel(std::string name, Camera &activeCamera);
+    Level* getLevel(std::string name);
+
     void startEmbedding(const char* pathToFile);
     void stopEmbedding();
     void embedShader(std::string name);
     void embedTexture(std::string name);
     void embedPostProcessor(std::string name);
+    void embedLevel(std::string name);
     void loadEmbeddedData(const char* pathToFile);
 };
 

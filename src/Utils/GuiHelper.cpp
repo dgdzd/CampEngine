@@ -108,3 +108,14 @@ ProgressBar* GuiHelper::createProgressBar(float width, float height, float value
     screen->widgets.push_back(ptr);
     return result;
 }
+
+Slider* GuiHelper::createSlider(float width, float height, float value, int direction) {
+    pos.y -= padding+height/2;
+
+    Slider* result = new Slider(window, value, pos.x + margin + width/2, pos.y, width, height, direction);
+
+    pos.y -= height;
+    std::shared_ptr<Slider> ptr = std::shared_ptr<Slider>(result);
+    screen->widgets.push_back(ptr);
+    return result;
+}

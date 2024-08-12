@@ -2,7 +2,7 @@
 
 Level* Level::active;
 
-Level::Level(const char* name, Camera &activeCamera) : activeCamera(&activeCamera) {
+Level::Level(std::string, Camera &activeCamera) : activeCamera(&activeCamera) {
     this->name = name;
 }
 

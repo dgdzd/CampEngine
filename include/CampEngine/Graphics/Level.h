@@ -11,12 +11,13 @@
 
 class Level {
 public:
-    const char* name;
+    std::string name;
     std::vector<std::shared_ptr<Renderable>> objects;
     Camera* activeCamera;
     static Level* active;
 
-    Level(const char* name, Camera &activeCamera);
+    Level() = default;
+    Level(std::string name, Camera &activeCamera);
     
     void update(glm::mat4 projection);
     void render(glm::mat4 projection);

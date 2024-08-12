@@ -17,6 +17,8 @@ public:
     Circle(GLFWwindow* window, float xpos, float ypos, float radius);
 
     virtual void update(glm::mat4 projection);
+    Circle* with_onClick(std::function<void(Widget* self)> onClick);
+    Circle* with_onRelease(std::function<void(Widget* self)> onRelease);
     Circle* with_color(glm::vec4 color);
     Circle* with_theme(Color color);
     Circle* with_outline(float thickness=1, glm::vec4 color=glm::vec4(0.4, 0.4, 0.4, 1.0));

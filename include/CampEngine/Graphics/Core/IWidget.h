@@ -19,6 +19,7 @@ public:
     std::function<void(Widget* self)> onQuitHovering;
     std::function<void(Widget* self)> onRelease;
     std::function<void(Widget* self)> onCharType;
+    std::function<void(Widget* self)> onValueChange;
 
     bool isClicked;
     bool isHovered;
@@ -29,7 +30,8 @@ public:
            std::function<void(Widget* self)> onSubmit=[](Widget* self) {},
            std::function<void(Widget* self)> onQuitHovering=[](Widget* self) {},
            std::function<void(Widget* self)> onRelease=[](Widget* self) {},
-           std::function<void(Widget* self)> onCharType=[](Widget* self) {}) {
+           std::function<void(Widget* self)> onCharType=[](Widget* self) {},
+           std::function<void(Widget* self)> onValueChange=[](Widget* self) {}) {
         this->onAction = std::move(onAction);
         this->onClick = std::move(onClick);
         this->onStartHovering = std::move(onStartHovering);
@@ -37,6 +39,7 @@ public:
         this->onQuitHovering = std::move(onQuitHovering);
         this->onRelease = std::move(onRelease);
         this->onCharType = std::move(onCharType);
+        this->onValueChange = std::move(onValueChange);
     }
 };
 

@@ -70,7 +70,7 @@ void Widget::onMouseClick(const Event &e) {
 
 void Widget::onMouseRelease(const Event &e) {
     auto event = e.as<MouseReleaseEvent>();
-    if(this->action.isClicked && this->action.isHovered && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
+    if(this->action.isClicked && selected && event.mouseButton == GLFW_MOUSE_BUTTON_LEFT) {
         this->action.isClicked = false;
         this->action.onRelease(this);
         
@@ -99,8 +99,8 @@ void Widget::onMouseMove(const Event &e) {
         this->action.isHovered = false;
     };
     
-    if(position.x - boxSize.x/2 <= event.mouseX && event.mouseX <= position.x + boxSize.x/2) {
-        if((Game::activeGame->frame.height - position.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - position.y) + boxSize.y/2) {
+    if(transform.x - boxSize.x/2 <= event.mouseX && event.mouseX <= transform.x + boxSize.x/2) {
+        if((Game::activeGame->frame.height - transform.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - transform.y) + boxSize.y/2) {
             if(!this->action.isHovered) {
                 this->action.isHovered = true;
                 this->action.onStartHovering(this);

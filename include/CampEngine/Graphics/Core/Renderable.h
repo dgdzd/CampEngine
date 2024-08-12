@@ -52,7 +52,7 @@ public:
 
     template<typename T>
     T* as() {
-        return dynamic_cast<T>(this);
+        return dynamic_cast<T*>(this);
     }
     
     

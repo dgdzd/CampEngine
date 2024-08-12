@@ -18,10 +18,20 @@ void Rectangle::update(glm::mat4 projection) {
     shader.setFloat("outlineThickness", outlineThickness);
     shader.setVec4("outlineColor", outlineColor);
     shader.setVec2("dimensions", boxSize);
-    shader.setBool("hovered", action.isHovered);
+    shader.setBool("hovered", action.isClicked && selected || action.isHovered);
     shader.setVec4("hoverModifier", hoverModifier);
 
     Widget::update(projection);
+}
+
+Rectangle* Rectangle::with_onClick(std::function<void(Widget *self)> onClick) {
+    this->action.onClick = std::move(onClick);
+    return this;
+}
+
+Rectangle* Rectangle::with_onRelease(std::function<void(Widget *self)> onRelease) {
+    this->action.onRelease = std::move(onRelease);
+    return this;
 }
 
 Rectangle* Rectangle::with_color(glm::vec4 color) {

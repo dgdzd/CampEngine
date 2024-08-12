@@ -15,9 +15,11 @@ public:
     glm::vec4 outlineColor;
     glm::vec4 hoverModifier;
 
-    Rectangle(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor);
+    Rectangle(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor=CENTER);
 
     virtual void update(glm::mat4 projection);
+    Rectangle* with_onClick(std::function<void(Widget* self)> onClick);
+    Rectangle* with_onRelease(std::function<void(Widget* self)> onRelease);
     Rectangle* with_color(glm::vec4 color);
     Rectangle* with_theme(Color theme);
     Rectangle* with_outline(float thickness=1, glm::vec4 color=glm::vec4(0.4, 0.4, 0.4, 1.0));

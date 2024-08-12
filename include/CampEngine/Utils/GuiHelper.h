@@ -23,6 +23,8 @@
 #include <string>
 #include <cstdlib>
 
+#include "CampEngine/Graphics/Widgets/Slider.h"
+
 /*---- Forward Declaration ----*/
 class Screen;
 class Widget;
@@ -48,6 +50,7 @@ public:
     TextBox* createTextBox(std::wstring text, int boundX, int boundY);
     TextInput* createTextInput(float width, float height);
     ProgressBar* createProgressBar(float width, float height, float value);
+    Slider* createSlider(float width, float height, float value, int direction=0x1);
     
 private:
     int textLength(std::string text);

@@ -21,7 +21,7 @@ public:
 
     File(const char* path);
 
-    void open(int mode);
+    void open(int mode, bool write=true);
     void close();
     char* getContent();
     template<typename Type> void write(Type content);

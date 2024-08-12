@@ -1,10 +1,12 @@
 #include <CampEngine/Utils/ResourceManager.h>
 
+#include <CampEngine/Graphics/Level.h>
 #include <CampEngine/Utils/FileUtils.h>
 
 std::map<std::string, Shader> ResourceManager::shaders;
 std::map<std::string, Texture> ResourceManager::textures;
 std::map<std::string, PostProcessor> ResourceManager::post_processors;
+std::map<std::string, Level> ResourceManager::levels;
 ResourceManager ResourceManager::standard;
 
 ResourceManager::ResourceManager() {
@@ -43,6 +45,18 @@ PostProcessor* ResourceManager::loadPostProcessor(std::string name, Shader shade
 PostProcessor* ResourceManager::getPostProcessor(std::string name) {
     return &post_processors[name];
 }
+
+Level* ResourceManager::loadLevel(std::string name, Camera &activeCamera) {
+    Level level(name, activeCamera);
+    levels[name] = level;
+
+    return &levels[name];
+}
+
+Level *ResourceManager::getLevel(std::string name) {
+    return &levels[name];
+}
+
 
 void ResourceManager::startEmbedding(const char* pathToFile) {
     embedFile = new File(pathToFile);
@@ -86,22 +100,22 @@ void ResourceManager::embedPostProcessor(std::string name) {
 
 void ResourceManager::loadEmbeddedData(const char* pathToFile) {
     File file(pathToFile);
-    file.open(std::ios::out | std::ios::binary);
-    if(file.read<std::string>(8) != "Coubeh10") {
+    file.open(std::ios::out | std::ios::binary, false);
+    auto sig = file.read<std::string>();
+    if(sig != "Coubeh10") {
         Logger::CampEngine.error("Invalid signature of file at: "+std::string(pathToFile));
+        Logger::CampEngine.error("Got: "+sig);
+        file.close();
         return;
     }
     for(auto arg = file.read<std::string>(); arg != "EOF"; arg = file.read<std::string>()) {
         auto name = file.read<std::string>();
-        if(arg == "Shader") {
+        if(arg == "Shader")
             shaders[name] = file.read<Shader>();
-            break;
-        } else if(arg == "Texture") {
+        else if(arg == "Texture")
             textures[name] = file.read<Texture>();
-            break;
-        } else if(arg == "PostProc") {
+        else if(arg == "PostProc")
             post_processors[name] = file.read<PostProcessor>();
-            break;
-        }
     }
+    file.close();
 }
