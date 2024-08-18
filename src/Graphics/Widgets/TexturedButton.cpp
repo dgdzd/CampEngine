@@ -56,7 +56,7 @@ TexturedButton* TexturedButton::with_textSize(int size) {
     return this;
 }
 
-TexturedButton* TexturedButton::with_textColor(glm::vec3 color) {
+TexturedButton* TexturedButton::with_textColor(glm::vec4 color) {
     *this->textColor = color;
     return this;
 }

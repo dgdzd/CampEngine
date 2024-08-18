@@ -12,7 +12,7 @@ class Button : public Widget {
 public:
     TextPos* textAlign;
     int* textSize;
-    glm::vec3* textColor;
+    glm::vec4* textColor;
     float outlineThickness;
     glm::vec4 outlineColor;
     glm::vec4 hoverModifier;
@@ -27,7 +27,7 @@ public:
     Button* with_outline(float thickness=1, glm::vec4 color=glm::vec4(0.4, 0.4, 0.4, 1.0));
     Button* with_textAlign(TextPos alignment);
     Button* with_textSize(int size);
-    Button* with_textColor(glm::vec3 color);
+    Button* with_textColor(glm::vec4 color);
     Button* with_hoverColorModifier(glm::vec4 color);
 };
 

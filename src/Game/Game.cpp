@@ -120,6 +120,11 @@ int Game::init_libs() {
 }
 
 void Game::update() {
+    /* Update game infos */
+    const double time = glfwGetTime();
+    gameInfos.deltaTime = time - gameInfos.time;
+    gameInfos.time = time;
+
     actions->update();
     CollisionsHandler::step();
     

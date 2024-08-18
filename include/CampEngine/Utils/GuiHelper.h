@@ -5,8 +5,8 @@
 //  Created by Noah Campagne on 18/05/2024.
 //
 
-#ifndef GUI_HELPER_H
-#define GUI_HELPER_H
+#ifndef CE_GUI_HELPER_H
+#define CE_GUI_HELPER_H
 
 #include <CampEngine/Graphics/Widgets/Button.h>
 #include <CampEngine/Graphics/Widgets/ProgressBar.h>
@@ -24,6 +24,7 @@
 #include <cstdlib>
 
 #include "CampEngine/Graphics/Widgets/Slider.h"
+#include "CampEngine/Graphics/Widgets/Tooltip.h"
 
 /*---- Forward Declaration ----*/
 class Screen;
@@ -51,6 +52,8 @@ public:
     TextInput* createTextInput(float width, float height);
     ProgressBar* createProgressBar(float width, float height, float value);
     Slider* createSlider(float width, float height, float value, int direction=0x1);
+    Tooltip* createTooltip(std::string text, int textSize);
+    Tooltip* createTooltip(float width, float height, std::string text);
     
 private:
     int textLength(std::string text);

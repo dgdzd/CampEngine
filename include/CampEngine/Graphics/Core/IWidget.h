@@ -9,6 +9,7 @@
 #include <CampEngine/Game/Events/Event.h>
 
 class Widget;
+class ITooltip;
 
 class Action {
 public:
@@ -40,6 +41,8 @@ public:
         this->onRelease = std::move(onRelease);
         this->onCharType = std::move(onCharType);
         this->onValueChange = std::move(onValueChange);
+        isClicked = false;
+        isHovered = false;
     }
 };
 
@@ -62,7 +65,6 @@ class IWidget : public Renderable {
 public:
     int id;
     Action action;
-    glm::vec2 position;
     glm::vec2 boxSize;
     std::vector<std::shared_ptr<IWidget>> children;
     bool selected;
@@ -81,6 +83,7 @@ public:
     virtual void onCharInput(const Event &e);
     virtual void onWidgetClick(const Event &e);
     virtual void onWidgetRelease(const Event &e);
+    void addTooltip(ITooltip* tooltip);
 };
 
 #endif

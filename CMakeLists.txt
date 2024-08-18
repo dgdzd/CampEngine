@@ -14,7 +14,8 @@ file(GLOB LIBS_A "dependencies/library/*.a")
 find_package(Freetype REQUIRED)
 
 set(namespace "Campagne")
-set(MAIN_FILE main.cpp)
+set(MAIN_FILE main.cpp
+        include/CampEngine/Graphics/Widgets/Tooltip.h)
 set(SOURCE_FILES
         src/Utils/stb.cpp
         src/Physics/Force.cpp
@@ -64,6 +65,8 @@ set(SOURCE_FILES
         src/Graphics/Widgets/Internal/Rectangle.cpp
         src/Graphics/Widgets/ProgressBar.cpp
         src/Graphics/Widgets/Slider.cpp
+        src/Graphics/Widgets/ITooltip.cpp
+        src/Graphics/Widgets/Tooltip.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 

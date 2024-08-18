@@ -25,12 +25,12 @@ TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, fl
     this->textSize = &shared_tb.get()->textSize;
     this->textColor = &shared_tb.get()->textColor;
 
-    this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
+    this->color = glm::vec4(0.3f, 0.3f, 0.3f, 1.0f);
     this->outlineThickness = 1;
-    this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);
-    this->hoverModifier = glm::vec4(1.2, 1.2, 1.2, 1.0);
+    this->outlineColor = glm::vec4(0.4f, 0.4f, 0.4f, 1.0f);
+    this->hoverModifier = glm::vec4(1.2f, 1.2f, 1.2f, 1.0f);
     this->baseTextColor = *textColor;
-    this->labelColor = glm::vec3(0.5);
+    this->labelColor = glm::vec4(0.5f, 0.5f, 0.5f, 1.0f);
     this->cursorPos = 0;
 
     this->lastTypeTime = 0;
@@ -53,7 +53,7 @@ void TextInput::update(glm::mat4 projection) {
         int cursor = TextRenderer::common->textLength(text, 0, cursorPos);
         float scale = *textSize/48.0f;
         if(sin((glfwGetTime()-lastTypeTime)*6) > -0.5f) {
-            TextRenderer::common->text(L"|", position.x-boxSize.x/2+cursor*scale-1, position.y, boxSize.x, boxSize.y, *textSize, glm::vec3(1.0));
+            TextRenderer::common->text(L"|", position.x-boxSize.x/2+cursor*scale-1, position.y, boxSize.x, boxSize.y, *textSize, glm::vec4(1.0));
         }
     } else {
         if(text.empty()) {
@@ -136,7 +136,7 @@ TextInput* TextInput::with_textSize(int size) {
     return this;
 }
 
-TextInput* TextInput::with_textColor(glm::vec3 color) {
+TextInput* TextInput::with_textColor(glm::vec4 color) {
     *this->textColor = color;
     return this;
 }
@@ -146,7 +146,7 @@ TextInput* TextInput::with_floatingLabel(std::wstring label) {
     return this;
 }
 
-TextInput* TextInput::with_floatingLabelColor(glm::vec3 color) {
+TextInput* TextInput::with_floatingLabelColor(glm::vec4 color) {
     this->labelColor = color;
     return this;
 }

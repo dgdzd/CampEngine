@@ -19,7 +19,6 @@ Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, f
 }
 
 Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, xsize, ysize, xscale, yscale, action, anchor) {
-    this->position = glm::vec2(xpos, ypos);
     this->boxSize = glm::vec2(xsize * xscale, ysize * yscale);
     this->action = action;
     this->id = 100000 + rand() % (1000000 - 100000);
@@ -99,8 +98,8 @@ void Widget::onMouseMove(const Event &e) {
         this->action.isHovered = false;
     };
     
-    if(transform.x - boxSize.x/2 <= event.mouseX && event.mouseX <= transform.x + boxSize.x/2) {
-        if((Game::activeGame->frame.height - transform.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - transform.y) + boxSize.y/2) {
+    if(position.x - boxSize.x/2 <= event.mouseX && event.mouseX <= position.x + boxSize.x/2) {
+        if((Game::activeGame->frame.height - position.y) - boxSize.y/2 <= event.mouseY && event.mouseY <= (Game::activeGame->frame.height - position.y) + boxSize.y/2) {
             if(!this->action.isHovered) {
                 this->action.isHovered = true;
                 this->action.onStartHovering(this);

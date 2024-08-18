@@ -13,13 +13,13 @@ public:
     std::wstring text;
     TextPos textAlign;
     int textSize;
-    glm::vec3 textColor;
+    glm::vec4 textColor;
 
     TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float boundX, float boundY, std::wstring text);
 
     virtual void update(glm::mat4 projection);
     TextBox* with_text(std::wstring text);
-    TextBox* with_textColor(glm::vec3 color);
+    TextBox* with_textColor(glm::vec4 color);
     TextBox* with_textAlign(TextPos alignment);
     TextBox* with_textSize(int size);
 };

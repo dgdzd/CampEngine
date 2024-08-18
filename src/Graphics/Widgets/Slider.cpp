@@ -24,8 +24,8 @@ Slider::Slider(GLFWwindow* window, float value, float xpos, float ypos, float xs
     this->body = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
     this->body->as<Rectangle>()
     ->with_onClick([this](Widget* self) {
-        this->decayX = Game::activeGame->mouse.xpos - self->transform.x;
-        this->decayY = Game::activeGame->mouse.ypos - self->transform.y;
+        this->decayX = Game::activeGame->mouse.xpos - self->position.x;
+        this->decayY = Game::activeGame->mouse.ypos - self->position.y;
         this->sliding = true;
     });
 
@@ -37,8 +37,8 @@ Slider::Slider(GLFWwindow* window, float value, float xpos, float ypos, float xs
     this->bullet = new Rectangle(window, xpos + xsize/2, ypos, ysize * size, ysize * size);
     this->bullet->as<Rectangle>()
     ->with_onClick([this](Widget* self) {
-        this->decayX = Game::activeGame->mouse.xpos - self->transform.x;
-        this->decayY = Game::activeGame->mouse.ypos - self->transform.y;
+        this->decayX = Game::activeGame->mouse.xpos - self->position.x;
+        this->decayY = Game::activeGame->mouse.ypos - self->position.y;
         this->sliding = true;
     })
     ->with_onRelease([this](Widget* self) {
@@ -53,11 +53,11 @@ void Slider::update(glm::mat4 projection) {
     if(sliding) {
         float d;
         if(direction == DIR_HORIZONTAL) {
-            d = Game::activeGame->mouse.xpos - transform.x + boxSize.x/2;
+            d = Game::activeGame->mouse.xpos - position.x + boxSize.x/2;
             a = d / boxSize.x;
         }
         else if(direction == DIR_VERTICAL) {
-            d = Game::activeGame->mouse.ypos - transform.y + boxSize.y/2;
+            d = Game::activeGame->mouse.ypos - position.y + boxSize.y/2;
             a = d / boxSize.y;
         }
         a = std::max(std::min(a, 1.0f), 0.0f);
@@ -77,13 +77,16 @@ void Slider::update(glm::mat4 projection) {
 
     body->update(projection);
     bullet->update(projection);
+    for(const std::shared_ptr<IWidget>& w : children) {
+        w->update(projection);
+    }
 }
 
 void Slider::updateSlider() {
     // Position
-    glm::vec3 dPos = finalBullet->transform - beginBullet->transform;
-    glm::vec3 newPos = beginBullet->transform + a * dPos;
-    this->bullet->transform = newPos;
+    glm::vec3 dPos = finalBullet->position - beginBullet->position;
+    glm::vec3 newPos = beginBullet->position + a * dPos;
+    this->bullet->position = newPos;
 
     // Rotation
     glm::vec3 dRot = finalBullet->rotation - beginBullet->rotation;

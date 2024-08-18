@@ -40,21 +40,27 @@ struct FT {
     FT_Library lib;
 };
 
+struct GameInfos {
+    double time;
+    double deltaTime;
+};
+
 class Game {
 public:
     static Game* activeGame;
     
-    ActionMapper* actions{};
+    ActionMapper* actions;
     GameStatus status;
-    Screen* activeScreen{};
-    Level* activeLevel{};
-    GLFWwindow* window{};
-    TextRenderer* tr{};
+    Screen* activeScreen;
+    Level* activeLevel;
+    GLFWwindow* window;
+    TextRenderer* tr;
     Mouse mouse;
-    Frame frame{};
+    Frame frame;
     glm::mat4 projection;
     ResourceManager rm;
     PostProcessor pp;
+    GameInfos gameInfos;
     
     Game();
     

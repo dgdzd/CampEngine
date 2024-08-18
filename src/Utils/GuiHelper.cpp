@@ -119,3 +119,21 @@ Slider* GuiHelper::createSlider(float width, float height, float value, int dire
     screen->widgets.push_back(ptr);
     return result;
 }
+
+Tooltip* GuiHelper::createTooltip(std::string text, int textSize) {
+    int length = textLength(text);
+    float scale = textSize/48.0f;
+    float width = length*scale;
+
+    Tooltip* result = new Tooltip(window, 0, 0, width+textSize/2.0, textSize+6, text);
+    result->tb->textSize = textSize;
+
+    return result;
+}
+
+
+Tooltip* GuiHelper::createTooltip(float width, float height, std::string text) {
+    Tooltip* result = new Tooltip(window, 0, 0, width, height, text);
+    //std::shared_ptr<Tooltip> ptr = std::shared_ptr<Tooltip>(result);
+    return result;
+}

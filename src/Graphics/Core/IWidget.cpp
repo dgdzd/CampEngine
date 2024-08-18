@@ -4,6 +4,8 @@
 
 #include <CampEngine/Graphics/Core/IWidget.h>
 
+#include <CampEngine/Graphics/Widgets/ITooltip.h>
+
 IWidget::IWidget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action, anchor) {
 
 }
@@ -55,4 +57,10 @@ void IWidget::onWidgetClick(const Event &e) {
 
 void IWidget::onWidgetRelease(const Event &e) {
 
+}
+
+void IWidget::addTooltip(ITooltip* tooltip) {
+    std::shared_ptr<ITooltip> ptr = std::shared_ptr<ITooltip>(tooltip);
+    tooltip->parent = this;
+    children.push_back(ptr);
 }

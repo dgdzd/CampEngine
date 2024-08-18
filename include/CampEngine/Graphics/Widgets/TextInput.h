@@ -18,13 +18,13 @@ public:
 
     TextPos* textAlign;
     int* textSize;
-    glm::vec3* textColor;
+    glm::vec4* textColor;
 
     float outlineThickness;
     glm::vec4 outlineColor;
     glm::vec4 hoverModifier;
-    glm::vec3 baseTextColor;
-    glm::vec3 labelColor;
+    glm::vec4 baseTextColor;
+    glm::vec4 labelColor;
 
     TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize);
 
@@ -37,9 +37,9 @@ public:
     TextInput* with_outline(float thickness=1, glm::vec4 color=glm::vec4(0.4, 0.4, 0.4, 1));
     TextInput* with_text(std::wstring text);
     TextInput* with_textSize(int size);
-    TextInput* with_textColor(glm::vec3 color);
+    TextInput* with_textColor(glm::vec4 color);
     TextInput* with_floatingLabel(std::wstring label);
-    TextInput* with_floatingLabelColor(glm::vec3 color);
+    TextInput* with_floatingLabelColor(glm::vec4 color);
 
     virtual void onKeyPress(const Event &e);
     virtual void onCharInput(const Event &e);

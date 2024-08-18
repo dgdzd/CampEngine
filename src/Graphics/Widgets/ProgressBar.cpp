@@ -29,6 +29,9 @@ void ProgressBar::update(glm::mat4 projection) {
     if(oldValue != value) this->updateBar();
     background->update(projection);
     base->update(projection);
+    for(const std::shared_ptr<IWidget>& w : children) {
+        w->update(projection);
+    }
     oldValue = value;
 }
 
@@ -40,9 +43,9 @@ inline void ProgressBar::updateBar() {
     a = std::max(std::min(a, 1.0f), 0.0f);
 
     // Position
-    glm::vec3 dPos = baseFinal->transform - baseStart->transform;
-    glm::vec3 newPos = baseStart->transform + a * dPos;
-    this->base->transform = newPos;
+    glm::vec3 dPos = baseFinal->position - baseStart->position;
+    glm::vec3 newPos = baseStart->position + a * dPos;
+    this->base->position = newPos;
 
     // Rotation
     glm::vec3 dRot = baseFinal->rotation - baseStart->rotation;

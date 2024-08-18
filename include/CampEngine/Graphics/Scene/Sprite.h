@@ -12,7 +12,6 @@
 
 class Sprite : public Renderable {
 public:
-    glm::vec3& position;
     float& rotation;
     Sprite(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float xscale, float yscale, float xrot, float yrot, float zrot);
     Sprite(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float scale);

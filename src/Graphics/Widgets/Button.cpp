@@ -96,7 +96,7 @@ Button* Button::with_textSize(int size) {
     return this;
 }
 
-Button* Button::with_textColor(glm::vec3 color) {
+Button* Button::with_textColor(glm::vec4 color) {
     *this->textColor = color;
     return this;
 }

@@ -6,13 +6,13 @@
 class Game;
 /*-----------------------------*/
 
-Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation) : texture(texture), shader(shader), transform(transform), rotation(rotation) {
+Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation) : texture(texture), shader(shader), position(transform), rotation(rotation) {
     this->enabled = true;
     this->window = window;
     this->vertices = vertices;
     this->texture = texture;
     this->shader = shader;
-    this->transform = transform;
+    this->position = transform;
     this->rotation = rotation;
     this->scale = glm::vec3(1.0f);
 
@@ -23,7 +23,7 @@ Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float
     this->enabled = true;
     this->window = window;
     this->anchor = anchor;
-    this->transform = glm::vec3(xpos, ypos, 0.0f);
+    this->position = glm::vec3(xpos, ypos, 0.0f);
     this->rotation = glm::vec3(xrot, yrot, zrot);
     this->scale = glm::vec3(xscale, yscale, 1.0f);
 
@@ -49,7 +49,7 @@ void Renderable::update() {
 
 void Renderable::render(Camera camera, glm::mat4 projection) {
     glm::mat4 model(1.0f);
-    model = glm::translate(model, transform - camera.position);
+    model = glm::translate(model, position - camera.position);
     model = glm::scale(model, scale);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
@@ -69,7 +69,7 @@ void Renderable::render(Camera camera, glm::mat4 projection) {
 
 void Renderable::render(glm::mat4 projection) {
     glm::mat4 model(1.0f);
-    model = glm::translate(model, transform);
+    model = glm::translate(model, position);
     model = glm::scale(model, scale);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
@@ -89,7 +89,7 @@ void Renderable::render(glm::mat4 projection) {
 
 void Renderable::render() {
     glm::mat4 model(1.0f);
-    model = glm::translate(model, transform);
+    model = glm::translate(model, position);
     model = glm::scale(model, scale);
     model = glm::rotate(model, glm::radians(rotation.x), glm::vec3(1.0, 0.0, 0.0));
     model = glm::rotate(model, glm::radians(rotation.y), glm::vec3(0.0, 1.0, 0.0));
