@@ -77,12 +77,13 @@ void TextRenderer::loadFont(const char* pathToFont, int resolution) {
     Logger::CampEngine.info("Done!");
 }
 
-void TextRenderer::text(std::wstring text, float x, float y, float boundX, float boundY, int size, glm::vec4 color, TextPos textAlign) {
+void TextRenderer::text(std::wstring text, float x, float y, float z_depth, float boundX, float boundY, int size, glm::vec4 color, TextPos textAlign) {
     std::wstring::const_iterator c;
     Shader shader = CE_TEXT_SHADER;
     float scale = static_cast<float>(size) / resolution;
     shader.use();
     shader.setVec4("textColor", color);
+    shader.setFloat("z_depth", z_depth);
     glBindVertexArray(VAO);
     
     switch(textAlign) {

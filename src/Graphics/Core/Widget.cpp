@@ -14,11 +14,11 @@
 #include <vector>
 
 
-Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action, AnchorPoint anchor) : Widget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action, anchor) {
+Widget::Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float z_depth, float xscale, float yscale, Action action, AnchorPoint anchor) : Widget(window, shader, xpos, ypos, z_depth, texture.width, texture.height, xscale, yscale, action, anchor) {
     this->texture = texture;
 }
 
-Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, xsize, ysize, xscale, yscale, action, anchor) {
+Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float z_depth, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, z_depth, xsize, ysize, xscale, yscale, action, anchor) {
     this->boxSize = glm::vec2(xsize * xscale, ysize * yscale);
     this->action = action;
     this->id = 100000 + rand() % (1000000 - 100000);
@@ -34,7 +34,7 @@ Widget::Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float 
     ADD_LISTENER(WidgetReleaseEvent(), Widget::onWidgetRelease, this);
 }
 
-Widget::Widget(GLFWwindow* window, float xpos, float ypos, AnchorPoint anchor) : Widget(window, Shader(), xpos, ypos, 0, 0, 1, 1, Action(), anchor) {
+Widget::Widget(GLFWwindow* window, float xpos, float ypos, float z_depth, AnchorPoint anchor) : Widget(window, Shader(), xpos, ypos, z_depth, 0, 0, 1, 1, Action(), anchor) {
 
 }
 
@@ -134,3 +134,9 @@ void Widget::onCharInput(const Event &e) {
     auto event = e.as<CharacterInputEvent>();
     this->action.onCharType(this);
 }
+
+Widget* Widget::with_zDepth(float z_depth) {
+    this->position.z = z_depth;
+    return this;
+}
+

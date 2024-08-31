@@ -30,7 +30,7 @@ public:
     TextRenderer(FT_Library* lib);
     
     void loadFont(const char* pathToFont, int resolution);
-    void text(std::wstring text, float x, float y, float boundX, float boundY, int size, glm::vec4 color, TextPos textAlign = ALIGN_LEFT);
+    void text(std::wstring text, float x, float y, float z_depth, float boundX, float boundY, int size, glm::vec4 color, TextPos textAlign = ALIGN_LEFT);
     int textLength(std::wstring text);
     int textLength(std::wstring text, int begin, int end=-1);
 };

@@ -12,7 +12,7 @@
 #include "CampEngine/Game/Events/Categories/WidgetEvents.h"
 
 
-Slider::Slider(GLFWwindow* window, float value, float xpos, float ypos, float xsize, float ysize, int direction, AnchorPoint anchor) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, xsize, ysize, 1, 1, Action()) {
+Slider::Slider(GLFWwindow* window, float value, float xpos, float ypos, float xsize, float ysize, int direction, AnchorPoint anchor) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, 127.0f, xsize, ysize, 1, 1, Action()) {
     this->decayX = 0.0f;
     this->decayY = 0.0f;
     this->oldValue = 0.0f;
@@ -31,10 +31,13 @@ Slider::Slider(GLFWwindow* window, float value, float xpos, float ypos, float xs
 
     float size = 3.0f;
     this->beginBullet = new Rectangle(window, xpos - xsize/2, ypos, ysize * size, ysize * size);
+    beginBullet->with_zDepth(position.z - 1);
 
     this->finalBullet = new Rectangle(window, xpos + xsize/2, ypos, ysize * size, ysize * size);
+    finalBullet->with_zDepth(position.z - 1);
 
     this->bullet = new Rectangle(window, xpos + xsize/2, ypos, ysize * size, ysize * size);
+    bullet->with_zDepth(position.z - 1);
     this->bullet->as<Rectangle>()
     ->with_onClick([this](Widget* self) {
         this->decayX = Game::activeGame->mouse.xpos - self->position.x;

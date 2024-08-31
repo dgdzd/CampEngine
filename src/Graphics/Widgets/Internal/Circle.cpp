@@ -5,7 +5,7 @@
 #include <CampEngine/Graphics/Widgets/Internal/Circle.h>
 #include <CampEngine/Utils/ResourceManager.h>
 
-Circle::Circle(GLFWwindow* window, float xpos, float ypos, float radius) : Widget(window, CE_CIRCLE_SHADER, xpos, ypos, radius, radius, 1, 1, Action()) {
+Circle::Circle(GLFWwindow* window, float xpos, float ypos, float radius) : Widget(window, CE_CIRCLE_SHADER, xpos, ypos, 127.0f, radius, radius, 1, 1, Action()) {
     this->radius = radius;
     this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
     this->outlineThickness = 1;

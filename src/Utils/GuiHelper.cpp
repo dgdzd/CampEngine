@@ -76,7 +76,7 @@ Button* GuiHelper::createButton(std::string label, int textSize, float width, fl
 TextBox* GuiHelper::createTextBox(std::wstring text, int boundX, int boundY) {
     pos.y -= padding+boundY/2;
     
-    TextBox* result = new TextBox(window, *ResourceManager::standard.getShader("text"), Texture(boundX, boundY), pos.x + margin + boundX/2, pos.y, boundX, boundY, text);
+    TextBox* result = new TextBox(window, *ResourceManager::standard.getShader("text"), Texture(boundX, boundY), pos.x + margin + boundX/2, pos.y, 127.0f, boundX, boundY, text);
     
     pos.y -= padding+boundY/2;
     

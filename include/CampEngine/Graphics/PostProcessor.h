@@ -30,11 +30,11 @@ public:
     void render(glm::vec2 frame);
     
     private:
-    unsigned int MSFBO, FBO;
+    unsigned int FBO;
     unsigned int RBO;
     unsigned int VAO;
     
     void initData();
 };
 
-#endif /* post_processor_h */
+#endif

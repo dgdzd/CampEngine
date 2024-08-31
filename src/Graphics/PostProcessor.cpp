@@ -16,25 +16,25 @@ PostProcessor::PostProcessor() {
 }
 
 PostProcessor::PostProcessor(Shader shader, unsigned int width, unsigned int height) : PPShader(shader), width(width), height(height) {
-    glGenFramebuffers(1, &MSFBO);
-    glGenFramebuffers(1, &FBO);
+    texture.generate(width, height, NULL, GL_RGB);
+
     glGenRenderbuffers(1, &RBO);
-    
-    glBindFramebuffer(GL_FRAMEBUFFER, MSFBO);
     glBindRenderbuffer(GL_RENDERBUFFER, RBO);
-    glRenderbufferStorageMultisample(GL_RENDERBUFFER, 4, GL_RGB, width, height);
-    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_RENDERBUFFER, RBO);
-    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
-        Logger::CampEngine.error("Failed to initialize MSFBO");
-    }
-    
+    glRenderbufferStorage(GL_RENDERBUFFER, GL_DEPTH_COMPONENT, width, height);
+
+    glGenFramebuffers(1, &FBO);
     glBindFramebuffer(GL_FRAMEBUFFER, FBO);
-    texture.generate(width, height, NULL);
     glFramebufferTexture2D(GL_FRAMEBUFFER, GL_COLOR_ATTACHMENT0, GL_TEXTURE_2D, texture.id, 0);
+    glFramebufferRenderbuffer(GL_FRAMEBUFFER, GL_DEPTH_ATTACHMENT, GL_RENDERBUFFER, RBO);
+
     if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
         Logger::CampEngine.error("Failed to initialize FBO");
     }
+    if(glCheckFramebufferStatus(GL_FRAMEBUFFER) != GL_FRAMEBUFFER_COMPLETE) {
+        Logger::CampEngine.error("Failed to initialize MSFBO");
+    }
     glBindFramebuffer(GL_FRAMEBUFFER, 0);
+    glBindRenderbuffer(GL_RENDERBUFFER, 0);
     
     initData();
 }
@@ -72,15 +72,12 @@ void PostProcessor::initData() {
 }
 
 void PostProcessor::start() {
-    glBindFramebuffer(GL_FRAMEBUFFER, MSFBO);
+    glBindFramebuffer(GL_FRAMEBUFFER, FBO);
     glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
-    glClear(GL_COLOR_BUFFER_BIT);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 }
 
 void PostProcessor::end() {
-    glBindFramebuffer(GL_READ_FRAMEBUFFER, MSFBO);
-    glBindFramebuffer(GL_DRAW_FRAMEBUFFER, FBO);
-    glBlitFramebuffer(0, 0, width, height, 0, 0, width, height, GL_COLOR_BUFFER_BIT, GL_NEAREST);
     glBindFramebuffer(GL_FRAMEBUFFER, 0); // binds both READ and WRITE framebuffer to default framebuffer
 }
 

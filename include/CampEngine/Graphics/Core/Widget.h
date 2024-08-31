@@ -5,9 +5,9 @@
 
 class Widget : public IWidget {
 public:
-    Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
-    Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
-    Widget(GLFWwindow* window, float xpos, float ypos, AnchorPoint anchor=CENTER);
+    Widget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float z_depth, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
+    Widget(GLFWwindow* window, Shader shader, float xpos, float ypos, float z_depth, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
+    Widget(GLFWwindow* window, float xpos, float ypos, float z_depth, AnchorPoint anchor=CENTER);
     
     virtual void update(glm::mat4 projection);
     virtual void onMouseClick(const Event &e);
@@ -17,6 +17,7 @@ public:
     virtual void onStopHovering(const Event &e);
     virtual void onKeyPress(const Event &e);
     virtual void onCharInput(const Event &e);
+    Widget* with_zDepth(float z_depth);
 };
 
 #endif

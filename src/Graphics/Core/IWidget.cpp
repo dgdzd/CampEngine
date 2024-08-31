@@ -6,15 +6,15 @@
 
 #include <CampEngine/Graphics/Widgets/ITooltip.h>
 
-IWidget::IWidget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, texture.width, texture.height, xscale, yscale, action, anchor) {
+IWidget::IWidget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float z_depth, float xscale, float yscale, Action action, AnchorPoint anchor) : IWidget(window, shader, xpos, ypos, z_depth, texture.width, texture.height, xscale, yscale, action, anchor) {
 
 }
 
-IWidget::IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor) : Renderable(window, shader, Texture(xsize, ysize), xpos, ypos, xscale, yscale, anchor) {
+IWidget::IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, float z_depth, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor) : Renderable(window, shader, Texture(xsize, ysize), xpos, ypos, z_depth, xscale, yscale, anchor) {
 
 }
 
-IWidget::IWidget(GLFWwindow* window, float xpos, float ypos, AnchorPoint anchor) : IWidget(window, Shader(), xpos, ypos, 0, 0, 0, 0, Action(), anchor)  {
+IWidget::IWidget(GLFWwindow* window, float xpos, float ypos, float z_depth, AnchorPoint anchor) : IWidget(window, Shader(), xpos, ypos, z_depth, 0, 0, 0, 0, Action(), anchor)  {
 
 }
 

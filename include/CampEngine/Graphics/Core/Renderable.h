@@ -40,9 +40,9 @@ public:
     long index;
     
     Renderable(GLFWwindow* window, std::vector<float> vertices, std::vector<int> indices, Texture texture, Shader shader, glm::vec3 transform, glm::vec3 rotation);
-    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, AnchorPoint anchor=CENTER);
-    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, AnchorPoint anchor=CENTER);
-    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot, AnchorPoint anchor=CENTER);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float scale, AnchorPoint anchor=CENTER);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float xscale, float yscale, AnchorPoint anchor=CENTER);
+    Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float xscale, float yscale, float xrot, float yrot, float zrot, AnchorPoint anchor=CENTER);
 
     virtual void update(Camera camera, glm::mat4 projection);
     virtual void update();

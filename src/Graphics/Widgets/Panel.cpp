@@ -5,7 +5,7 @@
 #include <CampEngine/Graphics/Widgets/Panel.h>
 #include <CampEngine/Utils/ResourceManager.h>
 
-Panel::Panel(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, xsize, ysize, 1, 1, Action(), anchor) {
+Panel::Panel(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, 128.0f, xsize, ysize, 1, 1, Action(), anchor) {
     this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
     this->outlineThickness = 1;
     this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);

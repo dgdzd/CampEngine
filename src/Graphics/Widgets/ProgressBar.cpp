@@ -4,7 +4,7 @@
 
 #include <CampEngine/Graphics/Widgets/ProgressBar.h>
 
-ProgressBar::ProgressBar(GLFWwindow* window, float value, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, xpos, ypos, anchor) {
+ProgressBar::ProgressBar(GLFWwindow* window, float value, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, xpos, ypos, 127.0f, anchor) {
     this->value = value;
     this->oldValue = 0.0f;
     this->minValue = std::numeric_limits<float>::min();
@@ -13,16 +13,21 @@ ProgressBar::ProgressBar(GLFWwindow* window, float value, float xpos, float ypos
     this->background = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
     background->with_color(glm::vec4(0.0f))
     ->with_outline(1.5f, glm::vec4(0.5f, 0.5f, 0.5f, 1.0f));
+    this->background->with_zDepth(position.z);
 
     this->baseStart = new Rectangle(window, xpos - xsize/2, ypos, xsize, ysize, anchor);
     baseStart->scale = glm::vec3(0.0f, 1.0f, 1.0f);
+    baseStart->with_zDepth(position.z - 1);
     baseStart->with_theme(danger);
+
 
     this->baseFinal = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
     baseFinal->scale = glm::vec3(1.0f, 1.0f, 1.0f);
+    baseFinal->with_zDepth(position.z - 1);
     baseFinal->with_theme(success);
 
     this->base = new Rectangle(window, xpos, ypos, xsize, ysize, anchor);
+    base->with_zDepth(position.z - 1);
 }
 
 void ProgressBar::update(glm::mat4 projection) {

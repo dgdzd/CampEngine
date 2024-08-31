@@ -19,11 +19,11 @@ Renderable::Renderable(GLFWwindow* window, std::vector<float> vertices, std::vec
     gen_buffers();
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, float xrot, float yrot, float zrot, AnchorPoint anchor) : shader(shader), texture(texture) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float xscale, float yscale, float xrot, float yrot, float zrot, AnchorPoint anchor) : shader(shader), texture(texture) {
     this->enabled = true;
     this->window = window;
     this->anchor = anchor;
-    this->position = glm::vec3(xpos, ypos, 0.0f);
+    this->position = glm::vec3(xpos, ypos, zpos);
     this->rotation = glm::vec3(xrot, yrot, zrot);
     this->scale = glm::vec3(xscale, yscale, 1.0f);
 
@@ -31,11 +31,11 @@ Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float
     gen_buffers();
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, AnchorPoint anchor) : Renderable(window, shader, texture, xpos, ypos, xscale, yscale, 0, 0, 0) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float xscale, float yscale, AnchorPoint anchor) : Renderable(window, shader, texture, xpos, ypos, zpos, xscale, yscale, 0, 0, 0) {
     
 }
 
-Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float scale, AnchorPoint anchor) : Renderable(window, shader, texture, xpos, ypos, scale, scale) {
+Renderable::Renderable(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float zpos, float scale, AnchorPoint anchor) : Renderable(window, shader, texture, xpos, ypos, zpos, scale, scale) {
     
 }
 

@@ -75,12 +75,14 @@ int Game::initialize() {
         rm.embedPostProcessor("reverse_colors");
         rm.embedPostProcessor("grayscale");
         rm.stopEmbedding();
+    } else {
+        rm.loadEmbeddedData(GET_RESOURCE(data/resources.dat));
     }
 
     this->status = GAME_MENU;
     this->frame = { CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT };
     this->pp = *rm.getPostProcessor("basic");
-    this->projection = glm::ortho(0.0f, static_cast<float>(CE_WINDOW_WIDTH), 0.0f, static_cast<float>(CE_WINDOW_HEIGHT), -1.0f, 1.0f);
+    this->projection = glm::ortho(0.0f, static_cast<float>(CE_WINDOW_WIDTH), 0.0f, static_cast<float>(CE_WINDOW_HEIGHT), 0.0f, -128.0f);
     this->actions = new ActionMapper();
     
     glfwSetKeyCallback(window, key_callback);
@@ -91,6 +93,8 @@ int Game::initialize() {
     //glfwSetWindowCloseCallback(window, window_close_callback);
     
     activeGame = this;
+
+    glDepthFunc(GL_LESS);
     
     return 1;
 }
@@ -124,6 +128,7 @@ void Game::update() {
     const double time = glfwGetTime();
     gameInfos.deltaTime = time - gameInfos.time;
     gameInfos.time = time;
+    glEnable(GL_DEPTH_TEST);
 
     actions->update();
     CollisionsHandler::step();
@@ -131,14 +136,16 @@ void Game::update() {
     /* Rendering functions here */
     pp.start();
 
+
     if(activeLevel) activeLevel->update(projection);
     if(activeScreen) activeScreen->render(projection);
     if(auto ds = dynamic_cast<DebugScreen*>(activeScreen)) {
         ds->textFPS->text = L"FPS: " + std::to_wstring((int)PhysicsEnvironment::getInstance()->fpsCount);
         ds->textDeltaTime->text = L"DeltaTime: " + std::to_wstring(PhysicsEnvironment::getInstance()->deltaTime);
     }
-    
+
     pp.end();
+    glDisable(GL_DEPTH_TEST);
     pp.render();
     
     tr->projection = projection;
@@ -208,7 +215,7 @@ void Game::mouse_button_callback(GLFWwindow *window, int button, int action, int
     }
 }
 
-void Game::key_callback(GLFWwindow *window, int key, int scancode, int action, int mods) {
+void Game::key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
     if(action == GLFW_PRESS || action == GLFW_REPEAT) {
         KeyPressEvent event;
         event.key = key;
@@ -234,7 +241,7 @@ void Game::char_callback(GLFWwindow* window, unsigned int codepoint) {
 
 void Game::framebuffer_size_callback(GLFWwindow* window, int width, int height) {
     glViewport(0, 0, width, height);
-    Game::activeGame->projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), -1.0f, 1.0f);
+    Game::activeGame->projection = glm::ortho(0.0f, static_cast<float>(width), 0.0f, static_cast<float>(height), 0.0f, 128.0f);
     Game::activeGame->frame = {
         CE_WINDOW_WIDTH,
         CE_WINDOW_HEIGHT

@@ -5,7 +5,7 @@
 #include <CampEngine/Graphics/Widgets/Tab.h>
 #include <CampEngine/Graphics/Widgets/TabGroup.h>
 
-Tab::Tab(GLFWwindow* window) : Widget(window, 0, 0) {
+Tab::Tab(GLFWwindow* window) : Widget(window, 0, 0, 128) {
     group = nullptr;
 }
 

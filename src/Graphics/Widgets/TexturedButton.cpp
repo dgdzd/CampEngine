@@ -8,9 +8,9 @@
 
 #include <codecvt>
 
-TexturedButton::TexturedButton(GLFWwindow* window, Shader shader, Texture idle, Texture hover, float xpos, float ypos, float xscale, float yscale, std::string label) : Widget(window, shader, idle, xpos, ypos, xscale, yscale, Action()) {
+TexturedButton::TexturedButton(GLFWwindow* window, Shader shader, Texture idle, Texture hover, float xpos, float ypos, float xscale, float yscale, std::string label) : Widget(window, shader, idle, xpos, ypos, 127.0f, xscale, yscale, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, texture.width * xscale, texture.height * yscale, converter.from_bytes(label));
+    TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, texture.width * xscale, texture.height * yscale, position.z - 1, converter.from_bytes(label));
     std::shared_ptr shared_tb = std::shared_ptr<TextBox>(tb);
     children.push_back(shared_tb);
 

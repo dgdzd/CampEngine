@@ -7,7 +7,7 @@
 #include <CampEngine/Game/Game.h>
 
 ITooltip::ITooltip(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale,
-                   IWidget* parent, float delayIn, float delayOut, float fadeInTime, float fadeOutTime, float cooldown) : Widget(window, shader, texture, xpos, ypos, xscale, yscale, Action()) {
+                   IWidget* parent, float delayIn, float delayOut, float fadeInTime, float fadeOutTime, float cooldown) : Widget(window, shader, texture, xpos, ypos, 2.0f, xscale, yscale, Action()) {
     this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
     this->oldX = xpos;
     this->oldY = ypos;

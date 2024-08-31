@@ -7,9 +7,9 @@
 #include <codecvt>
 #include <utility>
 
-Button::Button(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, xsize, ysize, 1, 1, Action()) {
+Button::Button(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, std::string label) : Widget(window, CE_WIDGET_SHADER, xpos, ypos, 127.0f, xsize, ysize, 1, 1, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    auto* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(label));
+    auto* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, position.z - 0.1f, xsize, ysize, converter.from_bytes(label));
     std::shared_ptr<TextBox> shared_tb = std::shared_ptr<TextBox>(tb);
     children.push_back(shared_tb);
 

@@ -6,7 +6,7 @@
 
 #include <CampEngine/Utils/ResourceManager.h>
 
-Rectangle::Rectangle(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, *ResourceManager::standard.getShader("widget"), xpos, ypos, xsize, ysize, 1, 1, Action(), anchor) {
+Rectangle::Rectangle(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize, AnchorPoint anchor) : Widget(window, *ResourceManager::standard.getShader("widget"), xpos, ypos, 127.0f, xsize, ysize, 1, 1, Action(), anchor) {
     this->color = glm::vec4(0.3, 0.3, 0.3, 1.0);
     this->outlineThickness = 1;
     this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);

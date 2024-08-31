@@ -15,7 +15,7 @@ public:
     int textSize;
     glm::vec4 textColor;
 
-    TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float boundX, float boundY, std::wstring text);
+    TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float z_depth, float boundX, float boundY, std::wstring text);
 
     virtual void update(glm::mat4 projection);
     TextBox* with_text(std::wstring text);

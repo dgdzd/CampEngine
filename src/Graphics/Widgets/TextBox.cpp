@@ -6,7 +6,7 @@
 
 #include <CampEngine/Graphics/Core/Text/TextRenderer.h>
 
-TextBox::TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float boundX, float boundY, std::wstring text) : Widget(window, shader, Texture(boundX, boundY), xpos, ypos, 1, 1, Action()) {
+TextBox::TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float z_depth, float boundX, float boundY, std::wstring text) : Widget(window, shader, Texture(boundX, boundY), xpos, ypos, z_depth, 1, 1, Action()) {
     this->boxSize = glm::vec2(boundX, boundY);
     this->text = text;
     this->textColor = glm::vec4(1.0);
@@ -15,7 +15,7 @@ TextBox::TextBox(GLFWwindow* window, Shader shader, Texture texture, float xpos,
 }
 
 void TextBox::update(glm::mat4 projection) {
-    TextRenderer::common->text(text, position.x, position.y, boxSize.x, boxSize.y, textSize, textColor, textAlign);
+    TextRenderer::common->text(text, position.x, position.y, position.z, boxSize.x, boxSize.y, textSize, textColor, textAlign);
 }
 
 TextBox* TextBox::with_text(std::wstring text) {

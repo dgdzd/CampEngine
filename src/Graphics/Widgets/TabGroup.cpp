@@ -4,7 +4,7 @@
 
 #include <CampEngine/Graphics/Widgets/TabGroup.h>
 
-TabGroup::TabGroup(GLFWwindow* window, int alignment, float xpos, float ypos) : Widget(window, xpos, ypos) {
+TabGroup::TabGroup(GLFWwindow* window, int alignment, float xpos, float ypos) : Widget(window, xpos, ypos, 128) {
     this->alignment = alignment;
 }
 

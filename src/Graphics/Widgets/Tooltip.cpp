@@ -15,7 +15,7 @@ Tooltip::Tooltip(GLFWwindow* window, float xpos, float ypos, float xsize, float 
     this->outlineColor = glm::vec4(0.4, 0.4, 0.4, 1.0);
     this->hoverModifier = glm::vec4(1.0);
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(label));
+    tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, position.z - 0.5f, xsize, ysize, converter.from_bytes(label));
     std::shared_ptr<TextBox> shared_tb = std::shared_ptr<TextBox>(tb);
     children.push_back(shared_tb);
     savedTextColor = tb->textColor;

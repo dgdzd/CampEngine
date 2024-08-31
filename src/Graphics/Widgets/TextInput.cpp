@@ -14,9 +14,9 @@
 
 
 
-TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize) : Widget(window, CE_WIDGET_SHADER, Texture(xsize, ysize), xpos, ypos, 1, 1, Action()) {
+TextInput::TextInput(GLFWwindow* window, float xpos, float ypos, float xsize, float ysize) : Widget(window, CE_WIDGET_SHADER, Texture(xsize, ysize), xpos, ypos, 127.0f, 1, 1, Action()) {
     std::wstring_convert<std::codecvt_utf8<wchar_t>> converter;
-    TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, xsize, ysize, converter.from_bytes(""));
+    TextBox* tb = new TextBox(window, shader, texture, xpos - boxSize.x/2, ypos, position.z - 1, xsize, ysize, converter.from_bytes(""));
     std::shared_ptr shared_tb = std::shared_ptr<TextBox>(tb);
     children.push_back(shared_tb);
 
@@ -53,7 +53,7 @@ void TextInput::update(glm::mat4 projection) {
         int cursor = TextRenderer::common->textLength(text, 0, cursorPos);
         float scale = *textSize/48.0f;
         if(sin((glfwGetTime()-lastTypeTime)*6) > -0.5f) {
-            TextRenderer::common->text(L"|", position.x-boxSize.x/2+cursor*scale-1, position.y, boxSize.x, boxSize.y, *textSize, glm::vec4(1.0));
+            TextRenderer::common->text(L"|", position.x-boxSize.x/2+cursor*scale-1, position.y, position.z, boxSize.x, boxSize.y, *textSize, glm::vec4(1.0));
         }
     } else {
         if(text.empty()) {

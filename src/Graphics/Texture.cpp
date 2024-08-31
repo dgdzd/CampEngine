@@ -1,7 +1,5 @@
 #include <CampEngine/Graphics/Texture.h>
 
-#include <glad/glad.h>
-
 #include <stb/stb_image.h>
 
 #include <iostream>
@@ -68,12 +66,12 @@ void Texture::use() {
     glBindTexture(GL_TEXTURE_2D, id);
 }
 
-void Texture::generate(int width, int height, unsigned char* data) {
+void Texture::generate(int width, int height, unsigned char* data, int internalFormat) {
     this->width = width;
     this->height = height;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, internalFormat, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);

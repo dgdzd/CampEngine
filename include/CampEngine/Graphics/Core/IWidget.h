@@ -69,9 +69,9 @@ public:
     std::vector<std::shared_ptr<IWidget>> children;
     bool selected;
 
-    IWidget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
-    IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
-    IWidget(GLFWwindow* window, float xpos, float ypos, AnchorPoint anchor=CENTER);
+    IWidget(GLFWwindow* window, Shader shader, Texture texture, float xpos, float ypos, float z_depth, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
+    IWidget(GLFWwindow* window, Shader shader, float xpos, float ypos, float z_depth, float xsize, float ysize, float xscale, float yscale, Action action, AnchorPoint anchor=CENTER);
+    IWidget(GLFWwindow* window, float xpos, float ypos, float z_depth, AnchorPoint anchor=CENTER);
 
     virtual void update(glm::mat4 projection);
     virtual void onMouseClick(const Event &e);

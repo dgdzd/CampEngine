@@ -1,6 +1,8 @@
 #ifndef CE_TEXTURE_H
 #define CE_TEXTURE_H
 
+#include <glad/glad.h>
+
 class Texture {
 public:
     unsigned int id;
@@ -18,7 +20,7 @@ public:
     void generateTextureImage();
     void use();
     
-    void generate(int width, int height, unsigned char* data);
+    void generate(int width, int height, unsigned char* data, int internalFormat=GL_RGBA);
 };
 
 #endif
