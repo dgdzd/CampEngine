@@ -24,3 +24,11 @@ void Screen::render(glm::mat4 projection) {
         widget->update(projection);
     }
 }
+
+std::vector<std::shared_ptr<IWidget>> Screen::sortWidgets() {
+    auto sorted = std::vector<std::shared_ptr<IWidget>>();
+
+    for(auto widget : widgets) {
+
+    }
+}

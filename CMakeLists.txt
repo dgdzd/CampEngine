@@ -15,7 +15,8 @@ find_package(Freetype REQUIRED)
 
 set(namespace "Campagne")
 set(MAIN_FILE main.cpp
-        include/CampEngine/Graphics/Widgets/Tooltip.h)
+        include/CampEngine/Graphics/Widgets/Tooltip.h
+        include/CampEngine/Utils/SortUtils.h)
 set(SOURCE_FILES
         src/Utils/stb.cpp
         src/Physics/Force.cpp
@@ -109,10 +110,10 @@ if(CMAKE_INSTALL_PREFIX_INITIALIZED_TO_DEFAULT)
             STATUS
             "CMAKE_INSTALL_PREFIX is not set\n"
             "Default value: ${CMAKE_INSTALL_PREFIX}\n"
-            "Will set it to ${CMAKE_SOURCE_DIR}/install"
+            "Will set it to /usr/local/CampEngine"
     )
     set(CMAKE_INSTALL_PREFIX
-            "${CMAKE_SOURCE_DIR}/install"
+            "/usr/local/CampEngine"
             CACHE PATH "Where the library will be installed to" FORCE
     )
 else()

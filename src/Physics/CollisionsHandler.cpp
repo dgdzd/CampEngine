@@ -68,7 +68,7 @@ bool CollisionsHandler::intersectCircles(RigidBody2D* bodyA, RigidBody2D* bodyB,
     float dist = length(dir);
     float radii = radiusA + radiusB;
     
-    if(dist > radii || dist == 0.0f) {
+    if(dist >= radii || dist == 0.0f) {
         return false;
     }
     
@@ -390,7 +390,7 @@ void CollisionsHandler::broadPhase(std::vector<std::pair<int, int>>& contactPair
             if(bodyA->isStatic && bodyB->isStatic) continue;
             if(!intersectAABB(bodyA, bodyB)) continue;
             
-            contactPairs.push_back(std::pair<int, int>(i, j));
+            contactPairs.push_back(std::pair(i, j));
         }
     }
 }

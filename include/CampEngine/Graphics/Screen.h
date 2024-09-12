@@ -26,6 +26,9 @@ public:
     virtual void init();
     void render(glm::mat4 projection);
     void addRenderableWidget(IWidget* widget);
+
+private:
+    std::vector<std::shared_ptr<IWidget>> sortWidgets();
 };
 
 #endif
