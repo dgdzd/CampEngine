@@ -16,6 +16,7 @@ class DebugScreen : public Screen {
 public:
     TextBox* textFPS;
     TextBox* textDeltaTime;
+    TextBox* textObjCount;
     DebugScreen(GLFWwindow* window);
 
     virtual void init();

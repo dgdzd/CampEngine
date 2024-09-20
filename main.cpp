@@ -103,12 +103,12 @@ int main() {
     level->addObject(new Tile(game.window, shader, quartz_texture, 8, 0));
     level->addObject(new Tile(game.window, shader, quartz_texture, 9, 0));
     level->addObject(new Tile(game.window, shader, quartz_texture, 9, 1));
-    level->addObject(new Entity(game.window, shader, quartz_texture, 700, 200, 4, 4, true, false));
+    level->addObject(new Entity(game.window, shader, quartz_texture, 700, 200, 5, 5, true, false));
     
     level->addObject(mtile);
     
     /* Set active screen and level */
-    game.activeScreen = &ts;
+    game.activeScreen = &ds;
     game.activeLevel = level;
     Level::active = game.activeLevel;
 

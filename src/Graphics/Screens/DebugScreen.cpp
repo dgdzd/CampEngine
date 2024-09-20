@@ -19,4 +19,5 @@ void DebugScreen::init() {
 
     textFPS = gh.createTextBox(L"FPS: ", 0, 20);
     textDeltaTime = gh.createTextBox(L"DeltaTime: ", 0, 20);
+    textObjCount = gh.createTextBox(L"Object count: ", 0, 20);
 }

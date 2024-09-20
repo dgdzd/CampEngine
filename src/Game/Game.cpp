@@ -108,7 +108,7 @@ int Game::init_libs() {
     glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, true);
+    glfwWindowHint(GLFW_OPENGL_DEBUG_CONTEXT, false);
     glfwWindowHint(GLFW_DECORATED, false);
     glfwWindowHint(GLFW_SAMPLES, 4);
 
@@ -143,6 +143,7 @@ void Game::update() {
     if(auto ds = dynamic_cast<DebugScreen*>(activeScreen)) {
         ds->textFPS->text = L"FPS: " + std::to_wstring((int)PhysicsEnvironment::getInstance()->fpsCount);
         ds->textDeltaTime->text = L"DeltaTime: " + std::to_wstring(PhysicsEnvironment::getInstance()->deltaTime);
+        ds->textObjCount->text = L"Object count: " + std::to_wstring(activeLevel->objects.size());
     }
 
     pp.end();

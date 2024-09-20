@@ -285,7 +285,7 @@ void CollisionsHandler::findPolygonContactPoint(RigidBody2D* bodyA, RigidBody2D*
     glm::vec2 positionB = glm::vec2(bodyB->parent->position.x, bodyB->parent->position.y);
     std::vector<glm::vec2> cornersA = bodyA->collision.getRotatedCorners(COORDS_WORLD);
     std::vector<glm::vec2> cornersB = bodyB->collision.getRotatedCorners(COORDS_WORLD);
-    float minDistSquared = std::numeric_limits<float>().max();
+    float minDistSquared = std::numeric_limits<float>::max();
     
     for(glm::vec2 p : cornersA) {
         for(int i = 0; i < cornersB.size(); i++) {
@@ -370,8 +370,8 @@ void CollisionsHandler::step() {
     for(int i = 0; i <= env->substeps; i++) {
         for(RigidBody2D* body : bodies) {
             body->step();
+            fixCollisions();
         }
-        fixCollisions();
     }
 }
 
@@ -576,9 +576,8 @@ void CollisionsHandler::resolveCollisionWithRotationAndFriction(CollisionManifol
         glm::vec2 rb = rbs[i];
         
         bodyA->linearVelocity += -impulse * bodyA->getInverseMass();
-        bodyB->linearVelocity += impulse * bodyB->getInverseMass();
-        
         bodyA->angularVelocity += -cross(ra, impulse) * bodyA->getInverseInertia();
+        bodyB->linearVelocity += impulse * bodyB->getInverseMass();
         bodyB->angularVelocity += cross(rb, impulse) * bodyB->getInverseInertia();
     }
     
@@ -603,8 +602,8 @@ void CollisionsHandler::resolveCollisionWithRotationAndFriction(CollisionManifol
         float rbPdotT = dot(rbP, tangent);
         
         float invMassA = bodyA->getInverseMass();
-        float invMassB = bodyB->getInverseMass();
         float invInertA = bodyA->getInverseInertia();
+        float invMassB = bodyB->getInverseMass();
         float invInertB = bodyB->getInverseInertia();
         
         float jt = -dot(relativeVel, tangent);
@@ -630,9 +629,8 @@ void CollisionsHandler::resolveCollisionWithRotationAndFriction(CollisionManifol
         glm::vec2 rb = rbs[i];
         
         bodyA->linearVelocity += -frictionImpulse * bodyA->getInverseMass();
-        bodyB->linearVelocity += frictionImpulse * bodyB->getInverseMass();
-        
         bodyA->angularVelocity += -cross(ra, frictionImpulse) * bodyA->getInverseInertia();
+        bodyB->linearVelocity += frictionImpulse * bodyB->getInverseMass();
         bodyB->angularVelocity += cross(rb, frictionImpulse) * bodyB->getInverseInertia();
     }
 }

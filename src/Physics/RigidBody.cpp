@@ -24,7 +24,8 @@ RigidBody2D::RigidBody2D(PhysicsEnvironment* env, Sprite* parent, float mass, Co
 float RigidBody2D::calculateRotationalInertia() {
     if(collision.type == CIRCLE_COLLIDABLE) {
         return (mass * collision.radius * collision.radius)/2;
-    } else if(collision.type == POLYGON_COLLIDABLE) {
+    }
+    if(collision.type == POLYGON_COLLIDABLE) {
         float width = collision.getWidth();
         float height = collision.getHeight();
         return 1.0f/12.0f * mass * (width * width + height * height);
@@ -36,10 +37,10 @@ float RigidBody2D::calculateRotationalInertia() {
 void RigidBody2D::step() {
     if(!isStatic) {
         float dt = env->deltaTime;
-        if(hasGravity) applyForce(env->g * mass / (float)env->substeps);
+        if(hasGravity) applyForce(env->g * mass);
         glm::vec2 acceleration = force / mass;
         linearVelocity += acceleration;
-        parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) * dt;
+        parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) / (float)env->substeps * dt;
         parent->rotation += glm::degrees(angularVelocity) * dt;
         force = glm::vec2(0.0f);
     }
