@@ -2,6 +2,7 @@
 
 #include <CampEngine/Graphics/Core/Text/TextRenderer.h>
 #include <CampEngine/Utils/ResourceManager.h>
+#include <CampEngine/Utils/SortUtils.h>
 
 ResourceManager rm;
 
@@ -27,8 +28,5 @@ void Screen::render(glm::mat4 projection) {
 
 std::vector<std::shared_ptr<IWidget>> Screen::sortWidgets() {
     auto sorted = std::vector<std::shared_ptr<IWidget>>();
-
-    for(auto widget : widgets) {
-
-    }
+    Sorter<std::shared_ptr<IWidget>>::quickSort(widgets, [](auto t1, auto t2) { return t1->position.z < t2->position.z; });
 }

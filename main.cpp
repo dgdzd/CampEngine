@@ -13,6 +13,7 @@
 #include <CampEngine/Graphics/Screens/DebugScreen.h>
 #include <CampEngine/Graphics/Screens/TestScreen.h>
 #include <CampEngine/Utils/ResourceManager.h>
+#include <CampEngine/Utils/SortUtils.h>
 
 #define GET_RESOURCE(path) "/Applications/projets/projets_programmation/projets_C++/CampEngine++/resources/" #path
 #define GET_SYSTEM_FONT(path) "/System/Library/Fonts/" #path
@@ -57,6 +58,14 @@ int main() {
     ResourceManager &rm = ResourceManager::standard;
     game = Game();
     game.initialize();
+
+    std::vector test_list = {7, 31, 1, 22, 91, 0, 4, 13};
+    Sorter<int>::quickSort(test_list, [](int t1, int t2) { return t1 > t2; });
+    Logger::CampEngine.info("TEST: ");
+    for(int i = 0; i < test_list.size(); i++) {
+        std::cout << std::to_string(test_list[i]) << " ";
+    }
+    std::cout << "\n";
     
     game.actions->addInputAction("pause", GLFW_KEY_ESCAPE, 1.0f, false);
     game.actions->addInputAction("tile_moveRight", GLFW_KEY_RIGHT, 1.0f, true);

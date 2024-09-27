@@ -9,10 +9,10 @@
 
 class TickEvent : Event {
 public:
-    TickEvent(int count) : Event("TickEvent"+std::to_string(count)) {}
+    TickEvent(int rate) : Event("TickEvent"+std::to_string(tickDelay)) {}
     virtual ~TickEvent() = default;
 
-    int count;
+    int tick;
 };
 
 #endif

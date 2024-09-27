@@ -11,7 +11,7 @@
 template<typename T>
 class Sorter {
 public:
-    static std::vector<T> quickSort(std::vector<T>& list, const std::function<bool(T t1, T t2)>& compare_func) {
+    static void quickSort(std::vector<T>& list, const std::function<bool(T t1, T t2)>& compare_func) {
         int low = 0;
         int high = list.size() - 1;
 
@@ -19,10 +19,13 @@ public:
     }
 
 private:
-    static std::vector<T> qsIter(std::vector<T>& list, const std::function<bool(T t1, T t2)>& compare_func, int low, int high) {
+    static void qsIter(std::vector<T>& list, const std::function<bool(T t1, T t2)>& compare_func, int low, int high) {
         if(low < high) {
             int pv = list[high];
-            int pos = divide(list, low, high, pv);
+            int pos = divide(list, compare_func, low, high, pv);
+
+            qsIter(list, compare_func, low, pos-1);
+            qsIter(list, compare_func, pos+1, high);
         }
     }
 
@@ -32,20 +35,16 @@ private:
         list[j] = temp;
     }
 
-    static int divide(std::vector<T>& list, int low, int high, int pv) {
-        int i = low;
-        int j = low;
-
-        while(i <= high) {
-            if(list[i] > pv) {
+    static int divide(std::vector<T>& list, const std::function<bool(T t1, T t2)>& compare_func, int low, int high, int pv) {
+        int i = low - 1;
+        for(int j = low; j < high; j++) {
+            if(compare_func(list[j], pv)) {
                 i++;
-            } else {
                 swap(list, i, j);
-                i++;
-                j++;
             }
         }
-        return j-1;
+        swap(list, i+1, high);
+        return i+1;
     }
 };
 
