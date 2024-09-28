@@ -129,7 +129,7 @@ void Game::update() {
     const double time = glfwGetTime();
     gameInfos.deltaTime = time - gameInfos.time;
     gameInfos.time = time;
-    glEnable(GL_DEPTH_TEST);
+    //glEnable(GL_DEPTH_TEST);
 
     actions->update();
     CollisionsHandler::step();

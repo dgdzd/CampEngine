@@ -117,7 +117,7 @@ int main() {
     level->addObject(mtile);
     
     /* Set active screen and level */
-    game.activeScreen = &ds;
+    game.activeScreen = &ts;
     game.activeLevel = level;
     Level::active = game.activeLevel;
 

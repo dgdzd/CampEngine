@@ -6,11 +6,6 @@
 #include <CampEngine/Game/Events/Categories/WidgetEvents.h>
 
 #include <functional>
-#include <iostream>
-#include <locale>
-#include <map>
-#include <string>
-#include <utility>
 #include <vector>
 
 
@@ -42,9 +37,9 @@ Widget::Widget(GLFWwindow* window, float xpos, float ypos, float z_depth, Anchor
 void Widget::update(glm::mat4 projection) {
     this->render(projection);
     
-    for(const std::shared_ptr<IWidget>& w : children) {
+    /*for(const std::shared_ptr<IWidget>& w : children) {
         w->update(projection);
-    }
+    }*/
 }
 
 void Widget::onMouseClick(const Event &e) {

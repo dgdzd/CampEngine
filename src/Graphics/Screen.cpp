@@ -8,11 +8,12 @@ ResourceManager rm;
 
 Screen::Screen(GLFWwindow* window) {
     this->window = window;
+    this->shouldSort = true;
     init();
 }
 
 void Screen::addRenderableWidget(IWidget* widget) {
-    std::shared_ptr<IWidget> w = std::shared_ptr<IWidget>(widget);
+    std::shared_ptr w = std::shared_ptr<IWidget>(widget);
     this->widgets.push_back(w);
 }
 
@@ -21,12 +22,25 @@ void Screen::init() {
 }
 
 void Screen::render(glm::mat4 projection) {
-    for(const auto& widget : widgets) {
+    if(this->shouldSort) sortWidgets();
+    for(const auto& widget : sortedWidgets) {
         widget->update(projection);
     }
 }
 
-std::vector<std::shared_ptr<IWidget>> Screen::sortWidgets() {
-    auto sorted = std::vector<std::shared_ptr<IWidget>>();
-    Sorter<std::shared_ptr<IWidget>>::quickSort(widgets, [](auto t1, auto t2) { return t1->position.z < t2->position.z; });
+void Screen::sortWidgets() {
+    sortedWidgets.clear();
+    for(const auto& widget : widgets) {
+        sortedWidgets.push_back(widget);
+        getAllChildren(sortedWidgets, widget);
+    }
+    std::sort(sortedWidgets.begin(), sortedWidgets.end(), [](std::shared_ptr<IWidget> t1, std::shared_ptr<IWidget> t2) { return t1->position.z > t2->position.z; });
+}
+
+void Screen::getAllChildren(std::vector<std::shared_ptr<IWidget>>& list, std::shared_ptr<IWidget> widget) {
+    list.push_back(widget);
+    for(const auto& child : widget->children) {
+        getAllChildren(list, child);
+    }
+    shouldSort = false;
 }

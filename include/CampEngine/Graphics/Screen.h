@@ -20,15 +20,19 @@ public:
     const char* name;
     std::vector<std::shared_ptr<IWidget>> widgets;
     GLFWwindow* window;
-    
+
     Screen(GLFWwindow* window);
-    
+
     virtual void init();
     void render(glm::mat4 projection);
     void addRenderableWidget(IWidget* widget);
 
 private:
-    std::vector<std::shared_ptr<IWidget>> sortWidgets();
+    std::vector<std::shared_ptr<IWidget>> sortedWidgets;
+    bool shouldSort;
+
+    void sortWidgets();
+    void getAllChildren(std::vector<std::shared_ptr<IWidget>>& list, std::shared_ptr<IWidget> widget);
 };
 
 #endif
