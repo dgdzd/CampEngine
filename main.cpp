@@ -21,6 +21,7 @@
 Game game;
 Camera camera;
 Entity* mtile;
+TestScreen* ts;
 
 void onPause(const Event& e) {
     auto event = e.as<InputActionEvent>();
@@ -50,7 +51,7 @@ void onTileMoveUp(const Event& e) {
 
 void onClick(const Event& e) {
     auto event = e.as<MouseClickEvent>();
-    Entity* etile = new Entity(game.window, *ResourceManager::standard.getShader("unlitShader"), *ResourceManager::standard.getTexture("diamond_ore"), event.mouseX, CE_WINDOW_HEIGHT-event.mouseY, 4);
+    Entity* etile = new Entity(game.window, *ResourceManager::standard.getShader("unlitShader"), *ResourceManager::standard.getTexture("diamond_ore"), event.mouseX, CE_WINDOW_HEIGHT-event.mouseY, ts->scaleSetting);
     Level::active->addObject(etile);
 }
 
@@ -91,7 +92,7 @@ int main() {
     Texture button_hover_texture = *rm.loadTexture("buttonHover", GET_RESOURCE(textures/button/hover.png));
     Texture marker_texture = *rm.loadTexture("marker", GET_RESOURCE(textures/marker.png));
     
-    TestScreen ts(game.window);
+    ts = new TestScreen(game.window);
     DebugScreen ds(game.window);
     camera = Camera(0.0f, 0.0f, 0.0f);
     Level* level = rm.loadLevel("MyLevel", camera);
@@ -117,7 +118,7 @@ int main() {
     level->addObject(mtile);
     
     /* Set active screen and level */
-    game.activeScreen = &ts;
+    game.activeScreen = ts;
     game.activeLevel = level;
     Level::active = game.activeLevel;
 

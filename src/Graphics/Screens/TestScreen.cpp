@@ -12,6 +12,7 @@
 
 TestScreen::TestScreen(GLFWwindow* window) : Screen(window) {
     this->init();
+    this->scaleSetting = 4.0f;
 }
 
 void TestScreen::init() {
@@ -46,24 +47,27 @@ void TestScreen::init() {
 
     float value = 0.8f;
     ProgressBar* pbar = gh.createProgressBar(200, 25, value)
-    ->with_minValue(30.0f)
-    ->with_maxValue(100.0f)
+    ->with_minValue(10.0f)
+    ->with_maxValue(120.0f)
+    ->with_value(40.0f)
     ->with_hoverColorModifier(glm::vec4(1.0f));
 
     gh.setMargin(5);
 
-    Slider* slider = gh.createSlider(200, 5, 0.5f)
-    ->with_minValue(30.0f)
-    ->with_maxValue(100.0f);
+    Slider* slider = gh.createSlider(200, 5, 0.0f)
+    ->with_minValue(10.0f)
+    ->with_maxValue(120.0f)
+    ->with_value(40.0f);
 
     gh.setMargin(0);
 
     TextBox* text = gh.createTextBox(L"Value: 0", 0, 20);
 
-    slider->with_onValueChange([text, pbar](Widget* self) {
+    slider->with_onValueChange([text, pbar, this](Widget* self) {
         Slider* slider = self->as<Slider>();
         int val = (int)slider->value;
         text->text = L"Value: "+std::to_wstring(val);
         pbar->value = slider->value;
+        scaleSetting = slider->value/10;
     });
 }

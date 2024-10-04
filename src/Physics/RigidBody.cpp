@@ -36,19 +36,19 @@ float RigidBody2D::calculateRotationalInertia() {
 
 void RigidBody2D::step() {
     if(!isStatic) {
-        float dt = env->deltaTime;
+        float dt = env->deltaTime / (float)env->substeps;
         if(hasGravity) applyForce(env->g * mass);
         glm::vec2 acceleration = force / mass;
-        linearVelocity += acceleration;
-        parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) / (float)env->substeps * dt;
+        linearVelocity += acceleration * dt;
+        parent->position += glm::vec3(linearVelocity.x, linearVelocity.y, 0) * dt;
         parent->rotation += glm::degrees(angularVelocity) * dt;
         force = glm::vec2(0.0f);
     }
 }
 
 void RigidBody2D::applyForce(glm::vec2 force) {
-    float dt = env->deltaTime;
-    this->force += force * env->pixelPerMeter * dt;
+    //float dt = env->deltaTime;
+    this->force += force * env->pixelPerMeter;
 }
 
 float RigidBody2D::getInverseMass() {

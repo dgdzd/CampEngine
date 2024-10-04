@@ -61,6 +61,8 @@ int Game::initialize() {
         rm.loadPostProcessor("reverse_colors", *rm.getShader("pp.reverse_colors"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
         rm.loadPostProcessor("grayscale", *rm.getShader("pp.grayscale"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
 
+        rm.loadTexture("dropdown_arrow", GET_RESOURCE(textures/dropdown_arrow));
+
         rm.startEmbedding(GET_RESOURCE(data/resources.dat));
         rm.embedShader("unlitShader");
         rm.embedShader("litShader");
@@ -74,6 +76,7 @@ int Game::initialize() {
         rm.embedPostProcessor("basic");
         rm.embedPostProcessor("reverse_colors");
         rm.embedPostProcessor("grayscale");
+        rm.embedTexture("dropdown_arrow");
         rm.stopEmbedding();
     } else {
         rm.loadEmbeddedData(GET_RESOURCE(data/resources.dat));
@@ -147,7 +150,7 @@ void Game::update() {
     }
 
     pp.end();
-    glDisable(GL_DEPTH_TEST);
+    //glDisable(GL_DEPTH_TEST);
     pp.render();
     
     tr->projection = projection;

@@ -129,6 +129,7 @@ Slider* Slider::with_maxValue(float maxValue) {
 
 Slider* Slider::with_value(float value) {
     this->value = value;
+    updateSlider();
     return this;
 }
 

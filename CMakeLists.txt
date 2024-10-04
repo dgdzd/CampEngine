@@ -68,6 +68,7 @@ set(SOURCE_FILES
         src/Graphics/Widgets/Slider.cpp
         src/Graphics/Widgets/ITooltip.cpp
         src/Graphics/Widgets/Tooltip.cpp
+        src/Graphics/Widgets/Dropdown.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 

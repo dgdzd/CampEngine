@@ -9,6 +9,8 @@
 
 class TestScreen : public Screen {
 public:
+    float scaleSetting;
+
     TestScreen(GLFWwindow* window);
 
     virtual void init();

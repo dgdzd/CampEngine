@@ -18,7 +18,7 @@ PhysicsEnvironment::PhysicsEnvironment() {
 PhysicsEnvironment::PhysicsEnvironment(int substeps, glm::vec2 gravity) {
     this->substeps = substeps;
     this->g = gravity;
-    this->deltaTime = 1.0f/60.0f;
+    this->deltaTime = 1/60.0f;
     this->pixelPerMeter = 64;
 }
 

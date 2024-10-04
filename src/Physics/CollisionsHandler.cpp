@@ -366,7 +366,7 @@ void CollisionsHandler::step() {
         env->fpsCount = 1.0f / env->deltaTime;
         lastUpdate = now;
     }
-    
+
     for(int i = 0; i <= env->substeps; i++) {
         for(RigidBody2D* body : bodies) {
             body->step();
