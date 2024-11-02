@@ -14,9 +14,7 @@ file(GLOB LIBS_A "dependencies/library/*.a")
 find_package(Freetype REQUIRED)
 
 set(namespace "Campagne")
-set(MAIN_FILE main.cpp
-        include/CampEngine/Graphics/Widgets/Tooltip.h
-        include/CampEngine/Utils/SortUtils.h)
+set(MAIN_FILE main.cpp)
 set(SOURCE_FILES
         src/Utils/stb.cpp
         src/Physics/Force.cpp
@@ -69,6 +67,7 @@ set(SOURCE_FILES
         src/Graphics/Widgets/ITooltip.cpp
         src/Graphics/Widgets/Tooltip.cpp
         src/Graphics/Widgets/Dropdown.cpp
+        src/Graphics/Widgets/Internal/Image.cpp
 )
 set(DEPENDENCIES_SOURCES dependencies/src/glad/glad.c)
 
@@ -162,6 +161,8 @@ set(public_headers
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Internal/Circle.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Internal/Rectangle.h
         ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/ProgressBar.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Utils/SortUtils.h
+        ${CMAKE_SOURCE_DIR}/include/CampEngine/Graphics/Widgets/Tooltip.h
 )
 # note that ${public_headers} has to be in quotes
 #set_target_properties(lib_${PROJECT_NAME} PROPERTIES PUBLIC_HEADER "${public_headers}")

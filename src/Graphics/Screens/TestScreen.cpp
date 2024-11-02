@@ -39,7 +39,7 @@ void TestScreen::init() {
     })
     ->with_textAlign(ALIGN_LEFT)
     ->with_theme(danger);
-    quit->addTooltip(gh.createTooltip("Hello world!", 15)
+    quit->addTooltip(gh.createTooltip("Do not...", 15)
         ->with_fadeInTime(0.5f));
 
     gh.createTextInput(200, 25)
@@ -70,4 +70,6 @@ void TestScreen::init() {
         pbar->value = slider->value;
         scaleSetting = slider->value/10;
     });
+
+    Dropdown* dropdown = gh.createDropdown("Test", 20, 120, 23);
 }

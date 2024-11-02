@@ -90,6 +90,7 @@ ProgressBar* ProgressBar::with_maxValue(float maxValue) {
 
 ProgressBar* ProgressBar::with_value(float value) {
     this->value = value;
+    this->updateBar();
     return this;
 }
 

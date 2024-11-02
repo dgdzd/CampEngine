@@ -100,7 +100,7 @@ void ResourceManager::embedPostProcessor(std::string name) {
 
 void ResourceManager::loadEmbeddedData(const char* pathToFile) {
     File file(pathToFile);
-    file.open(std::ios::out | std::ios::binary, false);
+    file.open(std::ios::in | std::ios::binary, false);
     auto sig = file.read<std::string>();
     if(sig != "Coubeh10") {
         Logger::CampEngine.error("Invalid signature of file at: "+std::string(pathToFile));

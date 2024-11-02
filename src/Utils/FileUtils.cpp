@@ -72,6 +72,11 @@ template<> void File::write<unsigned char*>(unsigned char* content) {
     out.write((char*)&content, size);
 }
 
+template<> void File::write<unsigned char*>(unsigned char* content, unsigned long size) {
+    out.write((char*)&size, sizeof(unsigned long));
+    out.write((char*)&content[0], size);
+}
+
 template<> void File::write<std::string>(std::string content) {
     unsigned long size = content.size();
     out.write((char*)&size, sizeof(unsigned long));
@@ -104,9 +109,10 @@ template<> void File::write<Shader*>(Shader* content) {
 }
 
 template<> void File::write<Texture*>(Texture* content) {
-    write(content->data);
     out.write((char*)&content->width, sizeof(int));
     out.write((char*)&content->height, sizeof(int));
+    out.write((char*)&content->nrChannels, sizeof(int));
+    write(content->data, content->width * content->height * content->nrChannels);
 }
 
 template<> void File::write<PostProcessor*>(PostProcessor* content) {
@@ -194,8 +200,7 @@ template<> char* File::read<char*>() {
 template<> unsigned char* File::read<unsigned char*>() {
     auto size = read<unsigned long>();
     auto* result = new unsigned char[size];
-    in.read((char*)&result, size);
-    //result[size] = '\0';
+    in.read((char*)&result[0], size);
     return result;
 }
 
@@ -220,11 +225,12 @@ template<> Shader File::read<Shader>() {
 }
 
 template<> Texture File::read<Texture>() {
-    auto* data = read<unsigned char*>();
     int width = read<int>();
     int height = read<int>();
+    int nrChannels = read<int>();
+    auto* data = read<unsigned char*>();
     Texture result;
-    result.generate(width, height, data);
+    result.generate(width, height, data, nrChannels);
     return result;
 }
 

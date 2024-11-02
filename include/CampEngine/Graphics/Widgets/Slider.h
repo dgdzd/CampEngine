@@ -22,6 +22,8 @@ private:
     float decayY;
     float a;
 
+    void updateAlpha();
+
 public:
     int direction;
     float value;

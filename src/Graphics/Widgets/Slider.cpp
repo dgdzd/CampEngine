@@ -54,17 +54,7 @@ Slider::Slider(GLFWwindow* window, float value, float xpos, float ypos, float xs
 void Slider::update(glm::mat4 projection) {
     // Calculate slider's value
     if(sliding) {
-        float d;
-        if(direction == DIR_HORIZONTAL) {
-            d = Game::activeGame->mouse.xpos - position.x + boxSize.x/2;
-            a = d / boxSize.x;
-        }
-        else if(direction == DIR_VERTICAL) {
-            d = Game::activeGame->mouse.ypos - position.y + boxSize.y/2;
-            a = d / boxSize.y;
-        }
-        a = std::max(std::min(a, 1.0f), 0.0f);
-        value = a * maxValue + (1 - a) * minValue;
+        updateAlpha();
     }
     if(oldValue != value) {
         updateSlider();
@@ -84,6 +74,21 @@ void Slider::update(glm::mat4 projection) {
         w->update(projection);
     }
 }
+
+void Slider::updateAlpha() {
+    float d;
+    if(direction == DIR_HORIZONTAL) {
+        d = Game::activeGame->mouse.xpos - position.x + boxSize.x/2;
+        a = d / boxSize.x;
+    }
+    else if(direction == DIR_VERTICAL) {
+        d = Game::activeGame->mouse.ypos - position.y + boxSize.y/2;
+        a = d / boxSize.y;
+    }
+    a = std::max(std::min(a, 1.0f), 0.0f);
+    value = a * maxValue + (1 - a) * minValue;
+}
+
 
 void Slider::updateSlider() {
     // Position
@@ -119,17 +124,22 @@ void Slider::updateSlider() {
 
 Slider* Slider::with_minValue(float minValue) {
     this->minValue = minValue;
+    a = (value - minValue) / (maxValue - minValue);
+    a = std::max(0.0f, std::min(1.0f, a));
     return this;
 }
 
 Slider* Slider::with_maxValue(float maxValue) {
     this->maxValue = maxValue;
+    a = (value - minValue) / (maxValue - minValue);
+    a = std::max(0.0f, std::min(1.0f, a));
     return this;
 }
 
 Slider* Slider::with_value(float value) {
     this->value = value;
-    updateSlider();
+    a = (value - minValue) / (maxValue - minValue);
+    a = std::max(0.0f, std::min(1.0f, a));
     return this;
 }
 

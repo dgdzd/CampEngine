@@ -20,7 +20,7 @@ int Game::initialize() {
     
     /* Create a window and it's OpenGL context */
     this->window = glfwCreateWindow(CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT, CE_WINDOW_TITLE, NULL, NULL);
-    if (!window) {
+    if(!window) {
         glfwTerminate();
         return 0;
     }
@@ -61,7 +61,7 @@ int Game::initialize() {
         rm.loadPostProcessor("reverse_colors", *rm.getShader("pp.reverse_colors"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
         rm.loadPostProcessor("grayscale", *rm.getShader("pp.grayscale"), CE_WINDOW_WIDTH, CE_WINDOW_HEIGHT);
 
-        rm.loadTexture("dropdown_arrow", GET_RESOURCE(textures/dropdown_arrow));
+        rm.loadTexture("dropdown_arrow", GET_RESOURCE(textures/dropdown_arrow.png));
 
         rm.startEmbedding(GET_RESOURCE(data/resources.dat));
         rm.embedShader("unlitShader");

@@ -25,6 +25,7 @@ public:
     void close();
     char* getContent();
     template<typename Type> void write(Type content);
+    template<typename Type> void write(Type content, unsigned long size);
     template<typename Type> Type read(unsigned long size);
     template<typename Type> Type read();
     void flush();

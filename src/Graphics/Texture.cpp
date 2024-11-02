@@ -1,5 +1,7 @@
 #include <CampEngine/Graphics/Texture.h>
 
+#include <CampEngine/Utils/Logger.h>
+
 #include <stb/stb_image.h>
 
 #include <iostream>
@@ -29,7 +31,7 @@ Texture::Texture(const char* pathToImage, bool autogenerate) {
             generatedMipmap = true;
         }
     } else {
-        std::cout << "Failed to load image" << std::endl;
+        Logger::CampEngine.error("Failed to load image at: "+std::string(pathToImage));
         isEmpty = true;
     }
     isEmpty = (data == nullptr);
@@ -39,10 +41,11 @@ void Texture::generateTextureImage() {
     if(!generatedImg) {
         glBindTexture(GL_TEXTURE_2D, id);
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
+        glGenerateMipmap(GL_TEXTURE_2D);
 
         generatedImg = true;
     } else {
-        std::cout << "ERROR: Already generated texture image!" << std::endl;
+        Logger::CampEngine.error("Already loaded image!");
     }
 }
 
@@ -71,7 +74,21 @@ void Texture::generate(int width, int height, unsigned char* data, int internalF
     this->height = height;
     glGenTextures(1, &id);
     glBindTexture(GL_TEXTURE_2D, id);
-    glTexImage2D(GL_TEXTURE_2D, 0, internalFormat, width, height, 0, internalFormat, GL_UNSIGNED_BYTE, data);
+    int format;
+    switch(internalFormat) {
+        case 1:
+        case 2:
+            break;
+        case 3:
+            format = GL_RGB;
+            break;
+        case 4:
+            format = GL_RGBA;
+            break;
+        default:
+            format = internalFormat;
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, format, width, height, 0, format, GL_UNSIGNED_BYTE, data);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
     glBindTexture(GL_TEXTURE_2D, 0);

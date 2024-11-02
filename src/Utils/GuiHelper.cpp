@@ -73,6 +73,32 @@ Button* GuiHelper::createButton(std::string label, int textSize, float width, fl
     return result;
 }
 
+Dropdown* GuiHelper::createDropdown(std::string initialValue, int textSize, float width, float height) {
+    pos.y -= padding+height/2;
+
+    Dropdown* result = new Dropdown(window, pos.x + margin + width/2, pos.y, width, height, initialValue);
+    result->with_textSize(textSize);
+
+    pos.y -= height/2;
+
+    std::shared_ptr<Dropdown> ptr = std::shared_ptr<Dropdown>(result);
+    screen->widgets.push_back(ptr);
+    return result;
+}
+
+Dropdown *GuiHelper::createDropdown(std::string initialValue, std::vector<std::string> values, int textSize, float width, float height) {
+    pos.y -= padding+height/2;
+
+    Dropdown* result = new Dropdown(window, pos.x + margin + width/2, pos.y, width, height, initialValue, values);
+    result->with_textSize(textSize);
+
+    pos.y -= height/2;
+
+    std::shared_ptr<Dropdown> ptr = std::shared_ptr<Dropdown>(result);
+    screen->widgets.push_back(ptr);
+    return result;
+}
+
 TextBox* GuiHelper::createTextBox(std::wstring text, int boundX, int boundY) {
     pos.y -= padding+boundY/2;
     
